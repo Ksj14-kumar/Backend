@@ -55,25 +55,25 @@ mongoose.connect(URL, (err) => {
 
 
 // app.set('trust proxy', 1)
-app.use(cookieParser())
+// app.use(cookieParser())
 
-app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" })
-)
-app.use(bodyParser.json({ limit: '50mb' }))
-app.use(session({
-    name: "session id",
-    secret: process.env.SECRET_KEY,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        // name: "session",
-        // maxAge: 1000 * 60 * 60 * 24 * 7,
-        // httpOnly: false,
-        secure: "auto",
-        // sameSite: "lax",
-    }
+// app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" })
+// )
+// app.use(bodyParser.json({ limit: '50mb' }))
+// app.use(session({
+//     name: "session id",
+//     secret: process.env.SECRET_KEY,
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//         // name: "session",
+//         // maxAge: 1000 * 60 * 60 * 24 * 7,
+//         // httpOnly: false,
+//         secure: "auto",
+//         // sameSite: "lax",
+//     }
 
-}))
+// }))
 
 
 
