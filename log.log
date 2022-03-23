@@ -33,3 +33,367 @@ server  is start at port 5000
 connected
 server  is start at port 5000
 connected
+server  is start at port 5000
+connected
+server  is start at port 5000
+connected
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM3NmUzZmE0OGI3Yjc5OThiYmNkMGUiLCJpYXQiOjE2NDgwMTgxMTF9.8QPeiF6yZbqvUuruBUmwB5a14OA0ElTTPejHTOS0gSk
+verifytoken
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+verigy user
+{
+  _id: new ObjectId("62376e3fa48b7b7998bbcd0e"),
+  name: 'Sanju Kumar',
+  email: 'jsondata74@gmail.com',
+  googleId: '$2b$10$eLvFKq.C4u/1Ro/WY5Yl6u1cPNj9KTS09LEJTzFgXBSyFioNZmKdS',
+  password: '$2b$10$mtC5k.qfrt3KVw8T5gDPi.A829MrJusTpg.yj24Ud5Gv6HvKDXORu',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-03-20T18:11:11.791Z,
+  updatedAt: 2022-03-20T18:11:11.791Z,
+  UserSystemAvailaiableMemory: '2528460800',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '131321',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '2528493568',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+verify token
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM3NmUzZmE0OGI3Yjc5OThiYmNkMGUiLCJpYXQiOjE2NDgwMTgxMTF9.8QPeiF6yZbqvUuruBUmwB5a14OA0ElTTPejHTOS0gSk
+verifytoken
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+google user
+undefined
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM3NmUzZmE0OGI3Yjc5OThiYmNkMGUiLCJpYXQiOjE2NDgwMTgxMTF9.8QPeiF6yZbqvUuruBUmwB5a14OA0ElTTPejHTOS0gSk
+verifytoken
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+verigy user
+{
+  _id: new ObjectId("62376e3fa48b7b7998bbcd0e"),
+  name: 'Sanju Kumar',
+  email: 'jsondata74@gmail.com',
+  googleId: '$2b$10$eLvFKq.C4u/1Ro/WY5Yl6u1cPNj9KTS09LEJTzFgXBSyFioNZmKdS',
+  password: '$2b$10$mtC5k.qfrt3KVw8T5gDPi.A829MrJusTpg.yj24Ud5Gv6HvKDXORu',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-03-20T18:11:11.791Z,
+  updatedAt: 2022-03-20T18:11:11.791Z,
+  UserSystemAvailaiableMemory: '2528460800',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '131321',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '2528493568',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+verify token
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+verigy user
+{
+  _id: new ObjectId("62376e3fa48b7b7998bbcd0e"),
+  name: 'Sanju Kumar',
+  email: 'jsondata74@gmail.com',
+  googleId: '$2b$10$eLvFKq.C4u/1Ro/WY5Yl6u1cPNj9KTS09LEJTzFgXBSyFioNZmKdS',
+  password: '$2b$10$mtC5k.qfrt3KVw8T5gDPi.A829MrJusTpg.yj24Ud5Gv6HvKDXORu',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-03-20T18:11:11.791Z,
+  updatedAt: 2022-03-20T18:11:11.791Z,
+  UserSystemAvailaiableMemory: '2528460800',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '131321',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '2528493568',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+verify token
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+google user
+undefined
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM3NmUzZmE0OGI3Yjc5OThiYmNkMGUiLCJpYXQiOjE2NDgwMTgxMTF9.8QPeiF6yZbqvUuruBUmwB5a14OA0ElTTPejHTOS0gSk
+verifytoken
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+verigy user
+{
+  _id: new ObjectId("62376e3fa48b7b7998bbcd0e"),
+  name: 'Sanju Kumar',
+  email: 'jsondata74@gmail.com',
+  googleId: '$2b$10$eLvFKq.C4u/1Ro/WY5Yl6u1cPNj9KTS09LEJTzFgXBSyFioNZmKdS',
+  password: '$2b$10$mtC5k.qfrt3KVw8T5gDPi.A829MrJusTpg.yj24Ud5Gv6HvKDXORu',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-03-20T18:11:11.791Z,
+  updatedAt: 2022-03-20T18:11:11.791Z,
+  UserSystemAvailaiableMemory: '2528460800',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '131321',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '2528493568',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+verify token
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM3NmUzZmE0OGI3Yjc5OThiYmNkMGUiLCJpYXQiOjE2NDgwMTgxMTF9.8QPeiF6yZbqvUuruBUmwB5a14OA0ElTTPejHTOS0gSk
+verifytoken
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM3NmUzZmE0OGI3Yjc5OThiYmNkMGUiLCJpYXQiOjE2NDgwMTgxMTF9.8QPeiF6yZbqvUuruBUmwB5a14OA0ElTTPejHTOS0gSk
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+verifytoken
+verigy user
+{
+  _id: new ObjectId("62376e3fa48b7b7998bbcd0e"),
+  name: 'Sanju Kumar',
+  email: 'jsondata74@gmail.com',
+  googleId: '$2b$10$eLvFKq.C4u/1Ro/WY5Yl6u1cPNj9KTS09LEJTzFgXBSyFioNZmKdS',
+  password: '$2b$10$mtC5k.qfrt3KVw8T5gDPi.A829MrJusTpg.yj24Ud5Gv6HvKDXORu',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-03-20T18:11:11.791Z,
+  updatedAt: 2022-03-20T18:11:11.791Z,
+  UserSystemAvailaiableMemory: '2528460800',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '131321',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '2528493568',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+verify token
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+verigy user
+{
+  _id: new ObjectId("62376e3fa48b7b7998bbcd0e"),
+  name: 'Sanju Kumar',
+  email: 'jsondata74@gmail.com',
+  googleId: '$2b$10$eLvFKq.C4u/1Ro/WY5Yl6u1cPNj9KTS09LEJTzFgXBSyFioNZmKdS',
+  password: '$2b$10$mtC5k.qfrt3KVw8T5gDPi.A829MrJusTpg.yj24Ud5Gv6HvKDXORu',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-03-20T18:11:11.791Z,
+  updatedAt: 2022-03-20T18:11:11.791Z,
+  UserSystemAvailaiableMemory: '2528460800',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '131321',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '2528493568',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+verify token
+{ _id: '62376e3fa48b7b7998bbcd0e', iat: 1648018111 }
+server  is start at port 5000
+connected
