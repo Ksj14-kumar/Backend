@@ -55,7 +55,7 @@ mongoose.connect(URL, (err) => {
 
 
 // app.set('trust proxy', 1)
-// app.use(cookieParser())
+app.use(cookieParser())
 
 // app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" })
 // )
