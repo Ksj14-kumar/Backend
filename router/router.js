@@ -235,12 +235,9 @@ router.get("/logout", (req, res) => {
 
 
 
-
-
 router.get("/profile", (req, res) => {
-    res.render("profile")
+    res.status(200).send("welcome to the profile")
 })
-
 
 
 
