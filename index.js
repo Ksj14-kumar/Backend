@@ -38,6 +38,9 @@ const path = require('path');
 
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
+
+
+// app.use(cors())
 mongoose.connect(URL, (err) => {
     if (err) {
         console.log("not connected")
@@ -59,20 +62,20 @@ app.use(cookieParser())
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }))
 app.use(bodyParser.json({ limit: '50mb' }))
-app.use(session({
-    name: "session id",
-    secret: process.env.SECRET_KEY,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        // name: "session",
-        // maxAge: 1000 * 60 * 60 * 24 * 7,
-        // httpOnly: false,
-        secure: "auto",
-        // sameSite: "lax",
-    }
+// app.use(session({
+//     name: "session id",
+//     secret: process.env.SECRET_KEY,
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//         // name: "session",
+//         // maxAge: 1000 * 60 * 60 * 24 * 7,
+//         // httpOnly: false,
+//         secure: "auto",
+//         // sameSite: "lax",
+//     }
 
-}))
+// }))
 
 
 
@@ -80,8 +83,6 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
-
-
 app.use(cors())
 
 
