@@ -3,7 +3,7 @@ const fs = require("fs")
 const os = require("os")
 const express = require('express');
 const router = express.Router();
-const Post = require("../db/UserData");
+// const Post = require("../db/UserData");
 const jsonToken = require("jsonwebtoken")
 const passport = require("passport")
 const bcrypt = require("bcrypt");
@@ -176,7 +176,9 @@ router.get("/success", (req, res) => {
             fs.mkdirSync(path.dirname(__dirname) + "/public/UserBlob/" + _id, { recursive: true })
         }
 
-        const userToken = jsonToken.sign({ email: req.user.email }, KEY)
+        const userToken = jsonToken.sign({ _id: req.user._id }, KEY)
+        console.log("user local stargety login token")
+        console.log(userToken)
         if (req.user) {
 
             res.cookie("uuid", userToken).status(200).json({
@@ -189,7 +191,7 @@ router.get("/success", (req, res) => {
 
 
     } catch (err) {
-        res.status(400).json({ message: "Opps Something error Occured in the field, try Again" + err.name })
+        res.status(400).json({ message: "Opps Something error Occured in the field, try Again" })
         return
 
     }

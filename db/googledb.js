@@ -26,6 +26,19 @@ const Schema = new mongoose.Schema({
     UserSystemFreeStorage: String,
     UserSystemCPU: Array,
     UserNetworkInterfaces: Array,
+    username: String,
+    fname: String,
+    lname: String,
+    gender: String,
+    address: String,
+    city: String,
+    country: String,
+    postalCode: String,
+    college: String,
+    stream: String,
+    degree: String,
+    position: String,
+    aboutMe: String
 
 
 

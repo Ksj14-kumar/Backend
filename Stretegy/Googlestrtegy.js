@@ -16,7 +16,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const KEY = process.env.SECRET_KEY
 
 const jsonToken = require("jsonwebtoken");
-const Post = require('../db/UserData');
+// const Post = require('../db/UserData');
 
 let user;
 

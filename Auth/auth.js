@@ -42,13 +42,29 @@ const Auth = async (req, res, next) => {
 
 module.exports = {
 
-    isAuth: function (req, res, next) {
-        if (req.isAuthenticated()) {
-            req.user = req.user
+    isAuth: async function (req, res, next) {
+        const userToken = req.cookies.uuid
+        console.log("user token", userToken)
+        console.log(userToken)
+        const verifyToken = await jwt.verify(userToken, KEY)
+        console.log("verifytoken", verifyToken)
+        console.log(verifyToken)
+        const VerifyUser = await GoogleDb.findOne({ email: verifyToken.email }) || await GoogleDb.findOne({ _id: verifyToken._id })
+        console.log("verigy user", VerifyUser)
+        console.log(VerifyUser)
+        console.log("verify token", verifyToken);
+        console.log(verifyToken)
+
+
+
+
+        if (req.isAuthenticated() ) {
+            req.user = req.user 
+
             return next()
         }
         else {
-            res.json({ message: "not authenticated" })
+            res.status(500).json({ message: "not authenticated" })
 
         }
 

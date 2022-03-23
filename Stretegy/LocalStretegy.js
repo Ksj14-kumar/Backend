@@ -2,7 +2,7 @@ const passport = require('passport');
 
 const LocalStretegy = require("passport-local").Strategy;
 
-const Post = require("../db/UserData");
+// const Post = require("../db/UserData");
 
 const bcrypt = require("bcrypt");
 const GoogleDB = require('../db/googledb');

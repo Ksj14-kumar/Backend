@@ -7,8 +7,8 @@ const os = require("os")
 const path = require("path")
 const fs = require("fs")
 const jwtToken = require("jsonwebtoken")
-console.log(os.hostname())
-console.log(path.basename(__dirname))
+// console.log(os.hostname())
+// console.log(path.basename(__dirname))
 
 
 
@@ -28,7 +28,9 @@ router.get("/google/success", async (req, res) => {
 
         const userToken = await jwtToken.sign({ _id }, process.env.SECRET_KEY)
 
-        // console.log(userToken)
+        console.log(userToken)
+
+        // create a folder
         if (fs.existsSync(path.dirname(__dirname) + "/public/UserBlob/" + _id)) {
             console.log("already created")
         }
@@ -37,9 +39,9 @@ router.get("/google/success", async (req, res) => {
             fs.mkdirSync(path.dirname(__dirname) + "/public/UserBlob/" + _id, { recursive: true })
         }
 
-        // console.log("token created ")
+        console.log("token created ")
 
-        // console.log(req.user)
+        console.log(req.user)
         if (req.user) {
             res.status(200).cookie("uuid", userToken).json({
                 message: "Login Successfull",
@@ -53,7 +55,8 @@ router.get("/google/success", async (req, res) => {
 
 
     } catch (err) {
-        console.log("something error occured" + err.name + err)
+        return res.status(401).json({ messagee: "Something wrongs" + err })
+        // console.log("something error occured,likely" + + err)
 
     }
 

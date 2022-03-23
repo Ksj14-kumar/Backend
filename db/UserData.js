@@ -2,19 +2,29 @@ const mongoose = require('mongoose');
 
 
 const Schema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    hashPassword: { type: String, required: true },
-    hashCpassword: { type: String, required: true }
+    username: String,
+    fname: String,
+    lname: String,
+    gender: String,
+    address: String,
+    city: String,
+    country: String,
+    postalCode: String,
+    college: String,
+    stream: String,
+    degree: String,
+    position: String,
+    aboutMe: String,
+    googleId: String
 })
 
 
-Schema.add({
-    token: {
-        required: true,
-        type: String
-    }
-})
+// Schema.add({
+//     token: {
+//         required: true,
+//         type: String
+//     }
+// })
 
 
 
