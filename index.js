@@ -20,7 +20,7 @@ const utl = require("util")
 
 const GoogleDB = require("./db/googledb");
 const Post = require("./db/UserData")
-// require("./Stretegy/GoogleStrtegy")
+require("./Stretegy/GoogleStrtegy")
 const bodyParser = require("body-parser")
 
 // app.set("views engine", "ejs")
