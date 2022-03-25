@@ -1,34 +1,24 @@
 
-
 const mongoose = require('mongoose');
 require("dotenv").config()
-
-
 const express = require("express")
 const app = express()
-
-
 const cors = require("cors")
-
 const fs = require("fs")
 const os = require("os")
 const utl = require("util")
-
-
 //top file end
-
-
 const GoogleDB = require("./db/googledb");
 const Post = require("./db/UserData")
-// require("./Stretegy/GoogleStrtegy")
+require("./Stretegy/GoogleStrtegy")
 const bodyParser = require("body-parser")
-
-// app.set("views engine", "ejs")
+app.set("views engine", "ejs")
 const router = require("./router/router");
 const GoogleRoute = require("./router/AllLogin")
-// const TwitterRoute = require("./router/twitterRoute")
+const TwitterRoute = require("./router/twitterRoute")
 const multerfile = require("./multer/multerImage")
 
+const compression = require('compression')
 
 const session = require("express-session");
 const cookieSession = require("cookie-session")
@@ -40,7 +30,7 @@ const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
 
 
-// app.use(cors())
+app.use(cors())
 mongoose.connect(URL, (err) => {
     if (err) {
         console.log("not connected")
@@ -51,10 +41,10 @@ mongoose.connect(URL, (err) => {
     }
 })
 
+app.use(compression())
 
 
-
-// app.use(express.static(path.join(__dirname, '/public/userDirectories')))
+app.use(express.static(path.join(__dirname, '/public/userDirectories')))
 
 
 // app.set('trust proxy', 1)
@@ -100,15 +90,9 @@ app.use(cors())
 // ALL ENV VARIABLE 
 
 
-
-
-
-
-
-
 app.use("/", router)
-app.use("/", GoogleRoute)
-app.use("/", multerfile)
+app.use("/all", GoogleRoute)
+app.use("/blob", multerfile)
 // app.use("/", TwitterRoute)
 
 

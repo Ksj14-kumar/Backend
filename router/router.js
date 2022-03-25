@@ -157,7 +157,7 @@ router.post("/api/login", (req, res, next) => {
 
 
 
-//  SUCCESS AND FAILURE ROUYTE AFTER LOGIN local auth
+//  SUCCESS AND FAILURE ROUTE AFTER LOGIN local auth
 router.get("/success", (req, res) => {
 
     try {
@@ -217,20 +217,33 @@ router.get("/login/failed", (req, res) => {
 
 router.get("/logout", (req, res) => {
 
-    res.clearCookie("tokenId")
-    res.clearCookie("info")
+    res.clearCookie("uuid")
+    res.clearCookie("token")
 
-    delete req.session.session
-    req.session.destroy((err) => {
-        req.logOut()
-        res.status(200).redirect(clientURL)
-
-    })
+    req.session = null
+    req.logOut()
+    res.status(200).redirect(clientURL)
 
 
 })
 
 
+//================DELETE ACCOUNT ============================
+
+router.delete("delete/account/:id", (req, res) => {
+    try {
+        // const { _id } = req.body
+        console.log("delete account", req.params.id)
+        return res.status(200).json({ message: "Account Deleted Successfully" })
+
+
+    } catch (err) {
+        res.status(400).json({ message: "Opps Something error Occured, try Again" })
+        return
+
+
+    }
+})
 
 
 

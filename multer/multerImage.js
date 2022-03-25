@@ -45,15 +45,15 @@ const upload = multer({ storage: storage }).single("file")
 
 
 
-router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD", [isAuth], async (req, res) => {
+router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD", async (req, res) => {
 
 
     try {
-        // console.log(req.user)
-        // console.log("after multer data user")
-        // console.log(req.userData)
-        // console.log("all files from user sends")
-        // console.log(req.body)
+        console.log(req.user)
+        console.log("after multer data user")
+        console.log(req.userData)
+        console.log("all files from user sends")
+        console.log(req.body)
         const { _id } = req.user
 
         const { data } = req.body
@@ -67,21 +67,21 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
         console.log("user info")
         console.log(DirectoryAlreadyExit)
         console.log("user info end")
-        
-// DirectoryAlreadyExit.resources[0].folder
 
-        if (DirectoryAlreadyExit.resources.length>0) {
+        // DirectoryAlreadyExit.resources[0].folder
+
+        if (DirectoryAlreadyExit.resources.length > 0) {
             console.log("alkready exit folder root folder")
 
             const uploadResponseProfile = await cloudinary.search.expression(
-                "folder:" + req.user._id+ "/profileImage" ,
+                "folder:" + req.user._id + "/profileImage" ,
             ).execute()
             console.log("upload response profile start")
             console.log(uploadResponseProfile)
             console.log("upload response profile end")
 
             // uploadResponseProfile.resources[0].folder
-            if (uploadResponseProfile.resources.length>0) {
+            if (uploadResponseProfile.resources.length > 0) {
                 console.log("profile directory already exits")
                 const uploadResponse = await cloudinary.uploader.upload(data, {
                     folder: `${req.user._id}/profileImage`,
@@ -96,9 +96,9 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
                     invalidate: true,
                     phash: true
                 })
-            //     console.log("upload response profile start")
-            // console.log(uploadResponse)
-            // console.log("upload response profile end")
+                //     console.log("upload response profile start")
+                // console.log(uploadResponse)
+                // console.log("upload response profile end")
                 return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponse })
 
             }
@@ -123,7 +123,7 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
         else {
             console.log("root folder not exits")
             const uploadResponse = await cloudinary.uploader.upload(data, {
-                folder:  req.user._id + "/profileImage",
+                folder: req.user._id + "/profileImage",
                 public_id: _id,
 
 
@@ -139,7 +139,7 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
 
 
                 ).execute()
-                if (uploadResponseProfileData.resources.length>0) {
+                if (uploadResponseProfileData.resources.length > 0) {
                     console.log("directory profile directory already exits")
                     const uploadResponseProfile = await cloudinary.uploader.upload(data, {
                         folder: `${req.user._id}/profileImage`,
@@ -182,14 +182,14 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
     }
 
 
-     catch (err) {
-    res.status(499).json({ message: "not uploaded please try again" })
-     }
+    catch (err) {
+        res.status(499).json({ message: "not uploaded please try again" })
+    }
 
 
 })
 
-router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFWmcDo4wTlm/9Olk5vTenhdkjHrdYEWl", isAuth, async (req, res) => {
+router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFWmcDo4wTlm/9Olk5vTenhdkjHrdYEWl", async (req, res) => {
     try {
 
         const { _id } = req.user
@@ -221,7 +221,7 @@ router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFW
     }
 })
 
-router.post("/strategy/images/", isAuth, async (req, res) => {
+router.post("/strategy/images/", async (req, res) => {
 
     try {
         console.log("all files from user sends")
@@ -251,7 +251,7 @@ router.post("/strategy/images/", isAuth, async (req, res) => {
 
 
 
-router.delete("/delete/assest/", isAuth, async (req, res) => {
+router.delete("/delete/assest/", async (req, res) => {
     try {
         // console.log("request for delete files")
         // console.log(req.body)
@@ -263,7 +263,7 @@ router.delete("/delete/assest/", isAuth, async (req, res) => {
         // console.log(uploadResponse)
 
         const allUserIdAssests = await cloudinary.search.expression(
-            "folder:" + req.user._id+"/profileImage",
+            "folder:" + req.user._id + "/profileImage",
 
         ).execute()
 
@@ -297,7 +297,7 @@ router.delete("/delete/assest/", isAuth, async (req, res) => {
 
 
 
-router.post("/user/i/b/y9y5y0q3eztm3ibcd8z0/bum6ozd9m1sw4w9fbxea/amqvdkbe49sn4u3cvsvt/e5ce6ba3miamapdl7wyv", isAuth, async (req, res) => {
+router.post("/user/i/b/y9y5y0q3eztm3ibcd8z0/bum6ozd9m1sw4w9fbxea/amqvdkbe49sn4u3cvsvt/e5ce6ba3miamapdl7wyv", async (req, res) => {
     try {
 
         const { _id } = req.user
@@ -388,7 +388,7 @@ router.post("/user/i/b/y9y5y0q3eztm3ibcd8z0/bum6ozd9m1sw4w9fbxea/amqvdkbe49sn4u3
 })
 
 
-router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq/ua1iztaxjo4bbmzvd391/3mzqeygnoszlknp90h51/t28uf00khscofxgjwj20", isAuth, async (req, res) => {
+router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq/ua1iztaxjo4bbmzvd391/3mzqeygnoszlknp90h51/t28uf00khscofxgjwj20", async (req, res) => {
     try {
         console.log("user00")
         console.log(req.user)
@@ -411,7 +411,7 @@ router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq
 
 //-----------------------------------BACKGROUND IMAGES --------------------------
 
-router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYhtXwEEtUlHu0Nkhmq/eAQCSzpYo28SJxXCMV4d/yR3VTmMynJw6N3xlS530/WpsJsZKo4hGf18jaWmZL", isAuth, async (req, res) => {
+router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYhtXwEEtUlHu0Nkhmq/eAQCSzpYo28SJxXCMV4d/yR3VTmMynJw6N3xlS530/WpsJsZKo4hGf18jaWmZL", async (req, res) => {
     try {
         // console.log(req.user)
         // console.log("bckground image user")
@@ -442,7 +442,7 @@ router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYht
     }
 })
 
-router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9EVoX/ogvnbpOcPnjgMatu3mtb/JSC2PQZQVlK19QXDbSl1", isAuth, async (req, res) => {
+router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9EVoX/ogvnbpOcPnjgMatu3mtb/JSC2PQZQVlK19QXDbSl1", async (req, res) => {
     try {
         const { _id } = req.user
         // UserBlob/
@@ -471,7 +471,7 @@ router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9
 
 
 
-router.delete("/delete/assest/bg", isAuth, async (req, res) => {
+router.delete("/delete/assest/bg", async (req, res) => {
     try {
         console.log("request for delete background files ")
 

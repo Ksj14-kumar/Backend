@@ -29,7 +29,7 @@ let user;
 // module.exports = () => {
 passport.use(new GoogleStrategy({
 
-    callbackURL: "/api/login/google/redirect",
+    callbackURL: "http://localhost:5000/all/api/login/google/redirect",
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
 }, async (req,  accessToken, refreshToken, profile, done) => {
@@ -128,7 +128,7 @@ passport.use(new TwitterStrategy({
 
     consumerKey: "mLRbWZBfhsVHFxJVsva1AJDGr",
     consumerSecret: "XWXKYNJ6nflNLcmjFXuE73IzH95GLTmcoOmI2K9pDJHowqRMVv",
-    callbackURL: "http://www.localhost:5000/api/login/twitter/redirect"
+    callbackURL: "http://www.localhost:5000/all/api/login/twitter/redirect"
 }, async (req, accessToken, refreshToken, profile, cb) => {
 
 
@@ -197,7 +197,7 @@ passport.use(new TwitterStrategy({
 //  FACEBOOK STRATEGY
 
 passport.use(new FacebookStrategy({
-    callbackURL: "http://localhost:5000/api/login/facebook/redirect",
+    callbackURL: "http://localhost:5000/all/api/login/facebook/redirect",
     clientID: process.env.FB_CLIENT_ID,
     clientSecret: process.env.FB_CLIENT_SECRET,
     profileFields: ['id', 'displayName', 'photos', 'email']
@@ -319,7 +319,7 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
 passport.use(new GithubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:5000/api/login/github/redirect"
+    callbackURL: "http://127.0.0.1:5000/all/api/login/github/redirect"
     // profileFields: ['email']
 
 
