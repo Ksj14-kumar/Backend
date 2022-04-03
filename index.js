@@ -1,12 +1,47 @@
 
 const mongoose = require('mongoose');
+
+
 require("dotenv").config()
 const express = require("express")
 const app = express()
+
+// const { createServer } = require("http")
+// const httpServer = createServer(app)
+// const { Server } = require("socket.io")
+// const io = new Server(httpServer, {
+//     cors: {
+//         origin: "*",
+//         methods: ["GET", "POST", "PUT", "DELETE"],
+//     },
+//     // transports: ['websocket'],
+//     // allowUpgrades: false,
+//     // cookie: false,
+//     // origins: '*:*',
+//     // perMessageDeflate: false,
+//     // httpCompression: false,
+//     // ws: {
+//     //     perMessageDeflate: false,
+//     //     maxPayload: 256 * 1024
+
+//     // }
+// })
+
+
+
+
+
+
+
+
 const cors = require("cors")
 const fs = require("fs")
 const os = require("os")
 const utl = require("util")
+
+
+
+
 //top file end
 const GoogleDB = require("./db/googledb");
 const Post = require("./db/UserData")
@@ -26,10 +61,29 @@ const cookieParser = require("cookie-parser")
 const passport = require('passport');
 const path = require('path');
 
+
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
 
 
+
+
+
+//use the socket.io as middleware
+
+// app.use(function (req,res,next){
+//     req.io=io
+//     next()
+// })
+
+app.use(function (req, res, next) {
+    res.setTimeout(120000, function () {
+        console.log('Request has timed out.');
+        res.sendStatus(408);
+    });
+
+    next();
+});
 app.use(cors())
 mongoose.connect(URL, (err) => {
     if (err) {
@@ -41,9 +95,12 @@ mongoose.connect(URL, (err) => {
     }
 })
 
+
+
+
+
+
 app.use(compression())
-
-
 app.use(express.static(path.join(__dirname, '/public/userDirectories')))
 
 
@@ -96,6 +153,8 @@ app.use("/blob", multerfile)
 // app.use("/", TwitterRoute)
 
 
+
+
 console.log = function (d) {
     fs.createWriteStream(__dirname + "/log.log", { flags: "a" }).write(utl.format(d) + "\n")
     process.stdout.write(utl.format(d) + "\n")
@@ -103,12 +162,8 @@ console.log = function (d) {
 }
 
 
-
-
-
-
-
-require("./fsmodule")
+// require("./fsmodule")
+//cludinary practice
 
 
 app.listen(port, (req, res) => {

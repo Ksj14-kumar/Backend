@@ -55,7 +55,7 @@ router.get("/google/success", async (req, res) => {
 
 
     } catch (err) {
-        return res.status(401).json({ messagee: "Something wrongs" + err })
+        return res.status(401).json({ messagee: "not authenticated"  })
         // console.log("something error occured,likely" + + err)
 
     }

@@ -7,27 +7,21 @@ const path = require("path")
 const { promises, rmdirSync } = require("fs");
 const { cloudinary } = require("../Cloudnary/cloudnary");
 const GoogleDb = require("../db/googledb")
-const Post = require("../db/UserData")
+const Post = require("../db/UserData");
+const Comments = require("../db/Comments");
+const TextPost = require("../db/TextPost");
 
 
 
-console.log("authentication data")
 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log("multer user image")
-        console.log(req.userData)
 
-        console.log(file)
-        console.log(req.cookies.uuid)
 
-        console.log(req.user)
         cb(null, 'public/UserBlob/' + req.user._id)
     },
     filename: function (req, file, cb) {
-        console.log(file)
-        console.log("file name is s")
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
         cb(null, file.originalname)
     }
@@ -45,46 +39,39 @@ const upload = multer({ storage: storage }).single("file")
 
 
 
-router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD", async (req, res) => {
+// ==============================POST THE PROFILE IMAGE --==================
+
+router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD/:id", async (req, res) => {
 
 
     try {
-        console.log(req.user)
-        console.log("after multer data user")
-        console.log(req.userData)
-        console.log("all files from user sends")
-        console.log(req.body)
-        const { _id } = req.user
+
+        // const { _id } = req.user
+        const _id = req.params.id
 
         const { data } = req.body
 
         const DirectoryAlreadyExit = await cloudinary.search.expression(
-            "folder:" + req.user._id,
+            "folder:" + _id,
 
 
         ).execute()
 
-        console.log("user info")
-        console.log(DirectoryAlreadyExit)
-        console.log("user info end")
+
 
         // DirectoryAlreadyExit.resources[0].folder
 
         if (DirectoryAlreadyExit.resources.length > 0) {
-            console.log("alkready exit folder root folder")
 
             const uploadResponseProfile = await cloudinary.search.expression(
-                "folder:" + req.user._id + "/profileImage" ,
+                "folder:" + _id + "/profileImage" ,
             ).execute()
-            console.log("upload response profile start")
-            console.log(uploadResponseProfile)
-            console.log("upload response profile end")
+
 
             // uploadResponseProfile.resources[0].folder
             if (uploadResponseProfile.resources.length > 0) {
-                console.log("profile directory already exits")
                 const uploadResponse = await cloudinary.uploader.upload(data, {
-                    folder: `${req.user._id}/profileImage`,
+                    folder: `${_id}/profileImage`,
 
                     public_id: _id,
                     resource_type: "image",
@@ -96,16 +83,13 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
                     invalidate: true,
                     phash: true
                 })
-                //     console.log("upload response profile start")
-                // console.log(uploadResponse)
-                // console.log("upload response profile end")
+
                 return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponse })
 
             }
             else {
-                console.log("directory profile directory not exits while root folder exits")
                 const uploadResponse = await cloudinary.uploader.upload(data, {
-                    folder: `${req.user._id}/profileImage`,
+                    folder: `${_id}/profileImage`,
 
                     public_id: _id,
                     resource_type: "image",
@@ -121,28 +105,24 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
             }
         }
         else {
-            console.log("root folder not exits")
             const uploadResponse = await cloudinary.uploader.upload(data, {
-                folder: req.user._id + "/profileImage",
+                folder: _id + "/profileImage",
                 public_id: _id,
 
 
             })
-            console.log("root folder not exitsc start")
-            console.log(uploadResponse)
-            console.log("root folder not exits end")
+
 
             if (uploadResponse) {
 
                 const uploadResponseProfileData = await cloudinary.search.expression(
-                    "folder:" + req.user._id + "/profileImage",
+                    "folder:" + _id + "/profileImage",
 
 
                 ).execute()
                 if (uploadResponseProfileData.resources.length > 0) {
-                    console.log("directory profile directory already exits")
                     const uploadResponseProfile = await cloudinary.uploader.upload(data, {
-                        folder: `${req.user._id}/profileImage`,
+                        folder: `${_id}/profileImage`,
 
                         public_id: _id,
                         resource_type: "image",
@@ -158,9 +138,8 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
 
                 }
                 else {
-                    console.log("directory profile directory not exits")
                     const uploadResponseProfile = await cloudinary.uploader.upload(data, {
-                        folder: `${req.user._id}/profileImage`,
+                        folder: `${_id}/profileImage`,
 
                         public_id: _id,
                         resource_type: "image",
@@ -179,6 +158,9 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
 
 
         }
+
+
+
     }
 
 
@@ -189,10 +171,15 @@ router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrE
 
 })
 
-router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFWmcDo4wTlm/9Olk5vTenhdkjHrdYEWl", async (req, res) => {
+
+
+// =====================================get the profile images===========
+
+router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFWmcDo4wTlm/9Olk5vTenhdkjHrdYEWl/:id", async (req, res) => {
     try {
 
-        const { _id } = req.user
+        // const { _id } = req.user
+        const _id = req.params.id
 
 
 
@@ -207,16 +194,14 @@ router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFW
             .execute()
 
         // const publicIds = result.map(resource => resource.public_id)
-        // console.log("result data for profile ")
-        // console.log(result)
-        // console.log("public ids", resources)
+
 
         res.status(200).json({ parseData: result })
 
 
 
     } catch (err) {
-        res.status(500).json({ message: "Something Error  Occured" + err })
+        res.status(500).json({ message: "Something Error  Occured" })
 
     }
 })
@@ -224,8 +209,6 @@ router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFW
 router.post("/strategy/images/", async (req, res) => {
 
     try {
-        console.log("all files from user sends")
-        console.log(req.body)
         const { data } = req.body
 
         const uploadResponse = await cloudinary.uploader.upload(data, {
@@ -234,8 +217,6 @@ router.post("/strategy/images/", async (req, res) => {
             resource_type: "image",
             timeout: 100000,
         })
-        console.log("upload reesponse from cloudinary")
-        console.log(uploadResponse)
         res.status(200).json({ message: uploadResponse })
 
 
@@ -245,43 +226,33 @@ router.post("/strategy/images/", async (req, res) => {
 
 
     catch (err) {
-        console.log(err)
+        // console.log(err)
     }
 })
 
 
 
+
+// ============================================delete the assests =========
+
 router.delete("/delete/assest/", async (req, res) => {
     try {
-        // console.log("request for delete files")
-        // console.log(req.body)
         const { uploadImageDataFromServer } = req.body
         const { public_id } = req.body
 
         // const uploadResponse =await  cloudinary.uploader.destroy(asset_id)
-        // console.log("upload reesponse from cloudinary for delete")
-        // console.log(uploadResponse)
 
         const allUserIdAssests = await cloudinary.search.expression(
             "folder:" + req.user._id + "/profileImage",
 
         ).execute()
 
-        // console.log("userAssests")
-        // console.log(typeof uploadImageDataFromServer)
-        // console.log(uploadImageDataFromServer)
-        // console.log(allUserIdAssests)
 
         const allUserIdAssestsIds = allUserIdAssests.resources.filter((item) => {
             return item.asset_id === uploadImageDataFromServer[0].asset_id
         })
-        // console.log("all assests ids")
-        // console.log(allUserIdAssestsIds)
 
         const deleteAssest = await cloudinary.uploader.destroy(allUserIdAssestsIds[0].public_id)
-        // console.log("dele")
-        // console.log(deleteAssest)
-
         return res.status(200).json({ message: "Delete Successfully", data: allUserIdAssestsIds })
 
 
@@ -380,7 +351,6 @@ router.post("/user/i/b/y9y5y0q3eztm3ibcd8z0/bum6ozd9m1sw4w9fbxea/amqvdkbe49sn4u3
 
 
     } catch (err) {
-        // console.log(err)
         return res.status(401).json({ message: "not created!!!!" })
 
     }
@@ -388,13 +358,12 @@ router.post("/user/i/b/y9y5y0q3eztm3ibcd8z0/bum6ozd9m1sw4w9fbxea/amqvdkbe49sn4u3
 })
 
 
-router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq/ua1iztaxjo4bbmzvd391/3mzqeygnoszlknp90h51/t28uf00khscofxgjwj20", async (req, res) => {
+router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq/ua1iztaxjo4bbmzvd391/3mzqeygnoszlknp90h51/t28uf00khscofxgjwj20/:id", async (req, res) => {
     try {
-        console.log("user00")
-        console.log(req.user)
-        const userInformationLoadFromServer = await Post.findOne({ googleId: req.user._id.valueOf() })
-        console.log("userinformation load from server")
-        console.log(userInformationLoadFromServer)
+
+        const _id = req.params.id
+        const userInformationLoadFromServer = await Post.findOne({ googleId: _id })
+
 
         res.status(200).json({ message: userInformationLoadFromServer })
 
@@ -411,18 +380,15 @@ router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq
 
 //-----------------------------------BACKGROUND IMAGES --------------------------
 
-router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYhtXwEEtUlHu0Nkhmq/eAQCSzpYo28SJxXCMV4d/yR3VTmMynJw6N3xlS530/WpsJsZKo4hGf18jaWmZL", async (req, res) => {
+router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYhtXwEEtUlHu0Nkhmq/eAQCSzpYo28SJxXCMV4d/yR3VTmMynJw6N3xlS530/WpsJsZKo4hGf18jaWmZL/:id", async (req, res) => {
     try {
-        // console.log(req.user)
-        // console.log("bckground image user")
-        // console.log(req.userData)
-        // console.log("all data send for background")
-        // console.log(req.body)
-        const { _id } = req.user
+
+        // const { _id } = req.user
         const { data } = req.body
+        const id = req.params.id
         const uploadResponse = await cloudinary.uploader.upload(data, {
-            folder: `${req.user._id}/background`,
-            public_id: _id,
+            folder: `${id}/background`,
+            public_id: id,
             resource_type: "image",
             timeout: 100000,
             // overwrite: true,
@@ -432,34 +398,42 @@ router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYht
             invalidate: true,
             phash: true
         })
-        console.log("upload reesponse from cloudinary")
-        console.log(uploadResponse)
         return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponse })
     } catch (err) {
-        // console.log(err)
-        res.status(401).json({ message: "not uploaded please try again!!!" + err })
+        res.status(401).json({ message: "not uploaded please try again!!!" })
 
     }
 })
 
-router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9EVoX/ogvnbpOcPnjgMatu3mtb/JSC2PQZQVlK19QXDbSl1", async (req, res) => {
+router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9EVoX/ogvnbpOcPnjgMatu3mtb/JSC2PQZQVlK19QXDbSl1/:id", async (req, res) => {
     try {
-        const { _id } = req.user
-        // UserBlob/
+
+
+
+
+        const id = req.params.id
+        console.log(id)
         const result = await cloudinary.search.expression(
-            "folder:" + `${req.user._id}/background`,
+            "folder:" + `${id}/background`,
         )
             .sort_by('created_at', 'desc')
             // .max_results(20)
             .execute()
 
-        // const publicIds = result.map(resource => resource.public_id)
-        // console.log("result data for background")
-        // console.log(result)
-        // console.log("public ids", resources)
-        console.log("background image load", result)
+        console.log(result)
 
-        res.status(200).json({ parseData: result })
+
+
+
+        return res.status(200).json({ parseData: result })
+
+
+
+
+
+
+
+
 
 
 
@@ -473,36 +447,23 @@ router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9
 
 router.delete("/delete/assest/bg", async (req, res) => {
     try {
-        console.log("request for delete background files ")
 
-        console.log(req.body)
-        console.log("userAssest for delete")
         const { uploadImageDataFromBackground } = req.body
         const { public_id } = req.body
 
         // const uploadResponse =await  cloudinary.uploader.destroy(asset_id)
-        // console.log("upload reesponse from cloudinary for delete")
-        // console.log(uploadResponse)
 
         const allUserIdAssestsForBg = await cloudinary.search.expression(
             "folder:" + `${req.user._id}/background`,
 
         ).execute()
 
-        console.log("userAssests for background image delete")
-        // console.log(typeof uploadImageDataFromServer)
-        // console.log(uploadImageDataFromServer)
-        console.log(allUserIdAssestsForBg)
 
         const allUserIdAssestsIdsDeletForBackground = allUserIdAssestsForBg.resources.filter((item) => {
             return item.asset_id === uploadImageDataFromBackground[0].asset_id
         })
-        console.log("all assests ids for background")
-        console.log(allUserIdAssestsIdsDeletForBackground)
 
         const deleteAssest = await cloudinary.uploader.destroy(allUserIdAssestsIdsDeletForBackground[0].public_id)
-        console.log("dele")
-        console.log(deleteAssest)
 
         return res.status(200).json({ message: "Delete Successfully", data: allUserIdAssestsIdsDeletForBackground })
 
@@ -511,22 +472,543 @@ router.delete("/delete/assest/bg", async (req, res) => {
 
 
     } catch (err) {
-
-        return res.status(401).json({ message: "not deleted!!!" + err })
+        return res.status(401).json({ message: "not deleted!!!" })
 
     }
 })
 
 
-//=======================USER UPLOAD PHOTOS===============
+//=======================USER COMMENTS===============
+
+router.get("/root/load/all/comments/:commentId/:userId", async (req, res) => {
+    try {
+        // const { _id } = req.user
+        console.log(req.params)
+        const { commentId, userId } = req.params
+        const AllUsersComments = await Comments.find({
+            $and: [{ post_id: commentId }, {
+                userId
+                    : userId
+            }]
+        })
+
+        console.log("all comment after new post upload")
+        console.log(AllUsersComments)
+
+        if (AllUsersComments.length === 0) {
+            return res.status(200).json({ message: "All comments", data: [] })
+
+        }
+        else {
+            return res.status(200).json({ message: "All comments", data: AllUsersComments })
+
+
+        }
+
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+
+    }
+})
+
+
+
+
+router.post("/post/comment/save", async (req, res) => {
+    try {
+
+        const userId = req.params.commentId
+
+        const UserComments = await new Comments(req.body)
+
+        UserComments.save((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Something error occured" })
+            }
+            return res.status(200).json({ message: "Comments added successfully", data: req.body })
+        })
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+
+
+    }
+})
 
 
 
 
 
 
+router.delete("/post/comment/delete/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const deleteComment = await Comments.findOneAndDelete({ uuid: id })
+        if (deleteComment) {
+            const GetAllComments = await Comments.find({})
+            const filterNonDeleteData = GetAllComments.filter((item) => {
+                return item.uuid !== id
+            })
+
+            return res.status(200).json({ message: "Comment deleted successfully", data: filterNonDeleteData })
+        }
+        // return res.status(200).json({message:"delete comment successfully",data:deleteComment})
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+    }
+})
 
 
+
+router.put("/update/comment/:id", async (req, res) => {
+    try {
+
+        const { id } = req.params
+        const { text } = req.body
+        const updateComment = await Comments.findOneAndUpdate({ uuid: id }, { $set: { body: text } })
+        if (updateComment) {
+            const GetAllComments = await Comments.find({})
+            return res.status(200).json({ message: "Comment updated successfully", data: GetAllComments })
+        }
+
+
+    } catch (error) {
+        return res.status(500).json({ message: "Something error occured" + error })
+
+    }
+})
+
+
+
+
+
+
+//USERS POST SAVE AND LOAD
+
+router.post("/users/post/:id", async (req, res) => {
+
+    try {
+
+
+
+        let array = []
+        const postId = req.params.id
+        const { text, image, privacy, post_id, time } = req.body
+        const data = image
+        const userId = postId.split("-")[0]
+        if (image || text) {
+            if (image) {
+
+                cloudinary.uploader.upload(image, {
+                    folder: `${userId}/post`,
+                    public_id: `${post_id}`,
+                    timeout: 60000,
+
+
+                }, async (err, result) => {
+                    if (err) {
+                        return res.status(500).json({ message: "Not Uploaded, Try Again" + err })
+                    }
+                    else {
+
+
+
+                        //GET ALL POST AFTER INE IMAGE SAVE
+                        cloudinary.search.expression(
+                            "folder:" + `${userId}/post`,
+                        ).sort_by('public_id', 'desc').execute(async (err, result) => {
+
+                            //IF RESOURCE FOLDER IS NOT EMPTY
+
+                            if (result.resources.length > 0) {
+
+                                array.push(result.resources)
+                                if (result.resources.length > 0) {
+
+
+
+                                    //Now check text is exit or not 
+                                    if (text) {
+                                        const userTextPost = await new TextPost({
+                                            post_id: post_id,
+                                            text: text,
+                                            privacy: privacy,
+                                            userId: userId,
+                                            createdAt: time
+
+                                        })
+
+                                        userTextPost.save(async (err) => {
+                                            if (err) {
+                                                return res.status(500).json({ message: "Something error occured" })
+                                            }
+                                            else {
+                                                //find all the text post after save new text post 
+                                                const allTextPost = await TextPost.find({})
+                                                if (allTextPost.length > 0) {
+                                                    array.push(allTextPost)
+                                                    return res.status(200).json({ message: "Post added successfully", data: array })
+
+                                                }
+
+
+                                            }
+
+                                        })
+                                    }
+                                }
+                            }
+
+                            //IF INTIALY RESOURCES IS EMPTY THEN ONLY TEXT POST WILL BE ADDED
+                            else if (result.resources.length === 0) {
+                                array.push(result)
+
+                                //if text is not empty
+
+                                if (text) {
+                                    const userTextPost = await new TextPost({
+                                        post_id: post_id,
+                                        text: text,
+                                        privacy: privacy,
+                                        userId: userId,
+                                        createdAt: time
+
+                                    })
+
+                                    userTextPost.save(async (err) => {
+                                        if (err) {
+                                            return res.status(500).json({ message: "Something error occured" })
+                                        }
+                                        else {
+                                            //find all the text post after save new text post 
+                                            const allTextPost = await TextPost.find({})
+                                            if (allTextPost.length > 0) {
+                                                array.push(allTextPost)
+                                                return res.status(200).json({ message: "Post added successfully", data: array })
+
+                                            }
+
+
+                                        }
+
+                                    })
+                                }
+
+                            }
+
+                        })
+
+
+
+                    }
+                })
+            }
+
+
+            //if image is empty but text is not empty
+
+            else if (text) {
+
+                cloudinary.search.expression(
+                    "folder:" + `${userId}/post`,
+                ).sort_by('public_id', 'desc').execute(async (err, result) => {
+                    if (result.resources.length > 0) {
+                        array.push(result.resources)
+                        if (result.resources.length > 0) {
+
+                            // array.push(result.resources)
+                            // array.push(result)
+                            if (text) {
+                                const userTextPost = await new TextPost({
+                                    post_id: post_id,
+                                    text: text,
+                                    privacy: privacy,
+                                    userId: userId,
+                                    createdAt: time
+
+                                })
+
+                                userTextPost.save(async (err) => {
+                                    if (err) {
+                                        return res.status(500).json({ message: "Something error occured" })
+                                    }
+                                    else {
+                                        const TakeAllTextPost = await TextPost.find({})
+                                        if (TakeAllTextPost.length > 0) {
+
+                                            array.push(
+                                                TakeAllTextPost
+                                            )
+                                            return res.status(200).json({ message: "Post added successfully", data: array })
+                                        }
+                                    }
+
+                                })
+                            }
+                        }
+                    }
+
+
+                })
+
+
+            }
+
+
+
+
+        }
+
+
+    } catch (error) {
+        return res.status(500).json({ message: "Something Error Occurred" })
+
+    }
+})
+
+
+
+router.get("/users/public/posts/:id", async (req, res) => {
+    try {
+        let array = []
+        // const { id } = req.query
+        const result = await cloudinary.search.expression(
+            "folder:" + `${req.params.id}/post`,
+        ).execute()
+        const UserTextPost = await TextPost.find({ userId: req.params.id })
+
+        if (result.resources.length > 0) {
+            array.push(result.resources)
+        }
+
+        if (UserTextPost.length > 0) {
+            array.push(UserTextPost)
+        }
+
+        return res.status(200).json({ message: "user posts", data: array })
+
+
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
+
+    }
+})
+
+
+
+//DELETE THE POST BY SPECIf id
+
+router.delete("/delete/user/post/:id", async (req, res) => {
+    try {
+
+        let array = []
+        const { id } = req.params
+
+
+        console.log(id)
+        console.log(req.params.id)
+        const userId = id.split("-")[0]
+        console.log("user id")
+        console.log(req.body)
+
+        const { public_id } = req.body
+        console.log(public_id.split("/")[0])
+        const userId1 = public_id.split("/")[0]
+        console.log(userId1)
+
+
+        cloudinary.search.expression(
+            "folder:" + `${userId1}/post`,
+
+
+
+
+        ).execute(async (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "Something error occured inth" + err })
+            }
+            else {
+                if (result.resources.length > 0) {
+                    result.resources.filter((item) => {
+                        if (item.public_id === public_id) {
+                            cloudinary.uploader.destroy(item.public_id, async (err, result) => {
+                                if (err) {
+                                    return res.status(500).json({ message: "Something error occured" + err })
+                                }
+                                else {
+                                    const deletePost = await TextPost.findOneAndDelete({ post_id: id })
+
+                                    if (deletePost) {
+                                        const GetAllPosts = await TextPost.find({})
+                                        const filterNonDeleteData = GetAllPosts.filter((item) => {
+                                            return item.post_id !== id
+                                        })
+
+                                        array.push(filterNonDeleteData)
+
+
+                                    }
+
+                                }
+                            })
+                        }
+
+                    })
+
+
+                }
+                else {
+                    const deletePost = await TextPost.findOneAndDelete({ post_id: id })
+
+                    if (deletePost) {
+                        const GetAllPosts = await TextPost.find({})
+                        const filterNonDeleteData = GetAllPosts.filter((item) => {
+                            return item.post_id !== id
+                        })
+
+                        array.push(filterNonDeleteData)
+
+                        // return res.status(200).json({ message: "Post deleted successfully", data: filterNonDeleteData })
+                    }
+                    return res.status(200).json({ message: "Post deleted successfully", data: array })
+                }
+            }
+        })
+
+
+
+
+
+
+        // return res.status(200).json({message:"delete comment successfully",data:deleteComment})
+
+    } catch (error) {
+        return res.status(500).json({ message: "Something error occured" + error })
+
+
+    }
+
+})
+
+
+
+
+//==================================save user post into the mongodb  by local url=========================
+
+router.post("/local/url/:id", async (req, res) => {
+    try {
+        console.log(res.body)
+        const id = req.params.id
+        const { text, image, privacy, post_id, time, fileType } = req.body
+        console.log(req.body)
+        console.log("file type")
+        console.log(fileType)
+        const SaveUserPosts = await new TextPost({
+            username: "SAnju",
+            text: text,
+            image: image,
+            fileType: fileType,
+            privacy: privacy,
+            post_id: post_id,
+            userId: id,
+            createdAt: time,
+
+        })
+        console.log({SaveUserPosts})
+
+        SaveUserPosts.save(async (err) => {
+            if (err) {
+                return res.status(500).json({ message: "Not post" })
+            }
+            else {
+                const GetAllUserPost = await TextPost.find({})
+                return res.status(200).json({ message: "Posted Successsfully", data: GetAllUserPost.reverse() })
+            }
+        })
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
+    }
+
+})
+
+
+
+
+
+
+// ===================================SAVE all the user post into the mongodb  by local url=========================
+//load the user post
+
+router.get("/load/all/post/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const GetAllUserPost = await TextPost.find({})
+        return res.status(200).json({ message: "successfull load", data: GetAllUserPost.reverse() })
+    } catch (error) {
+
+        return res.status(500).json({ message: "Something error occured" + error })
+    }
+})
+
+
+//delete the user post
+
+router.delete("/delete/user/post/local/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const deletePost = await TextPost.findOneAndDelete({ post_id: id })
+
+
+
+        if (deletePost) {
+            const DeleteCommentRelatedToPost = await Comments.deleteMany({
+                post_id
+                    : id
+            })
+            const GetAllPostsAfterDelete = await TextPost.find({})
+
+
+
+
+            return res.status(200).json({ message: "Post deleted successfully", data: GetAllPostsAfterDelete.reverse() })
+        }
+
+    } catch (error) {
+        return res.status(500).json({ message: "Something error occured" + error })
+
+    }
+})
+
+
+//take all the number of comment for current use
+
+router.get("/all/comment/user/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const { post_id } = req.body
+        const GetAllComment = await Comments.find({ userId: id })
+        return res.status(200).json({ message: "successfull load", data: GetAllComment.reverse() })
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
+
+    }
+})
 
 
 

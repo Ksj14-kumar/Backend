@@ -8,8 +8,11 @@ const jsonToken = require("jsonwebtoken")
 const passport = require("passport")
 const bcrypt = require("bcrypt");
 const GoogleDB = require('../db/googledb');
+const { cloudinary } = require("../Cloudnary/cloudnary");
 
-const path = require("path")
+
+const path = require("path");
+const { isAuth } = require("../Auth/auth");
 
 const KEY = process.env.SECRET_KEY
 const clientURL = process.env.CLIENT_URL
@@ -164,6 +167,12 @@ router.get("/success", (req, res) => {
         console.log("local user data", req.user)
         console.log(req.user)
 
+        
+
+
+       
+
+
         // fs.mkdirSync(__dirname+"/public/images/"+req.user.email)
         const { _id } = req.user
 
@@ -179,9 +188,10 @@ router.get("/success", (req, res) => {
         const userToken = jsonToken.sign({ _id: req.user._id }, KEY)
         console.log("user local stargety login token")
         console.log(userToken)
+        res.cookie("uuid", userToken, { httpOnly: true })
         if (req.user) {
 
-            res.cookie("uuid", userToken).status(200).json({
+            res.status(200).json({
                 url: clientURL,
                 message: "Login Successfull",
                 user: req.user,
@@ -215,14 +225,13 @@ router.get("/login/failed", (req, res) => {
 
 //LOGOUT AUTHENTICATION
 
-router.get("/logout", (req, res) => {
-
+router.post("/logout", (req, res) => {
+    req.logout()
     res.clearCookie("uuid")
     res.clearCookie("token")
 
-    req.session = null
-    req.logOut()
-    res.status(200).redirect(clientURL)
+
+    res.status(200).json({ message: clientURL })
 
 
 })
@@ -230,25 +239,119 @@ router.get("/logout", (req, res) => {
 
 //================DELETE ACCOUNT ============================
 
-router.delete("delete/account/:id", (req, res) => {
+router.delete("/delete/account/:id", async (req, res) => {
     try {
-        // const { _id } = req.body
-        console.log("delete account", req.params.id)
-        return res.status(200).json({ message: "Account Deleted Successfully" })
+
+
+
+        const FindUser = await GoogleDB.findById(req.params.id)
+
+        //search the Profile image of user
+
+        const FindUserImagesAndPost = await cloudinary.search.expression(
+            "folder:" + req.params.id + "/profileImage",
+
+        ).execute()
+
+
+        //seach backgriund images of user
+        const backgroundImages = await cloudinary.search.expression(
+            "folder:" + req.params.id + "/background",
+
+        ).execute()
+
+        // cloudinary.api.delete_folder(req.params.id, (err,result) => {
+        //     if(err){console.log(err)}
+        //     console.log("folder successful delet"+result)
+        // })
+
+
+
+
+        //CHECK USER DATA 
+        if (FindUserImagesAndPost.resources.length > 0 || backgroundImages.resources.length > 0) {
+
+
+            //delete the user profile image
+            if (FindUserImagesAndPost.resources[0].folder.split("/")[0]) {
+
+                cloudinary.api.delete_resources_by_prefix(FindUserImagesAndPost.resources[0].folder.split("/")[0],
+                    function (result) {
+                        console.log(result)
+                        console.log("delete profile")
+                    })
+            }
+
+
+            //delete background
+            if (backgroundImages.resources[0].folder.split("/")[0]) {
+
+                cloudinary.api.delete_resources_by_prefix(backgroundImages.resources[0].folder.split("/")[0],
+                    function (result) {
+                        console.log(result)
+                        console.log("delete back")
+                    })
+            }
+
+        }
+
+        // if (FindUserImagesAndPost.resources.length > 0) {
+        //     await cloudinary.v2.uploader.destroy(FindUserImagesAndPost)
+        //     console.log("assests successful delete")
+
+        // }
+
+
+
+        if (FindUser) {
+            req.session = null
+            req.logOut()
+            res.clearCookie("uuid")
+
+
+
+
+
+
+            await GoogleDB.findByIdAndDelete(req.params.id)
+            res.status(200).json({ message: "User Deleted Successfully" })
+            return
+        }
+        else {
+            return res.status(400).json({ message: "User Not Found" })
+        }
+
+
 
 
     } catch (err) {
-        res.status(400).json({ message: "Opps Something error Occured, try Again" })
+        res.status(400).json({ message: "Opps Something error Occured, try Again" + err })
         return
 
 
     }
+
 })
 
 
 
 
 router.get("/profile", (req, res) => {
+    // console.log(req.io)
+
+    // req.io.on("connection",(socket)=>{
+    //     console.log("connected")
+
+    // })
+
+    // req.io.on("disconnect",(socket)=>{
+    //     console.log("disconnected")
+
+    // })
+
+
+
+
     res.status(200).send("welcome to the profile")
 })
 
