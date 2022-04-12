@@ -12,6 +12,14 @@ const Schema = new mongoose.Schema({
     createdAt: String,
     privacy: String,
     fileType: String,
+    // likes_count: {
+    //     type: Number,
+    // },
+    liked: {
+        type: Array,
+        // unique: false,
+        
+    },
 
     time: {
         type: String,
@@ -23,3 +31,6 @@ const Schema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('TextPosts', Schema)
+
+
+

@@ -1,18 +1,45 @@
 
 const router = require("express").Router()
 
+const DetectImage = require("../ImagesDetection/_detect")
+const Noti = require('../db/Notification');
+const fs = require("fs")
 const multer = require('multer');
 const { isAuth } = require("../Auth/auth");
 const path = require("path")
-const { promises, rmdirSync } = require("fs");
 const { cloudinary } = require("../Cloudnary/cloudnary");
 const GoogleDb = require("../db/googledb")
 const Post = require("../db/UserData");
 const Comments = require("../db/Comments");
 const TextPost = require("../db/TextPost");
+const Model = require("../public/Nsfw_Model/min_nsfwjs/model.json")
+
+let Pusher = require('pusher');
+let pusher = new Pusher({
+    appId: process.env.PUSHER_APP_ID,
+    key: process.env.PUSHER_APP_KEY,
+    secret: process.env.PUSHER_APP_SECRET,
+    cluster: process.env.PUSHER_APP_CLUSTER,
+    useTLS: true
+});
 
 
+// pusher.trigger("AddPost", "AddPostMessage", {
+// });
 
+// pusher.trigger("DeletePost", "PostDeleted", {
+// });
+
+// pusher.trigger("channel", "message", {
+// });
+
+// pusher.trigger("userDetails", "message1", {
+// });
+
+pusher.trigger("updateComment", "updateCommentMessage", {
+});
+
+const url = "https://cdni.pornpics.com/460/7/433/79976277/79976277_257_72b0.jpg"
 
 
 const storage = multer.diskStorage({
@@ -35,140 +62,75 @@ const upload = multer({ storage: storage }).single("file")
 
 
 
-
-
-
-
 // ==============================POST THE PROFILE IMAGE --==================
 
 router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD/:id", async (req, res) => {
-
-
     try {
-
         // const { _id } = req.user
         const _id = req.params.id
-
-        const { data } = req.body
-
-        const DirectoryAlreadyExit = await cloudinary.search.expression(
-            "folder:" + _id,
-
-
-        ).execute()
+        const { data, url } = req.body
+        //filter the local image url
+        const filterUrl = url.split("blob")[1].slice(1)
 
 
 
-        // DirectoryAlreadyExit.resources[0].folder
-
-        if (DirectoryAlreadyExit.resources.length > 0) {
-
-            const uploadResponseProfile = await cloudinary.search.expression(
-                "folder:" + _id + "/profileImage" ,
-            ).execute()
-
-
-            // uploadResponseProfile.resources[0].folder
-            if (uploadResponseProfile.resources.length > 0) {
-                const uploadResponse = await cloudinary.uploader.upload(data, {
-                    folder: `${_id}/profileImage`,
-
-                    public_id: _id,
-                    resource_type: "image",
-                    timeout: 100000,
-                    overwrite: true,
-                    use_filename: true,
-                    unique_filename: false,
-                    chunk_size: 1000000,
-                    invalidate: true,
-                    phash: true
-                })
-
-                return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponse })
-
-            }
-            else {
-                const uploadResponse = await cloudinary.uploader.upload(data, {
-                    folder: `${_id}/profileImage`,
-
-                    public_id: _id,
-                    resource_type: "image",
-                    timeout: 100000,
-                    overwrite: true,
-                    use_filename: true,
-                    unique_filename: false,
-                    chunk_size: 1000000,
-                    invalidate: true,
-                    phash: true
-                })
-                return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponse })
-            }
+        if (!data) {
+            return res.status(400).json({ message: "please select Image" })
         }
+        //now check the image is contain sexual content or not
         else {
+
             const uploadResponse = await cloudinary.uploader.upload(data, {
-                folder: _id + "/profileImage",
+                folder: `${_id}/profileImage`,
+
                 public_id: _id,
-
-
+                resource_type: "image",
+                timeout: 100000,
+                overwrite: true,
+                use_filename: true,
+                unique_filename: false,
+                chunk_size: 1000000,
+                invalidate: true,
+                phash: true
             })
 
 
-            if (uploadResponse) {
+            //pass the image url to Detecteing image
+            const returnValue = await DetectImage(uploadResponse.url)
+            const FilterData = returnValue.find((item) => {
+                return (item.className === "Sexy" && item.probability >= 0.5) || (item.className === "Porn" && item.probability >= 0.5) || (item.className === "Hentai" && item.probability >= 0.50)
+            })
 
-                const uploadResponseProfileData = await cloudinary.search.expression(
-                    "folder:" + _id + "/profileImage",
 
 
-                ).execute()
-                if (uploadResponseProfileData.resources.length > 0) {
-                    const uploadResponseProfile = await cloudinary.uploader.upload(data, {
-                        folder: `${_id}/profileImage`,
+            //if image is not  contain voilence stuff
+            if (FilterData === undefined) {
+                pusher.trigger("profileImage", "profileImageMessage", { uploadResponse: uploadResponse.url })
 
-                        public_id: _id,
-                        resource_type: "image",
-                        timeout: 100000,
-                        overwrite: true,
-                        use_filename: true,
-                        unique_filename: false,
-                        chunk_size: 1000000,
-                        invalidate: true,
-                        phash: true
-                    })
-                    return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponseProfile })
+                return res.status(200).json({ message: "Uploaded Successfully", data: { url: uploadResponse.url, asset_id: uploadResponse.asset_id } })
 
-                }
-                else {
-                    const uploadResponseProfile = await cloudinary.uploader.upload(data, {
-                        folder: `${_id}/profileImage`,
+            }
+            //if image content voilnce stuff
+            if (FilterData !== undefined) {
 
-                        public_id: _id,
-                        resource_type: "image",
-                        timeout: 100000,
-                        overwrite: true,
-                        use_filename: true,
-                        unique_filename: false,
-                        chunk_size: 1000000,
-                        invalidate: true,
-                        phash: true
-                    })
-                    return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponseProfile })
+                if (FilterData.className === "Sexy" || FilterData.className === "Porn" || FilterData.className === "Hentai") {
+
+
+                    //delete the image which is saved on cloudianry,
+                    //disadvntage is that it is also remove previous image which is uploaded
+                    //this is fixed in production envirnment, to create a url for image with heroku domain
+                    await cloudinary.uploader.destroy(uploadResponse.public_id)
+                    //show the message tro client
+
+                    return res.status(403).json({ message: "This is not allowed contain, violence stuff" })
                 }
             }
-
-
-
         }
 
-
-
     }
-
-
     catch (err) {
-        res.status(499).json({ message: "not uploaded please try again" })
+        return res.status(499).json({ message: "not uploaded please try again" })
     }
-
-
 })
 
 
@@ -196,7 +158,7 @@ router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFW
         // const publicIds = result.map(resource => resource.public_id)
 
 
-        res.status(200).json({ parseData: result })
+        res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
 
 
 
@@ -235,32 +197,40 @@ router.post("/strategy/images/", async (req, res) => {
 
 // ============================================delete the assests =========
 
-router.delete("/delete/assest/", async (req, res) => {
+//delete profile image
+router.delete("/delete/assest/:id", async (req, res) => {
     try {
-        const { uploadImageDataFromServer } = req.body
-        const { public_id } = req.body
+        const { assest_id } = req.body
+        console.log({ data: req.body })
+        // const { public_id } = req.body
+        console.log(req.body)
+        const { id } = req.params
+
 
         // const uploadResponse =await  cloudinary.uploader.destroy(asset_id)
 
         const allUserIdAssests = await cloudinary.search.expression(
-            "folder:" + req.user._id + "/profileImage",
+            "folder:" + id + "/profileImage",
 
         ).execute()
 
 
         const allUserIdAssestsIds = allUserIdAssests.resources.filter((item) => {
-            return item.asset_id === uploadImageDataFromServer[0].asset_id
+            return item.asset_id === assest_id
         })
 
+        console.log("hello")
+        console.log(allUserIdAssestsIds)
+
         const deleteAssest = await cloudinary.uploader.destroy(allUserIdAssestsIds[0].public_id)
-        return res.status(200).json({ message: "Delete Successfully", data: allUserIdAssestsIds })
+        return res.status(200).json({ message: "Delete Successfully" })
 
 
 
 
 
     } catch (err) {
-        return res.status(500).json({ message: "Not delete!!!!" })
+        return res.status(500).json({ message: "Not delete!!!!" + err })
 
 
     }
@@ -338,13 +308,6 @@ router.post("/user/i/b/y9y5y0q3eztm3ibcd8z0/bum6ozd9m1sw4w9fbxea/amqvdkbe49sn4u3
                     }
                 })
             }
-
-
-
-
-
-
-
         }
 
         // res.status(200).json({ message: "Successfull send" })
@@ -363,6 +326,8 @@ router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq
 
         const _id = req.params.id
         const userInformationLoadFromServer = await Post.findOne({ googleId: _id })
+
+
 
 
         res.status(200).json({ message: userInformationLoadFromServer })
@@ -398,7 +363,41 @@ router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYht
             invalidate: true,
             phash: true
         })
-        return res.status(200).json({ message: "Uploaded Successfully", data: uploadResponse })
+        console.log({ uploadResponse })
+
+
+        //pass the image url to Detecteing image
+        const returnValue = await DetectImage(uploadResponse.url)
+        const FilterData = returnValue.find((item) => {
+            return (item.className === "Sexy" && item.probability >= 0.5) || (item.className === "Porn" && item.probability >= 0.5) || (item.className === "Hentai" && item.probability >= 0.50)
+        })
+
+
+
+        //if image is not  contain voilence stuff
+        if (FilterData === undefined) {
+            // pusher.trigger("profileImage", "profileImageMessage", { uploadResponse })
+
+            return res.status(200).json({ message: "Uploaded Successfully", data: { url: uploadResponse.url, asset_id: uploadResponse.asset_id } })
+
+        }
+        //if image content voilnce stuff
+        if (FilterData !== undefined) {
+
+            if (FilterData.className === "Sexy" || FilterData.className === "Porn" || FilterData.className === "Hentai") {
+
+
+                //delete the image which is saved on cloudianry,
+                //disadvntage is that it is also remove previous image which is uploaded
+                //this is fixed in production envirnment, to create a url for image with heroku domain
+                await cloudinary.uploader.destroy(uploadResponse.public_id)
+                //show the message tro client
+
+                return res.status(403).json({ message: "This is not allowed contain, violence stuff" })
+            }
+        }
+
+
     } catch (err) {
         res.status(401).json({ message: "not uploaded please try again!!!" })
 
@@ -412,7 +411,7 @@ router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9
 
 
         const id = req.params.id
-        console.log(id)
+        // console.log(id)
         const result = await cloudinary.search.expression(
             "folder:" + `${id}/background`,
         )
@@ -420,22 +419,12 @@ router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9
             // .max_results(20)
             .execute()
 
-        console.log(result)
-
-
-
-
-        return res.status(200).json({ parseData: result })
 
 
 
 
 
-
-
-
-
-
+        return res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
 
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
@@ -445,26 +434,26 @@ router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9
 
 
 
-router.delete("/delete/assest/bg", async (req, res) => {
+router.delete("/delete/assest/bg/:id", async (req, res) => {
     try {
 
         const { uploadImageDataFromBackground } = req.body
-        const { public_id } = req.body
+        // const { public_id } = req.body
+        console.log(uploadImageDataFromBackground)
 
         // const uploadResponse =await  cloudinary.uploader.destroy(asset_id)
+        const id = req.params.id
 
         const allUserIdAssestsForBg = await cloudinary.search.expression(
-            "folder:" + `${req.user._id}/background`,
+            "folder:" + `${id}/background`,
 
         ).execute()
 
 
         const allUserIdAssestsIdsDeletForBackground = allUserIdAssestsForBg.resources.filter((item) => {
-            return item.asset_id === uploadImageDataFromBackground[0].asset_id
+            return item.asset_id === uploadImageDataFromBackground.assest_id
         })
-
         const deleteAssest = await cloudinary.uploader.destroy(allUserIdAssestsIdsDeletForBackground[0].public_id)
-
         return res.status(200).json({ message: "Delete Successfully", data: allUserIdAssestsIdsDeletForBackground })
 
 
@@ -472,7 +461,7 @@ router.delete("/delete/assest/bg", async (req, res) => {
 
 
     } catch (err) {
-        return res.status(401).json({ message: "not deleted!!!" })
+        return res.status(401).json({ message: "not deleted!!!" + err })
 
     }
 })
@@ -483,7 +472,7 @@ router.delete("/delete/assest/bg", async (req, res) => {
 router.get("/root/load/all/comments/:commentId/:userId", async (req, res) => {
     try {
         // const { _id } = req.user
-        console.log(req.params)
+        // console.log(req.params)
         const { commentId, userId } = req.params
         const AllUsersComments = await Comments.find({
             $and: [{ post_id: commentId }, {
@@ -492,8 +481,8 @@ router.get("/root/load/all/comments/:commentId/:userId", async (req, res) => {
             }]
         })
 
-        console.log("all comment after new post upload")
-        console.log(AllUsersComments)
+        // console.log("all comment after new post upload")
+        // console.log(AllUsersComments)
 
         if (AllUsersComments.length === 0) {
             return res.status(200).json({ message: "All comments", data: [] })
@@ -814,16 +803,16 @@ router.delete("/delete/user/post/:id", async (req, res) => {
         const { id } = req.params
 
 
-        console.log(id)
-        console.log(req.params.id)
+        // console.log(id)
+        // console.log(req.params.id)
         const userId = id.split("-")[0]
-        console.log("user id")
-        console.log(req.body)
+        // console.log("user id")
+        // console.log(req.body)
 
         const { public_id } = req.body
-        console.log(public_id.split("/")[0])
+        // console.log(public_id.split("/")[0])
         const userId1 = public_id.split("/")[0]
-        console.log(userId1)
+        // console.log(userId1)
 
 
         cloudinary.search.expression(
@@ -846,9 +835,11 @@ router.delete("/delete/user/post/:id", async (req, res) => {
                                 }
                                 else {
                                     const deletePost = await TextPost.findOneAndDelete({ post_id: id })
+                                    await Noti.findOneAndDelete({ post_id: id })
 
                                     if (deletePost) {
-                                        const GetAllPosts = await TextPost.find({})
+                                        const
+                                            GetAllPosts = await TextPost.find({})
                                         const filterNonDeleteData = GetAllPosts.filter((item) => {
                                             return item.post_id !== id
                                         })
@@ -861,22 +852,17 @@ router.delete("/delete/user/post/:id", async (req, res) => {
                                 }
                             })
                         }
-
                     })
-
-
                 }
                 else {
                     const deletePost = await TextPost.findOneAndDelete({ post_id: id })
-
                     if (deletePost) {
                         const GetAllPosts = await TextPost.find({})
+                        await Noti.findOneAndDelete({ post_id: id })
                         const filterNonDeleteData = GetAllPosts.filter((item) => {
                             return item.post_id !== id
                         })
-
                         array.push(filterNonDeleteData)
-
                         // return res.status(200).json({ message: "Post deleted successfully", data: filterNonDeleteData })
                     }
                     return res.status(200).json({ message: "Post deleted successfully", data: array })
@@ -893,10 +879,7 @@ router.delete("/delete/user/post/:id", async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({ message: "Something error occured" + error })
-
-
     }
-
 })
 
 
@@ -906,12 +889,21 @@ router.delete("/delete/user/post/:id", async (req, res) => {
 
 router.post("/local/url/:id", async (req, res) => {
     try {
-        console.log(res.body)
+        // console.log(res.body)
         const id = req.params.id
-        const { text, image, privacy, post_id, time, fileType } = req.body
-        console.log(req.body)
-        console.log("file type")
-        console.log(fileType)
+        const { text, image, privacy, post_id, time, fileType, likes_count, liked } = req.body
+        // console.log("user post")
+        // console.log(req.body)
+        // console.log("file type")
+        // console.log(fileType)
+
+
+        //filter the local image url
+        const filterUrl = image.split("blob")[1].slice(1)
+
+
+
+
         const SaveUserPosts = await new TextPost({
             username: "SAnju",
             text: text,
@@ -920,28 +912,37 @@ router.post("/local/url/:id", async (req, res) => {
             privacy: privacy,
             post_id: post_id,
             userId: id,
+            likes_count: likes_count,
+            liked: liked,
             createdAt: time,
 
         })
-        console.log({SaveUserPosts})
+        console.log({ SaveUserPosts })
+        // await TextPost.dropIndexes({index:"*"})
+
 
         SaveUserPosts.save(async (err) => {
             if (err) {
-                return res.status(500).json({ message: "Not post" })
+                console.log(err)
+                return res.status(500).json({ message: "Not Post" + err })
             }
             else {
                 const GetAllUserPost = await TextPost.find({})
+                await pusher.trigger("AddPost", "AddPostMessage", {
+                    GetAllUserPost: GetAllUserPost.reverse()
+                }, req.body.socketId);
+
+                console.log("hello worrld")
+
+                console.log({ GetAllUserPost })
                 return res.status(200).json({ message: "Posted Successsfully", data: GetAllUserPost.reverse() })
+
+                // return res.end()
             }
         })
-
-
-
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" + err })
-
     }
-
 })
 
 
@@ -973,15 +974,20 @@ router.delete("/delete/user/post/local/:id", async (req, res) => {
 
 
 
+        // console.log("deleted response is ", deletePost)
+        // console.log(deletePost)
         if (deletePost) {
-            const DeleteCommentRelatedToPost = await Comments.deleteMany({
+
+            //delete all comment related to post
+            await Comments.deleteMany({
                 post_id
                     : id
             })
+            //getallpost after delete
             const GetAllPostsAfterDelete = await TextPost.find({})
-
-
-
+            console.log({ GetAllPostsAfterDelete })
+            await Noti.findOneAndDelete({ post_id: id })
+            pusher.trigger("DeletePost", "PostDeleted", { GetAllPostsAfterDelete: GetAllPostsAfterDelete.reverse() }, req.body.socketId)
 
             return res.status(200).json({ message: "Post deleted successfully", data: GetAllPostsAfterDelete.reverse() })
         }
@@ -1000,6 +1006,7 @@ router.get("/all/comment/user/:id", async (req, res) => {
         const id = req.params.id
         const { post_id } = req.body
         const GetAllComment = await Comments.find({ userId: id })
+        await pusher.trigger("updateComment", "updateCommentMessage", { GetAllComment: GetAllComment.reverse() }, req.body.socketId)
         return res.status(200).json({ message: "successfull load", data: GetAllComment.reverse() })
 
 
@@ -1011,5 +1018,245 @@ router.get("/all/comment/user/:id", async (req, res) => {
 })
 
 
+// ============================================//LIKE AND UNLIKE COUNT////////////////////////////////////////////////////////
+
+router.put("/user/like/:id/:post_id", async (req, res) => {
+    try {
+        const { id, post_id } = req.params
+        const FindPostById = await TextPost.findOne({ post_id })
+
+        if (!FindPostById.liked.includes(id)) {
+
+            const SaveNoti = await Noti({
+                name: fname + " " + lname,
+                url: url,
+                post_id: post_id,
+            })
+            SaveNoti.save((err) => {
+                if (err) {
+                    console.log("noti not saved", err)
+                }
+                else {
+                    console.log("noti saved")
+                }
+            })
+            TextPost.findOneAndUpdate({ post_id }, {
+                $push: {
+                    liked: id
+                },
+
+
+            }, { new: true }, async (err, data) => {
+                console.log({ data })
+                // UserBlob/
+
+
+                //fetch userDetails
+                const { fname, lname } = await Post.findOne({ googleId: id })
+
+                //fetch the user image which like post
+                const result = await cloudinary.search.expression(
+                    "folder:" + id + "/profileImage",
+                ).sort_by('created_at', 'desc').execute()
+
+                if (result.resources.length > 0) {
+                    const url = result.resources[0].url
+                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname }, req.body.socketId)
+
+
+                }
+                else {
+                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname }, req.body.socketId)
+
+
+                }
+
+            })
+
+            return res.status(200).json({ message: "post liked" })
+
+
+        }
+        else {
+            TextPost.findOneAndUpdate({ post_id }, {
+                $pull: {
+                    liked: id
+                }
+            }, { new: true }, async (err, data) => {
+
+                // console.log({ data })
+                await Noti.findOneAndDelete({
+                    post_id: post_id,
+
+                })
+                // UserBlob/
+                //fetch userDetails
+                const { fname, lname } = await Post.findOne({ googleId: id })
+                //fetch the user image which like post
+                const result = await cloudinary.search.expression(
+                    "folder:" + id + "/profileImage",
+                ).sort_by('created_at', 'desc').execute()
+
+                if (result.resources.length > 0) {
+                    const url = result.resources[0].url
+                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname }, req.body.socketId)
+
+
+                }
+                else {
+                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname }, req.body.socketId)
+
+
+
+
+                }
+
+            })
+            return res.status(200).json({ message: "post unliked" })
+        }
+
+
+
+
+
+
+
+
+
+        // console.log("user like with deffrenet posts")
+        // // console.log(req.params)
+        // // console.log(req.body)
+        // const { action, userId } = req.body
+        // const counter = action === true ? 1 : -1
+        // // console.log("action gadi")
+        // // console.log(counter)
+
+        // TextPost.findOneAndUpdate({ post_id: post_id }, { $inc: { likes_count: counter }, $push: { liked: req.body } }, { new: true }, async (err, result) => {
+        //     if (err) {
+        //         // console.log(err)
+        //         return res.status(500).json({ message: "not liked" })
+        //     }
+        //     else {
+        //         //filter all poost
+        //         const getAllpost = await TextPost.find({})
+
+
+        //         // console.log(result)
+        //         // find user details which liked post
+        //         const userDetailsFind = await Post.findOne({ googleId: userId })
+        //         const UserProfileImage = await cloudinary.search.expression(
+        //             "folder:" + userId + "/profileImage")
+        //             .sort_by('created_at', 'desc')
+        //             .execute()
+        //         pusher.trigger('channel', 'message', {
+        //             action: action, post_id: post_id, likedUser: userId, result: getAllpost.reverse()
+        //         }, req.body.socketId);
+        //         pusher.trigger('userDetails', 'message1', {
+        //             userDetailsFind,
+        //             UserProfileImage
+
+        //         }, req.body.socketId);
+        //         return res.status(200).json({ message: "Successfully like", data: result })
+        //     }
+
+        // })
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
+    }
+
+})
+
+
+router.get("/load/userliked/details/:id", async (req, res) => {
+    try {
+        const userId = req.params.id
+
+        // find user details which liked post
+        const userDetailsFind = await Post.findOne({ googleId: userId })
+        const UserProfileImage = await cloudinary.search.expression(
+            "folder:" + userId + "/profileImage")
+            .sort_by('created_at', 'desc')
+            .execute()
+
+        console.log("user proifile image")
+        console.log(UserProfileImage)
+        // pusher.trigger("userDetails", 'message1', {
+        //     userDetailsFind,
+        //     UserProfileImage
+        // }, req.body.socketId);
+        return res.status(200).json({ message: "successfull", data: [userDetailsFind, UserProfileImage] })
+
+
+    } catch (err) {
+
+        return res.status(500).json({ message: "somethinng error occured" + err })
+
+    }
+}
+)
+
+
+router.get("/search/", async (req, res) => {
+    try {
+        const { q } = req.query
+        // console.log("query data")
+        // console.log(q)
+        const keys = ["fname", "lname", "email"]
+        const search = (data) => {
+            return data.filter((item) => {
+                // keys.some((key) => item[key].toLowerCase().includes(q))
+                return item.fname.toLowerCase().includes(q)
+            })
+        }
+        // { name: { $regex: q, $options: 'i' } }
+        const searchResult = await Post.find({})
+        return res.status(200).json(search(searchResult.splice(0, 10)))
+
+    } catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" + err })
+    }
+})
+
+
+//load the all notification
+router.get("/load/notification/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const result = await Noti.find({})
+        return res.status(200).json({ message: "successfull", data: result })
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" })
+
+    }
+})
+
+
+//change visibilty of any post
+router.put("/visibility/user/post/local/:post_id", async (req, res) => {
+    try {
+        const { post_id } = req.params
+        const { visibility } = req.body
+      TextPost.findOneAndUpdate({ post_id }, { privacy: visibility }, { new: true }, async (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "somethinng error occured" + err })
+            }
+            else {
+                return res.status(200).json({ message: "successfull", data: result })
+            }
+        })
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" + err })
+
+
+    }
+
+
+})
 
 module.exports = router;

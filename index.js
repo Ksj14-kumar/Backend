@@ -1,45 +1,15 @@
 
 const mongoose = require('mongoose');
+let Pusher = require('pusher');
 
 
 require("dotenv").config()
 const express = require("express")
 const app = express()
-
-// const { createServer } = require("http")
-// const httpServer = createServer(app)
-// const { Server } = require("socket.io")
-// const io = new Server(httpServer, {
-//     cors: {
-//         origin: "*",
-//         methods: ["GET", "POST", "PUT", "DELETE"],
-//     },
-//     // transports: ['websocket'],
-//     // allowUpgrades: false,
-//     // cookie: false,
-//     // origins: '*:*',
-//     // perMessageDeflate: false,
-//     // httpCompression: false,
-//     // ws: {
-//     //     perMessageDeflate: false,
-//     //     maxPayload: 256 * 1024
-
-//     // }
-// })
-
-
-
-
-
-
-
-
 const cors = require("cors")
 const fs = require("fs")
 const os = require("os")
 const utl = require("util")
-
-
 
 
 //top file end
@@ -94,6 +64,28 @@ mongoose.connect(URL, (err) => {
 
     }
 })
+
+
+//trigegr the pusher
+
+
+// let pusher = new Pusher({
+//     appId: process.env.PUSHER_APP_ID,
+//     key: process.env.PUSHER_APP_KEY,
+//     secret: process.env.PUSHER_APP_SECRET,
+//     cluster: process.env.PUSHER_APP_CLUSTER,
+//     useTLS: true
+// });
+// pusher.trigger("AddPost", "AddPostMessage", {
+// });
+// pusher.trigger("DeletePost", "PostDeleted", {
+// });
+// pusher.trigger("channel", "message", {
+// });
+// pusher.trigger("userDetails", "message1", {
+// });
+// pusher.trigger("updateComment", "updateCommentMessage", {
+// });
 
 
 
