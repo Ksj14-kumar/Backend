@@ -1101,24 +1101,32 @@ router.get("/all/comment/user/:id", async (req, res) => {
 
 // ============================================//LIKE AND UNLIKE COUNT////////////////////////////////////////////////////////
 
-router.put("/user/like/:id/:post_id", async (req, res) => {
+router.put("/user/like/:post_id", async (req, res) => {
     try {
 
-        const { id, post_id } = req.params
-        console.log({ id })
+        const { post_id } = req.params
+        const { likeTo, likedBy } = req.body
+        console.log(req.body)
+        // console.log({ id })]
         console.log(post_id)
+        console.log(likeTo)
+        console.log(likedBy)
+
+
+        //get the post by post_id
         const FindPostById = await TextPost.findOne({ post_id })
 
 
 
-        if (!FindPostById.liked.includes(id)) {
+        //check user id is already exit in post like array or not
+        if (!FindPostById.liked.includes(likedBy)) {
 
 
 
 
             TextPost.findOneAndUpdate({ post_id }, {
                 $push: {
-                    liked: id
+                    liked: likedBy
                 },
 
 
@@ -1131,29 +1139,40 @@ router.put("/user/like/:id/:post_id", async (req, res) => {
 
                 //fetch the user image which like post
                 const result = await cloudinary.search.expression(
-                    "folder:" + id + "/profileImage",
+                    "folder:" + likedBy + "/profileImage",
                 ).sort_by('created_at', 'desc').execute()
 
+                //check  user profile image exit or not jo user like krta hai
                 if (result.resources.length > 0) {
+                    //profile image url le liya
                     const url = result.resources[0].url
-                    //fetch userDetails
 
-                    const { fname, lname } = await Post.findOne({ googleId: id })
+                    //fetch userDetails jisne like ki hai post
+                    const { fname, lname } = await Post.findOne({ googleId: likedBy })
+                    const {image}= await TextPost.findOne({post_id})
+
+                    //jisne post like ki hai uski info ko save kr lete hai
                     const SaveNoti = await Noti({
                         name: fname + " " + lname,
                         url: url,
                         post_id: post_id,
-                        userId: id
+                        likeTo,
+                        likedBy,
+                        postImageURL:image
                     })
 
                     SaveNoti.save(async (err) => {
                         if (err) {
                             console.log("noti not saved", err)
+                            console.log(err)
                         }
                         else {
                             console.log("noti saved")
-                            const allNoti = await Noti.find({})
-                            pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti }, req.body.socketId)
+                            //find all notification regarding to specific post
+                            const allNoti = await Noti.find({ post_id })
+                            
+
+                            pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti, }, req.body.socketId)
                         }
                     })
 
@@ -1161,10 +1180,13 @@ router.put("/user/like/:id/:post_id", async (req, res) => {
 
                 }
                 else {
+                    //if user ne apni profile picture upload nhi ki ho tb
+                    const { fname, lname } = await Post.findOne({ googleId: likedBy })
                     pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname }, req.body.socketId)
 
 
                 }
+
 
             })
 
@@ -1175,7 +1197,7 @@ router.put("/user/like/:id/:post_id", async (req, res) => {
         else {
             TextPost.findOneAndUpdate({ post_id }, {
                 $pull: {
-                    liked: id
+                    liked: likedBy
                 }
             }, { new: true }, async (err, data) => {
 
@@ -1186,10 +1208,10 @@ router.put("/user/like/:id/:post_id", async (req, res) => {
                 })
                 // UserBlob/
                 //fetch userDetails
-                const { fname, lname } = await Post.findOne({ googleId: id })
+                const { fname, lname } = await Post.findOne({ googleId: likeTo })
                 //fetch the user image which like post
                 const result = await cloudinary.search.expression(
-                    "folder:" + id + "/profileImage",
+                    "folder:" + likeTo + "/profileImage",
                 ).sort_by('created_at', 'desc').execute()
 
                 if (result.resources.length > 0) {
