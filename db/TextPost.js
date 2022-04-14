@@ -12,13 +12,17 @@ const Schema = new mongoose.Schema({
     createdAt: String,
     privacy: String,
     fileType: String,
+    profileImage: String,
     // likes_count: {
     //     type: Number,
     // },
     liked: {
         type: Array,
-        // unique: false,
-        
+
+    },
+    post_url: {
+        type: String,
+        required: true
     },
 
     time: {

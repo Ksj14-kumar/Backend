@@ -161,16 +161,12 @@ router.post("/api/login", (req, res, next) => {
 
 
 //  SUCCESS AND FAILURE ROUTE AFTER LOGIN local auth
-router.get("/success", (req, res) => {
+router.get("/success", async (req, res) => {
 
     try {
-        console.log("local user data", req.user)
-        console.log(req.user)
+        // console.log("local user data", req.user)
+        // console.log(req.user)
 
-        
-
-
-       
 
 
         // fs.mkdirSync(__dirname+"/public/images/"+req.user.email)
@@ -185,17 +181,19 @@ router.get("/success", (req, res) => {
             fs.mkdirSync(path.dirname(__dirname) + "/public/UserBlob/" + _id, { recursive: true })
         }
 
-        const userToken = jsonToken.sign({ _id: req.user._id }, KEY)
-        console.log("user local stargety login token")
+        const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
+        // console.log("user local stargety login token")
         console.log(userToken)
         res.cookie("uuid", userToken, { httpOnly: true })
+        // console.log({ user: req.user })
+        const {name}= req.user
         if (req.user) {
 
             res.status(200).json({
                 url: clientURL,
                 message: "Login Successfull",
-                user: req.user,
-                cookie: req.cookies
+                user: name,
+                cookie: userToken
             })
         }
 
@@ -229,6 +227,7 @@ router.post("/logout", (req, res) => {
     req.logout()
     res.clearCookie("uuid")
     res.clearCookie("token")
+
 
 
     res.status(200).json({ message: clientURL })
