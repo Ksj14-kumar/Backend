@@ -10,6 +10,24 @@ const cors = require("cors")
 const fs = require("fs")
 const os = require("os")
 const utl = require("util")
+// const http = require("http")
+// const server = http.createServer(app)
+// const { Server } = require("socket.io")
+// const io = new Server(server, {
+//     cors: {
+//         origin: "*",
+//         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+
+
+//         // credentials: true,
+//         // maxAge: "3600",
+//         // preflightContinue: false
+//     }
+
+
+
+// })
+
 
 
 //top file end
@@ -60,32 +78,20 @@ mongoose.connect(URL, (err) => {
         console.log("not connected")
     }
     else {
-        console.log("connected")
+        console.log("connected to db")
 
     }
 })
 
+// app.use(function (req, res, next) {
+//     console.log("hii, Mom")
+//     req.io = io
+//     next()
+// })
 
-//trigegr the pusher
 
 
-// let pusher = new Pusher({
-//     appId: process.env.PUSHER_APP_ID,
-//     key: process.env.PUSHER_APP_KEY,
-//     secret: process.env.PUSHER_APP_SECRET,
-//     cluster: process.env.PUSHER_APP_CLUSTER,
-//     useTLS: true
-// });
-// pusher.trigger("AddPost", "AddPostMessage", {
-// });
-// pusher.trigger("DeletePost", "PostDeleted", {
-// });
-// pusher.trigger("channel", "message", {
-// });
-// pusher.trigger("userDetails", "message1", {
-// });
-// pusher.trigger("updateComment", "updateCommentMessage", {
-// });
+
 
 
 

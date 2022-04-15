@@ -14,6 +14,7 @@ const Post = require("../db/UserData");
 const Comments = require("../db/Comments");
 const TextPost = require("../db/TextPost");
 const Model = require("../public/Nsfw_Model/min_nsfwjs/model.json")
+const onlineUsers = require("../db/OnlineUser")
 
 
 let Pusher = require('pusher');
@@ -1104,13 +1105,122 @@ router.get("/all/comment/user/:id", async (req, res) => {
 router.put("/user/like/:post_id", async (req, res) => {
     try {
 
+        let onlineUser = []
         const { post_id } = req.params
         const { likeTo, likedBy } = req.body
-        console.log(req.body)
-        // console.log({ id })]
-        console.log(post_id)
-        console.log(likeTo)
-        console.log(likedBy)
+        // console.log(req.body)
+        // // console.log({ id })]
+        // console.log(post_id)
+        // console.log(likeTo)
+        // console.log(likedBy)
+
+
+
+
+        //add new user which not exit in database
+        // let AddUser = (username, socketId) => {
+        //     !onlineUser.some((item) => { item.username === username }) && onlineUser.push({ username, socketId })
+        // }
+
+        // //fetch from mongo db
+        // const AddNewUser = async (username, socketId) => {
+        //     const newUSer = await onlineUsers.findOne({
+        //         name: { $eq: username }
+        //     })
+        //     if (!newUSer) {
+        //         const newUser = new onlineUsers({
+        //             name: username,
+        //             adminId: likedBy,
+        //             socketId,
+        //             time: new Date(Date.now()),
+        //         })
+        //         await newUser.save()
+
+        //     }
+        // }
+
+        // //remove user after disconenct or not exits
+
+        // const removeUser = async (socketId) => {
+        //     return onlineUser.filter((item) => {
+        //         return item.socketId !== socketId
+        //     })
+
+        // }
+
+
+        // const RemoveNewUser = async (socketId) => {
+        //     const RemoveNewUser = await onlineUsers.findOneAndDelete({
+        //         socketId: { $ne: socketId }
+
+
+        //     })
+        //     return RemoveNewUser
+        // }
+
+
+
+        // //get username whose online
+        // const getUser = (username) => {
+        //     onlineUser.find((item) => {
+        //         return item.username === username
+        //     })
+        // }
+
+        // const getNewUser = async (username) => {
+        //     const newUser = await onlineUsers.findOne({ name: username })
+
+        //     return newUser
+        // }
+
+
+
+
+
+
+        // //connect to the scockte.io
+        // req.io.on('connection', (socket) => {
+        //     console.log('a user connected');
+        //     console.log(socket.id)
+        //     //take event from client
+
+        //     //add new user jo like krta hai
+        //     // socket.on("newUser", async (data) => {
+        //     //     const { likedBy, post_id, likeTo } = data
+        //     //     const { fname, lname } = await Post.findOne({ googleId: likedBy })
+        //     //     AddNewUser(fname + " " + lname, socket.id)
+        //     //     console.log({ data })
+        //     // })
+
+        //     //send notification to the user who like the post
+        //     socket.on("like", async (data) => {
+        //         console.log({ data })
+        //         console.log("data is")
+        //         const { likedBy, post_id, likeTo } = data
+        //         const { fname, lname } = await Post.findOne({ googleId: likedBy })
+        //         const likedByUser = await Post.findOne({ googleId: likeTo })
+        //         const { socketId } = await getNewUser(fname + " " + lname)
+        //         console.log({ socketId })
+
+        //         // socket.emit("he", { name: socketId })
+
+        //         socket.to(socketId).emit("he", { likedBy, post_id, likeTo })
+
+        //         // req.io.to(socketId).emit("getNoti", { fname: likedByUser.fname, lname: likedByUser.lname, post_id, likeTo })
+
+
+
+
+        //     })
+        //     socket.on('disconnect', () => {
+        //         //remove user when disconenct the window
+        //         removeUser(socket.id)
+        //         console.log('user disconnected');
+        //     });
+        // })
+
+
+
 
 
         //get the post by post_id
@@ -1149,7 +1259,7 @@ router.put("/user/like/:post_id", async (req, res) => {
 
                     //fetch userDetails jisne like ki hai post
                     const { fname, lname } = await Post.findOne({ googleId: likedBy })
-                    const {image}= await TextPost.findOne({post_id})
+                    const { image } = await TextPost.findOne({ post_id })
 
                     //jisne post like ki hai uski info ko save kr lete hai
                     const SaveNoti = await Noti({
@@ -1158,7 +1268,7 @@ router.put("/user/like/:post_id", async (req, res) => {
                         post_id: post_id,
                         likeTo,
                         likedBy,
-                        postImageURL:image
+                        postImageURL: image
                     })
 
                     SaveNoti.save(async (err) => {
@@ -1170,7 +1280,7 @@ router.put("/user/like/:post_id", async (req, res) => {
                             console.log("noti saved")
                             //find all notification regarding to specific post
                             const allNoti = await Noti.find({ post_id })
-                            
+
 
                             pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti, }, req.body.socketId)
                         }
@@ -1303,7 +1413,7 @@ router.get("/load/all/notification/:id", async (req, res) => {
         const token = req.params.id
         const { _id } = await jwt.verify(token, KEY)
         const result = await Noti.find({ userId: _id })
-        console.log({ result })
+        // console.log({ result })
         return res.status(200).json({ message: "successfull", data: result })
 
 

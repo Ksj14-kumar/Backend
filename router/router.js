@@ -8,8 +8,9 @@ const jsonToken = require("jsonwebtoken")
 const passport = require("passport")
 const bcrypt = require("bcrypt");
 const GoogleDB = require('../db/googledb');
+const Post = require('../db/UserData');
 const { cloudinary } = require("../Cloudnary/cloudnary");
-
+const onlineUser = require("../db/OnlineUser")
 
 const path = require("path");
 const { isAuth } = require("../Auth/auth");
@@ -186,7 +187,43 @@ router.get("/success", async (req, res) => {
         console.log(userToken)
         res.cookie("uuid", userToken, { httpOnly: true })
         // console.log({ user: req.user })
-        const {name}= req.user
+
+
+
+        //jo jo user login or live hai unhe database mai store kr lete hai
+
+        // req.io.on("connection", (socket) => {
+        //     console.log("someone is connected")
+        //     socket.on("newUser", async (data) => {
+        //         // console.log("new user", data)
+        //         const { _id } = await jsonToken.verify(data, KEY)
+        //         //data mai ek jsonweb token hai usse user ki info extract kr lete hai 
+        //         // const token
+
+
+        //         const { fname, lname } = await Post.findOne({ googleId: _id })
+
+
+        //         const StoreLiveUser = await onlineUser({
+        //             name: fname + " " + lname,
+        //             adminId: _id,
+        //             socketId: socket.id,
+        //             time: new Date(Date.now()),
+
+        //         })
+        //         StoreLiveUser.save((err, data) => {
+        //             if (err) return res.status(400).json({ message: "Opps Something error Occured, try Again" })
+
+        //         })
+        //     })
+        //     socket.on("disconnect", () => {
+        //         console.log("disconnected")
+        //     })
+        // })
+
+
+
+        const { name } = req.user
         if (req.user) {
 
             res.status(200).json({
