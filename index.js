@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-let Pusher = require('pusher');
+// let Pusher = require('pusher');
 
 
 require("dotenv").config()
@@ -10,29 +10,28 @@ const cors = require("cors")
 const fs = require("fs")
 const os = require("os")
 const utl = require("util")
-// const http = require("http")
-// const server = http.createServer(app)
-// const { Server } = require("socket.io")
-// const io = new Server(server, {
-//     cors: {
-//         origin: "*",
-//         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+const http = require("http")
+const server = http.createServer(app)
+const { Server } = require("socket.io")
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 
 
-//         // credentials: true,
-//         // maxAge: "3600",
-//         // preflightContinue: false
-//     }
+        // credentials: true,
+        // maxAge: "3600",
+        // preflightContinue: false
+    }
 
 
 
-// })
+})
 
 
 
 //top file end
-const GoogleDB = require("./db/googledb");
-const Post = require("./db/UserData")
+
 require("./Stretegy/GoogleStrtegy")
 const bodyParser = require("body-parser")
 app.set("views engine", "ejs")
@@ -53,6 +52,8 @@ const path = require('path');
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
 
+
+require("./Socket Middleware/Socket")(io)
 
 
 
@@ -83,11 +84,14 @@ mongoose.connect(URL, (err) => {
     }
 })
 
-// app.use(function (req, res, next) {
-//     console.log("hii, Mom")
-//     req.io = io
-//     next()
-// })
+
+
+
+
+
+
+
+
 
 
 
@@ -164,6 +168,6 @@ console.log = function (d) {
 //cludinary practice
 
 
-app.listen(port, (req, res) => {
+server.listen(port, (req, res) => {
     console.log("server  is start at port " + port)
 })

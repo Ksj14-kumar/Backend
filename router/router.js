@@ -185,43 +185,8 @@ router.get("/success", async (req, res) => {
         const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
         // console.log("user local stargety login token")
         console.log(userToken)
-        res.cookie("uuid", userToken, { httpOnly: true })
+        res.cookie("uuid", userToken)
         // console.log({ user: req.user })
-
-
-
-        //jo jo user login or live hai unhe database mai store kr lete hai
-
-        // req.io.on("connection", (socket) => {
-        //     console.log("someone is connected")
-        //     socket.on("newUser", async (data) => {
-        //         // console.log("new user", data)
-        //         const { _id } = await jsonToken.verify(data, KEY)
-        //         //data mai ek jsonweb token hai usse user ki info extract kr lete hai 
-        //         // const token
-
-
-        //         const { fname, lname } = await Post.findOne({ googleId: _id })
-
-
-        //         const StoreLiveUser = await onlineUser({
-        //             name: fname + " " + lname,
-        //             adminId: _id,
-        //             socketId: socket.id,
-        //             time: new Date(Date.now()),
-
-        //         })
-        //         StoreLiveUser.save((err, data) => {
-        //             if (err) return res.status(400).json({ message: "Opps Something error Occured, try Again" })
-
-        //         })
-        //     })
-        //     socket.on("disconnect", () => {
-        //         console.log("disconnected")
-        //     })
-        // })
-
-
 
         const { name } = req.user
         if (req.user) {
