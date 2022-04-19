@@ -78,8 +78,8 @@ exports.AuthToken = async (req, res, next) => {
     try {
 
 
-        // console.log(req.body)
-        // console.log(req.headers)
+        console.log(req.body)
+        console.log(req.headers)
         // req.cookies.uuid || req.body.uuid   ||req.headers.cookie.uuiid|| 
         const userToken = req.cookies.uuid || req.body.uuid   ||req.headers.cookie.uuiid||  req.headers.authorization.split("Bearer ")[1]
         console.log("user token", userToken)
