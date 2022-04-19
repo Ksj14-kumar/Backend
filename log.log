@@ -98547,3 +98547,273 @@ user token
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
 { _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
 verifytoken
+{
+  'x-forwarded-host': 'localhost:3000',
+  'x-forwarded-proto': 'http',
+  'x-forwarded-port': '3000',
+  'x-forwarded-for': '127.0.0.1',
+  'if-none-match': 'W/"302-hZK8TR24/JFzKQ19rl7syqNHAlM"',
+  cookie: 'SL_G_WPT_TO=en; SL_GWPT_Show_Hide_tmp=undefined; SL_wptGlobTipTmp=undefined; session id=s%3AHCiICb303KFyWT0LaSGw9VA0OGizjQsV.ouOcs8CXoTXvDzaw8M20fCmNGJuSzLWKZO6YQBKPdi4',
+  'accept-language': 'hi,en-US;q=0.9,en;q=0.8',
+  'accept-encoding': 'gzip, deflate, br',
+  referer: 'http://localhost:3000/profile',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  'sec-ch-ua-platform': '"Windows"',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.141 YaBrowser/22.3.2.609 (beta) Yowser/2.5 Safari/537.36',
+  'sec-ch-ua-mobile': '?0',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Yandex";v="22"',
+  connection: 'close',
+  host: 'localhost:5000'
+}
+{}
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
+verifytoken
+{ _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
+google user
+undefined
+{}
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
+verifytoken
+{ _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
+{
+  'x-forwarded-host': 'localhost:3000',
+  'x-forwarded-proto': 'http',
+  'x-forwarded-port': '3000',
+  'x-forwarded-for': '127.0.0.1',
+  'if-none-match': 'W/"b8-QcY1r4S2F60nVOE0wUhPfPmEHio"',
+  cookie: 'SL_G_WPT_TO=en; SL_GWPT_Show_Hide_tmp=undefined; SL_wptGlobTipTmp=undefined; session id=s%3AHCiICb303KFyWT0LaSGw9VA0OGizjQsV.ouOcs8CXoTXvDzaw8M20fCmNGJuSzLWKZO6YQBKPdi4',
+  'accept-language': 'hi,en-US;q=0.9,en;q=0.8',
+  'accept-encoding': 'gzip, deflate, br',
+  referer: 'http://localhost:3000/profile',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  'sec-ch-ua-platform': '"Windows"',
+  'access-control-allow-credentials': 'true',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.141 YaBrowser/22.3.2.609 (beta) Yowser/2.5 Safari/537.36',
+  accept: 'application/json',
+  'content-type': 'application/json',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Yandex";v="22"',
+  connection: 'close',
+  host: 'localhost:5000'
+}
+{}
+{
+  'x-forwarded-host': 'localhost:3000',
+  'x-forwarded-proto': 'http',
+  'x-forwarded-port': '3000',
+  'x-forwarded-for': '127.0.0.1',
+  'if-none-match': 'W/"b6-Fm3iEutOIO0QD6o6hE68If/SH9A"',
+  cookie: 'SL_G_WPT_TO=en; SL_GWPT_Show_Hide_tmp=undefined; SL_wptGlobTipTmp=undefined; session id=s%3AHCiICb303KFyWT0LaSGw9VA0OGizjQsV.ouOcs8CXoTXvDzaw8M20fCmNGJuSzLWKZO6YQBKPdi4',
+  'accept-language': 'hi,en-US;q=0.9,en;q=0.8',
+  'accept-encoding': 'gzip, deflate, br',
+  referer: 'http://localhost:3000/profile',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  'sec-ch-ua-platform': '"Windows"',
+  'access-control-allow-credentials': 'true',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.141 YaBrowser/22.3.2.609 (beta) Yowser/2.5 Safari/537.36',
+  accept: 'application/json',
+  'content-type': 'application/json',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Yandex";v="22"',
+  connection: 'close',
+  host: 'localhost:5000'
+}
+user token
+{ _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
+{}
+{
+  'x-forwarded-host': 'localhost:3000',
+  'x-forwarded-proto': 'http',
+  'x-forwarded-port': '3000',
+  'x-forwarded-for': '127.0.0.1',
+  'if-none-match': 'W/"197-UspzDeGVcuVxKiRhb2pK4bSiNXU"',
+  cookie: 'SL_G_WPT_TO=en; SL_GWPT_Show_Hide_tmp=undefined; SL_wptGlobTipTmp=undefined; session id=s%3AHCiICb303KFyWT0LaSGw9VA0OGizjQsV.ouOcs8CXoTXvDzaw8M20fCmNGJuSzLWKZO6YQBKPdi4',
+  'accept-language': 'hi,en-US;q=0.9,en;q=0.8',
+  'accept-encoding': 'gzip, deflate, br',
+  referer: 'http://localhost:3000/profile',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  accept: '*/*',
+  'sec-ch-ua-platform': '"Windows"',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.141 YaBrowser/22.3.2.609 (beta) Yowser/2.5 Safari/537.36',
+  'sec-ch-ua-mobile': '?0',
+  'content-type': 'application/json',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY',
+  'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Yandex";v="22"',
+  connection: 'close',
+  host: 'localhost:5000'
+}
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
+{ _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
+verifytoken
+{}
+{
+  'x-forwarded-host': 'localhost:3000',
+  'x-forwarded-proto': 'http',
+  'x-forwarded-port': '3000',
+  'x-forwarded-for': '127.0.0.1',
+  'if-none-match': 'W/"272b-0lvZIRULnLbIMuiG06k2+apuzbU"',
+  cookie: 'SL_G_WPT_TO=en; SL_GWPT_Show_Hide_tmp=undefined; SL_wptGlobTipTmp=undefined; session id=s%3AHCiICb303KFyWT0LaSGw9VA0OGizjQsV.ouOcs8CXoTXvDzaw8M20fCmNGJuSzLWKZO6YQBKPdi4',
+  'accept-language': 'hi,en-US;q=0.9,en;q=0.8',
+  'accept-encoding': 'gzip, deflate, br',
+  referer: 'http://localhost:3000/profile',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  accept: '*/*',
+  'sec-ch-ua-platform': '"Windows"',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.141 YaBrowser/22.3.2.609 (beta) Yowser/2.5 Safari/537.36',
+  'sec-ch-ua-mobile': '?0',
+  'content-type': 'application/json',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY',
+  'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Yandex";v="22"',
+  connection: 'close',
+  host: 'localhost:5000'
+}
+user token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
+verifytoken
+{ _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
+verifytoken
+{}
+{
+  'x-forwarded-host': 'localhost:3000',
+  'x-forwarded-proto': 'http',
+  'x-forwarded-port': '3000',
+  'x-forwarded-for': '127.0.0.1',
+  'if-none-match': 'W/"c6c-HtBJ1h/FQEvXkyDEIDmfMV7GKsY"',
+  cookie: 'SL_G_WPT_TO=en; SL_GWPT_Show_Hide_tmp=undefined; SL_wptGlobTipTmp=undefined; session id=s%3AHCiICb303KFyWT0LaSGw9VA0OGizjQsV.ouOcs8CXoTXvDzaw8M20fCmNGJuSzLWKZO6YQBKPdi4',
+  'accept-language': 'hi,en-US;q=0.9,en;q=0.8',
+  'accept-encoding': 'gzip, deflate, br',
+  referer: 'http://localhost:3000/profile',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  accept: '*/*',
+  'sec-ch-ua-platform': '"Windows"',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.141 YaBrowser/22.3.2.609 (beta) Yowser/2.5 Safari/537.36',
+  'sec-ch-ua-mobile': '?0',
+  'content-type': 'application/json',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY',
+  'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Yandex";v="22"',
+  connection: 'close',
+  host: 'localhost:5000'
+}
+{ _id: '62434a58ac9ad04e29be7e1b', iat: 1650185570 }
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY
+verifytoken
+user token
+verigy user
+verigy user
+verigy user
+verigy user
+verigy user
+verigy user
+{
+  result: [
+    {
+      _id: new ObjectId("625a49be01796cded954583b"),
+      name: 'Tony Sama',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1649950232/62582d5c2c614bcff8051d0a/profileImage/62582d5c2c614bcff8051d0a.jpg',
+      post_id: '6420104d-908d-49b7-9fe5-b0a5fcc290ef',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62582d5c2c614bcff8051d0a',
+      postImageURL: 'https://images.pexels.com/photos/2715056/pexels-photo-2715056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    },
+    {
+      _id: new ObjectId("625a4cb3c1cb6ebea3072eaf"),
+      name: 'Tony Sama',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1649950232/62582d5c2c614bcff8051d0a/profileImage/62582d5c2c614bcff8051d0a.jpg',
+      post_id: '307f9410-c7bf-4b2e-b0d7-ed1121d11a7b',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62582d5c2c614bcff8051d0a',
+      postImageURL: 'https://images.pexels.com/photos/2997548/pexels-photo-2997548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    },
+    {
+      _id: new ObjectId("625a4cc4c1cb6ebea3072ec1"),
+      name: 'Yahika Jain',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1649873490/62434a58ac9ad04e29be7e1b/profileImage/62434a58ac9ad04e29be7e1b.jpg',
+      post_id: '7d455fba-e15e-4eab-b453-c6e9c1cf53c1',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62434a58ac9ad04e29be7e1b',
+      postImageURL: 'https://images.pexels.com/photos/3290236/pexels-photo-3290236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    },
+    {
+      _id: new ObjectId("625a517afa8e8e4ebcb4e973"),
+      name: 'Tony Sama',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1649950232/62582d5c2c614bcff8051d0a/profileImage/62582d5c2c614bcff8051d0a.jpg',
+      post_id: '7d455fba-e15e-4eab-b453-c6e9c1cf53c1',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62582d5c2c614bcff8051d0a',
+      postImageURL: 'https://images.pexels.com/photos/3290236/pexels-photo-3290236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    },
+    {
+      _id: new ObjectId("625a63457224c160bdf933d6"),
+      name: 'Tony Sama',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1649950232/62582d5c2c614bcff8051d0a/profileImage/62582d5c2c614bcff8051d0a.jpg',
+      post_id: 'd8cce1f4-35b9-401a-9d92-3f0a62c59ab5',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62582d5c2c614bcff8051d0a',
+      postImageURL: 'https://images.pexels.com/photos/1642228/pexels-photo-1642228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    },
+    {
+      _id: new ObjectId("625a634f7224c160bdf933e6"),
+      name: 'Tony Sama',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1649950232/62582d5c2c614bcff8051d0a/profileImage/62582d5c2c614bcff8051d0a.jpg',
+      post_id: 'd8cce1f4-35b9-401a-9d92-3f0a62c59ab5',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62582d5c2c614bcff8051d0a',
+      postImageURL: 'https://images.pexels.com/photos/1642228/pexels-photo-1642228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    },
+    {
+      _id: new ObjectId("625c7ea6c7bcb0a7a1caacef"),
+      name: 'Yashika Jain',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1650132471/62434a58ac9ad04e29be7e1b/profileImage/62434a58ac9ad04e29be7e1b.png',
+      post_id: 'dc12d15b-51a1-4411-a523-3d637b249973',
+      likeTo: '62434a58ac9ad04e29be7e1b',
+      likedBy: '62434a58ac9ad04e29be7e1b',
+      postImageURL: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      __v: 0
+    }
+  ]
+}
+{
+  data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjQzNGE1OGFjOWFkMDRlMjliZTdlMWIiLCJpYXQiOjE2NTAxODU1NzB9.o957VCfq2ZkKckgajDJuZYxgTEvwcKWmjIQth0TvzpY'
+}
+[
+  {
+    username: 'Yashika Jain',
+    socketId: 'f7-Tis41BdVsmDvaAAAD',
+    adminId: '62434a58ac9ad04e29be7e1b',
+    profilePic: ''
+  },
+  {
+    username: 'Yashika Jain',
+    socketId: 'rts7cgSf764McjVOAAAT',
+    adminId: '62434a58ac9ad04e29be7e1b',
+    profilePic: ''
+  }
+]
+connected from index.js
+someone is disconnected
