@@ -8,12 +8,9 @@ const jsonToken = require("jsonwebtoken")
 const passport = require("passport")
 const bcrypt = require("bcrypt");
 const GoogleDB = require('../db/googledb');
-const Post = require('../db/UserData');
 const { cloudinary } = require("../Cloudnary/cloudnary");
-const onlineUser = require("../db/OnlineUser")
-
 const path = require("path");
-const { isAuth } = require("../Auth/auth");
+const { AuthToken } = require('../Auth/auth');
 
 const KEY = process.env.SECRET_KEY
 const clientURL = process.env.CLIENT_URL
@@ -225,7 +222,7 @@ router.get("/login/failed", (req, res) => {
 
 //LOGOUT AUTHENTICATION
 
-router.post("/logout", (req, res) => {
+router.post("/logout", AuthToken, (req, res) => {
     req.logout()
     res.clearCookie("uuid")
     res.clearCookie("token")
@@ -240,7 +237,7 @@ router.post("/logout", (req, res) => {
 
 //================DELETE ACCOUNT ============================
 
-router.delete("/delete/account/:id", async (req, res) => {
+router.delete("/delete/account/:id", AuthToken, async (req, res) => {
     try {
 
 
@@ -337,7 +334,7 @@ router.delete("/delete/account/:id", async (req, res) => {
 
 
 
-router.get("/profile", (req, res) => {
+router.get("/profile", AuthToken, (req, res) => {
     // console.log(req.io)
 
     // req.io.on("connection",(socket)=>{
