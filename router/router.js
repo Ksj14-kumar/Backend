@@ -182,7 +182,7 @@ router.get("/success", async (req, res) => {
             fs.mkdirSync(path.dirname(__dirname) + "/public/UserBlob/" + _id, { recursive: true })
         }
 
-        const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
+        const userToken = await jsonToken.sign({ _id: req.user._id }, KEY,)
         // console.log("user local stargety login token")
         console.log(userToken)
         res.cookie("uuid", userToken)

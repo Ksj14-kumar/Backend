@@ -115,7 +115,7 @@ router.delete("/delete/assest/bg/", Auth.AuthToken, BlobController.DeleteAssests
 
 //=======================USER COMMENTS===============
 
-router.get("/root/load/all/comments/:post_id/:userId", Auth.AuthToken, BlobController.loadComments)
+router.get("/root/load/all/comments/:post_id/:userId/:value", Auth.AuthToken, BlobController.loadComments)
 
 
 
@@ -174,7 +174,7 @@ router.get("/user/post/:post_id", Auth.AuthToken, BlobController.GetPostFromMong
 // ===================================SAVE all the user post into the mongodb  by local url=========================
 //load the user post
 
-router.get("/load/all/post/", Auth.AuthToken, BlobController.loadAllUserPost)
+router.get("/load/all/post/:value", Auth.AuthToken, BlobController.loadAllUserPost)
 
 
 //delete the user post

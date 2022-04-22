@@ -373,10 +373,16 @@ exports.loadComments = async (req, res) => {
         // const { _id } = req.user
         // console.log(req.params)
         const { post_id, userId } = req.params
+        const { value } = req.params
         console.log({ post_id, userId })
         const AllUsersComments = await Comments.find({
             post_id: post_id
+        }).limit(+value)
+
+        const AllUsersCommentslength = await Comments.find({
+            post_id: post_id
         })
+        console.log(+value)
 
         // console.log("all comment after new post upload")
         // console.log(AllUsersComments)
@@ -386,7 +392,7 @@ exports.loadComments = async (req, res) => {
 
         }
         else {
-            return res.status(200).json({ message: "All comments", data: AllUsersComments })
+            return res.status(200).json({ message: "All comments", data: AllUsersComments, length: AllUsersCommentslength.length })
 
 
         }
@@ -838,10 +844,12 @@ exports.GetPostFromMongoDb = async (req, res) => {
 exports.loadAllUserPost = async (req, res) => {
     try {
         const _id = req._id
+        const { value } = req.params
+        console.log({ value: +value })
         // const { _id } = await jwt.verify(token, KEY)
 
         //get all post by userId 
-        const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] })
+        const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).limit(+value)
         const GetAllUserPost1 = GetAllUserPost.filter((item) => {
             return
         })
