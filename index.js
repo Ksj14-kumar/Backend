@@ -32,7 +32,7 @@ const io = new Server(server, {
 
 //top file end
 
-require("./Stretegy/GoogleStrtegy")
+require("./Stretegy/Googlestrtegy")
 const bodyParser = require("body-parser")
 app.set("views engine", "ejs")
 const router = require("./router/router");
