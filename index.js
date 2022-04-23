@@ -125,11 +125,13 @@ app.use(session({
         // name: "session",
         // maxAge: 1000 * 60 * 60 * 24 * 7,
         // httpOnly: false,
-        secure: "auto",
-        // sameSite: "lax",
+        secure: true,
+        sameSite: "lax",
     }
 
 }))
+
+console.log(process.env.NODE_ENV)
 
 
 
