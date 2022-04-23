@@ -15,7 +15,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
     cors: {
-        origin: "https://collegezone.netlify.app/login",
+        origin: "*",
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 
 
@@ -73,11 +73,7 @@ app.use(function (req, res, next) {
 
     next();
 });
-app.use(cors({
-    origin: "https://collegezone.netlify.app/login",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    // credentials: true,
-}))
+app.use(cors())
 mongoose.connect(URL, (err) => {
     if (err) {
         console.log("not connected")
