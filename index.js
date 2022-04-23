@@ -15,7 +15,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
     cors: {
-        origin: "https://vast-thicket-22345.herokuapp.com",
+        origin: "https://collegezone.netlify.app/login",
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 
 
@@ -74,10 +74,9 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(cors({
-    origin: "https://vast-thicket-22345.herokuapp.com",
+    origin: "https://collegezone.netlify.app/login",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     // credentials: true,
-
 }))
 mongoose.connect(URL, (err) => {
     if (err) {
@@ -85,7 +84,6 @@ mongoose.connect(URL, (err) => {
     }
     else {
         console.log("connected to db")
-
     }
 })
 
@@ -93,27 +91,10 @@ mongoose.connect(URL, (err) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.use(compression())
 app.use(express.static(path.join(__dirname, '/public/userDirectories')))
-
-
 // app.set('trust proxy', 1)
 app.use(cookieParser())
-
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }))
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(cors())
@@ -129,7 +110,6 @@ app.use(session({
         secure: "auto",
         // sameSite: "lax",
     }
-
 }))
 
 console.log(process.env.NODE_ENV)
