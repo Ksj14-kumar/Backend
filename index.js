@@ -15,7 +15,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: "https://vast-thicket-22345.herokuapp.com",
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 
 
@@ -74,9 +74,9 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(cors({
-    origin: "*",
+    origin: "https://vast-thicket-22345.herokuapp.com",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
+    // credentials: true,
 
 }))
 mongoose.connect(URL, (err) => {
@@ -120,7 +120,7 @@ app.use(cors())
 app.use(session({
     name: "session id",
     secret: process.env.SECRET_KEY,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     cookie: {
         // name: "session",
