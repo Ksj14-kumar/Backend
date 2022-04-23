@@ -11,7 +11,9 @@ const GoogleDB = require('../db/googledb');
 module.exports = async function () {
     passport.use(new LocalStretegy({ usernameField: "email" }, (email, password, done) => {
         GoogleDB.findOne({ email: email }, async (err, user) => {
+            console.log("user find")
             console.log({ user })
+            console.log("user find end")
             if (err) {
                 return done(err);
             }
@@ -25,6 +27,8 @@ module.exports = async function () {
                     return done(null, false, { message: "Invalid credentials" });
                 }
                 else {
+                    console.log("user find successfull")
+                    console.log(user)
                     return done(null, user);
                 }
 

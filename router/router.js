@@ -133,7 +133,11 @@ router.post("/api/register", async (req, res) => {
 
 router.post("/api/login", (req, res, next) => {
     console.log(req.body)
-    console.log("local storage user", req.user)
+    // console.log("local storage user", req.user)
+    console.log("local user when login")
+    console.log(req.body)
+    console.log(req.user)
+    console.log("local user when logout")
 
     passport.authenticate("local", {
         successRedirect: "/success",
@@ -149,6 +153,8 @@ router.post("/api/login", (req, res, next) => {
 
 //  SUCCESS AND FAILURE ROUTE AFTER LOGIN local auth
 router.get("/success", async (req, res) => {
+    console.log("user success req.user")
+    console.log(req.user)
 
     try {
         // console.log("local user data", req.user)
@@ -187,7 +193,7 @@ router.get("/success", async (req, res) => {
 
 
     } catch (err) {
-        res.status(400).json({ message: "Opps Something error Occured in the field, try Again"+err })
+        res.status(400).json({ message: "Opps Something error Occured in the field, try Again" + err })
         return
 
     }
