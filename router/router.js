@@ -187,7 +187,7 @@ router.get("/success", async (req, res) => {
 
 
     } catch (err) {
-        res.status(400).json({ message: "Opps Something error Occured in the field, try Again" })
+        res.status(400).json({ message: "Opps Something error Occured in the field, try Again"+err })
         return
 
     }

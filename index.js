@@ -73,7 +73,12 @@ app.use(function (req, res, next) {
 
     next();
 });
-app.use(cors())
+app.use(cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+
+}))
 mongoose.connect(URL, (err) => {
     if (err) {
         console.log("not connected")
