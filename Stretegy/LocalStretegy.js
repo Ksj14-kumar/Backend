@@ -11,6 +11,7 @@ const GoogleDB = require('../db/googledb');
 module.exports = async function () {
     passport.use(new LocalStretegy({ usernameField: "email" }, (email, password, done) => {
         GoogleDB.findOne({ email: email }, async (err, user) => {
+            console.log({ user })
             if (err) {
                 return done(err);
             }
