@@ -14,17 +14,6 @@ const { AuthToken } = require('../Auth/auth');
 
 const KEY = process.env.SECRET_KEY
 const clientURL = process.env.CLIENT_URL
-// const UserEmail = require("../Stretegy/Googlestrtegy")
-// console.log("mail",UserEmail)
-// const os = require("os")
-// const path = require("path")
-// // const fs = require("fs")
-// console.log(os.hostname())
-// console.log("file path00")
-// console.log(path.basename(__dirname + "../public/UserBlob"))
-// console.log("router data")
-// console.log(path.dirname(__dirname))
-
 let userInfo = null
 
 router.get("/", (req, res) => {
@@ -352,9 +341,6 @@ router.get("/profile", AuthToken, (req, res) => {
 
     res.status(200).send("welcome to the profile")
 })
-
-
-
 
 module.exports = router;
 
