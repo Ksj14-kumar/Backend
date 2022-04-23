@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:5000/all/api/login/google/redirect",
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
-}, async (req,  accessToken, refreshToken, profile, done) => {
+}, async (req, accessToken, refreshToken, profile, done) => {
     console.log("iser profile dta")
     console.log(profile)
     // return done(null, profile);
@@ -299,6 +299,8 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
                 return done(null, false, { message: "Invalid credentials" });
             }
             else {
+                console.log("user is found")
+                console.log(user)
                 return done(null, user);
             }
 
