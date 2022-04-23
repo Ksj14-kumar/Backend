@@ -423,8 +423,8 @@ passport.use(new GithubStrategy({
 
 //PASSWORD DESCRILIZE AND STRATEGY
 passport.serializeUser(function (user, done) {
-    console.log("git strategy user")
-    console.log(user.id)
+    // console.log("git strategy user")
+    // console.log(user.id)
     done(null, user.id);
     // done(null, user)
 

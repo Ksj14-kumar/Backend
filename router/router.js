@@ -157,8 +157,10 @@ router.get("/success", async (req, res) => {
     console.log(req.user)
 
     try {
-        // console.log("local user data", req.user)
-        // console.log(req.user)
+        console.log("local user data")
+        console.log(res.locals.user)
+        console.log(req.user)
+        console.log("success is end")
 
 
 

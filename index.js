@@ -116,6 +116,7 @@ app.use(cookieParser())
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }))
 app.use(bodyParser.json({ limit: '50mb' }))
+app.use(cors())
 app.use(session({
     name: "session id",
     secret: process.env.SECRET_KEY,
@@ -125,7 +126,7 @@ app.use(session({
         // name: "session",
         // maxAge: 1000 * 60 * 60 * 24 * 7,
         // httpOnly: false,
-        secure: true,
+        secure: "auto",
         sameSite: "lax",
     }
 
@@ -139,7 +140,13 @@ console.log(process.env.NODE_ENV)
 
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(cors())
+
+app.use(function (req, res, next) {
+    console.log("in index.js files")
+    console.log(req.user)
+    res.locals.user = req.user || null
+    next();
+})
 
 
 // {
