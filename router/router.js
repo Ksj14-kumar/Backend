@@ -157,6 +157,9 @@ router.get("/success", async (req, res) => {
     console.log(req.user)
 
     try {
+        console.log("private user")
+        // console.log(req._user)
+
         console.log("local user data")
         console.log(res.locals.user)
         console.log(req.user)

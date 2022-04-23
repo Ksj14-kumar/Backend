@@ -36,3 +36,482 @@ connected to db
 server  is start at port 5000
 connected to db
 server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+in index.js files
+undefined
+{ email: 'tony@gmail.com', password: '123456789' }
+local user when login
+{ email: 'tony@gmail.com', password: '123456789' }
+undefined
+local user when logout
+not connected
+undefined
+local  users
+server  is start at port 5000
+connected to db
+in index.js files
+undefined
+{ email: 'tony@gmail.com', password: '123456789' }
+{ email: 'tony@gmail.com', password: '123456789' }
+local user when login
+undefined
+local user when logout
+local  users
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+server  is start at port 5000
+in index.js files
+undefined
+{ email: 'tony@gmail.com', password: '123456789' }
+local user when login
+undefined
+{ email: 'tony@gmail.com', password: '123456789' }
+local user when logout
+connected to db
+local  users
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+server  is start at port 5000
+in index.js files
+undefined
+{ email: 'tony@gmail.com', password: '123456789' }
+local user when login
+{ email: 'tony@gmail.com', password: '123456789' }
+undefined
+local user when logout
+connected to db
+local  users
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+user is found
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+git strategy user
+62582d5c2c614bcff8051d0a
+62582d5c2c614bcff8051d0a
+google deseriealizer user 
+in index.js files
+user success req.user
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+local user data
+private user
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+{
+  _id: new ObjectId("62582d5c2c614bcff8051d0a"),
+  name: 'TonySama',
+  email: 'tony@gmail.com',
+  googleId: '$2b$10$w9SBTtBogpCgSFV1B7nHFeJiAXuBz1MY4lEAhbSC6XkTA2BB2wfxm',
+  password: '$2b$10$gZGcOSzZOqtqp3Zbaox4AeuAlHRBkpSbYj5Es5UQbV27k1rL9OPx6',
+  image: '',
+  role: 'user',
+  status: 'active',
+  provider: 'Self Register',
+  createdAt: 2022-04-14T14:19:08.255Z,
+  updatedAt: 2022-04-14T14:19:08.255Z,
+  UserSystemAvailaiableMemory: '1704136704',
+  UserSystemTotalMemory: '8472866816',
+  UserSystemPlatform: 'win32',
+  UserSystemPlatformRelease: '10.0.19044',
+  UserSystemTotalStorage: '8472866816',
+  UserSystemType: 'Windows_NT',
+  UserSystemUptime: '26675',
+  UserSystemLoadAverage: [ 0, 0, 0 ],
+  UserSystemFreeStorage: '1704153088',
+  UserSystemCPU: [
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    },
+    {
+      model: 'Intel(R) Core(TM) i7-4500U CPU @ 1.80GHz',
+      speed: 2394,
+      times: [Object]
+    }
+  ],
+  UserNetworkInterfaces: [
+    {
+      'VirtualBox Host-Only Network': [Array],
+      'Wi-Fi': [Array],
+      'Loopback Pseudo-Interface 1': [Array]
+    }
+  ],
+  __v: 0
+}
+already created
+success is end
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU4MmQ1YzJjNjE0YmNmZjgwNTFkMGEiLCJpYXQiOjE2NTA3MzI5NzV9.OG3iV1D7Xu5d8RG5yX0sUMapJ-wQKYtZf3XQpuqF9IQ
