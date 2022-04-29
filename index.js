@@ -97,14 +97,14 @@ app.use(cors())
 app.use(session({
     name: "session id",
     secret: process.env.SECRET_KEY,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: {
         // name: "session",
         // maxAge: 1000 * 60 * 60 * 24 * 7,
         // httpOnly: false,
         secure: "auto",
-        // sameSite: "lax",
+        sameSite: "lax",
     }
 }))
 

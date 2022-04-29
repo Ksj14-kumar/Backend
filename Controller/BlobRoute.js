@@ -17,6 +17,8 @@ const onlineUsers = require("../db/OnlineUser")
 
 
 let Pusher = require('pusher');
+const UserData = require("../db/UserData");
+const { send } = require("process");
 let pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
     key: process.env.PUSHER_APP_KEY,
@@ -46,6 +48,7 @@ exports.profileImagePost = async (req, res) => {
 
 
         //filter the local image url
+        console.log(_id)
         const filterUrl = url.split("blob")[1].slice(1)
 
 
@@ -80,7 +83,10 @@ exports.profileImagePost = async (req, res) => {
 
 
             //if image is not  contain voilence stuff
+            console.log({ uploadResponse })
             if (FilterData === undefined) {
+                await Post.findOneAndUpdate({ googleId: _id }, { $set: { url: uploadResponse.url } })
+                await TextPost.findOneAndUpdate({ userId: _id }, { $set: { profileImage: uploadResponse.url } })
                 pusher.trigger("profileImage", "profileImageMessage", { uploadResponse: uploadResponse.url })
 
                 return res.status(200).json({ message: "Uploaded Successfully", data: { url: uploadResponse.url, asset_id: uploadResponse.asset_id } })
@@ -104,6 +110,7 @@ exports.profileImagePost = async (req, res) => {
         }
     }
     catch (err) {
+        console.log(err)
         return res.status(499).json({ message: "not uploaded please try again" + err })
     }
 
@@ -180,7 +187,8 @@ exports.saveUserInformation = async (req, res) => {
 
         const _id = req._id
 
-        const { UserProfileInformationm } = req.body
+        const { UserProfileInformationm, url } = req.body
+
         const { username, fname, lname, gender, address, city, country, postalCode, college, stream, degree, position, aboutMe } = UserProfileInformationm
 
         if (!username || !fname || !lname || !gender || !address || !city || !country || !postalCode || !aboutMe || !college || !stream || !degree || !position) {
@@ -200,12 +208,14 @@ exports.saveUserInformation = async (req, res) => {
                     city,
                     country,
                     postalCode,
+                    url: url,
                     aboutMe,
                     college, stream,
                     degree,
                     position,
-                    googleId: _id
+                    googleId: _id,
                 })
+
             const userInfo = {
                 username,
                 fname,
@@ -219,12 +229,13 @@ exports.saveUserInformation = async (req, res) => {
                 college, stream,
                 degree,
                 position,
-                googleId: _id
+                googleId: _id,
+                url: url,
             }
 
 
 
-            const checkUserAlreadyExit = await Post.findOneAndUpdate({ googleId: _id }, req.body.UserProfileInformationm, { new: true, upsert: true })
+            const checkUserAlreadyExit = await Post.findOneAndUpdate({ googleId: _id }, { ...req.body.UserProfileInformationm, url }, { new: true, upsert: true })
 
 
 
@@ -992,6 +1003,7 @@ exports.search = async (req, res) => {
         }
         // { name: { $regex: q, $options: 'i' } }
         const searchResult = await Post.find({})
+
         return res.status(200).json(search(searchResult.splice(0, 10)))
 
     } catch (err) {
@@ -1033,4 +1045,165 @@ exports.setPrivacy = async (req, res) => {
     catch (err) {
         return res.status(500).json({ message: "somethinng error occured" + err })
     }
+}
+
+
+exports.finduser = async (req, res) => {
+    try {
+        let getUserPost, ShowDot;
+        const _id = req._id
+        const { anotherUserId } = req.body
+
+        if (!anotherUserId) {
+
+            return res.status(403).json({ message: "please, select user" })
+
+        }
+        else {
+            if (anotherUserId === _id) {
+
+                getUserPost = await TextPost.find({ userId: anotherUserId })
+                ShowDot = true
+            }
+            else {
+                getUserPost = await TextPost.find({ userId: anotherUserId, privacy: "public" })
+                ShowDot = false
+
+            }
+
+            const ProfileImage = await cloudinary.search.expression(
+                "folder:" + anotherUserId + "/profileImage")
+                .sort_by('created_at', 'desc').execute()
+            const ProfileURL = ProfileImage.resources[0].url
+
+            const BgImage = await cloudinary.search.expression(
+                "folder:" + anotherUserId + "/background")
+                .sort_by('created_at', 'desc').execute()
+            const BgURL = BgImage.resources[0].url
+
+            const userGeneralInfo = await Post.find({ googleId: anotherUserId })
+
+            return res.status(200).json({ getUserPost, ProfileURL, BgURL, userGeneralInfo, ShowDot })
+
+
+
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
+    }
+}
+
+
+exports.commentLength = async (req, res) => {
+    try {
+        const { post_id } = req.body
+        const length = await Comments.find({ post_id }).countDocuments()
+        console.log(length)
+        return res.status(200).json({ message: "successfull", data: length })
+
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" })
+    }
+}
+
+
+exports.friendrequest = async (req, res) => {
+    try {
+        const { anotherUserId } = req.body
+        const _id = req._id
+        if (!anotherUserId) {
+            return res.status(403).json({ message: "invalid" })
+        }
+        else {
+            const checkFriend = await UserData.find({ userId: _id, friendId: anotherUserId })
+            return res.status(200).json({ message: "successfull", checkFriend })
+        }
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" + err })
+
+    }
+}
+
+exports.deletefriendrequest = async (req, res) => {
+    try {
+        const { senderId } = req.body
+        const _id = req._id
+        if (!senderId) {
+            return res.status(403).json({ message: "not delete" })
+        }
+        else {
+
+            await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { currentUser: senderId } } })
+
+            const data = await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { anotherUserId: _id } } }, { new: true })
+            console.log({ data })
+
+            return res.status(200).json({ message: "successfull delete" })
+        }
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" + err })
+
+    }
+
+}
+
+
+exports.acceptfriendrequest = async (req, res) => {
+    try {
+        const { senderId, name } = req.body
+        const _id = req._id
+
+
+        if (!senderId) {
+            return res.status(403).json({ message: "some error" })
+        }
+        else {
+            //    const RecieverRequest = await UserData.findOne({ googleId: _id }, { receiverrequest: { $elemMatch: { currentUser: senderId } } })
+            //     const getSenderRequest = await UserData.findOne({ googleId: senderId }, { senderrequest: { $elemMatch: { anotherUserId: _id } } })
+            //     console.log({ RecieverRequest })
+            //     console.log({ getSenderRequest })
+
+            const RecieverRequest = await UserData.findOne({ googleId: _id })
+            console.log(RecieverRequest)
+            const FilterRequestData = await RecieverRequest.receiverrequest.filter(item => {
+                return item.currentUser === senderId
+            })
+
+            console.log({ FilterRequestData })
+
+
+            const getSenderRequest = await UserData.findOne({ googleId: senderId })
+            console.log({ getSenderRequest })
+            const FilterSenderData = await getSenderRequest.senderrequest.filter(item => {
+                return item.anotherUserId === _id
+            })
+            console.log({ FilterSenderData })
+
+
+
+
+            await UserData.updateOne({ googleId: senderId }, { $push: { friends: FilterSenderData[0] } }, { new: true })
+            await UserData.updateOne({ googleId: _id }, { $push: { friends: FilterRequestData[0] } }, { new: true })
+            await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { anotherUserId: _id } } }, { new: true })
+            await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { currentUser: senderId } } }, { new: true })
+
+            return res.status(200).json({ message: "successfull accecpted" })
+        }
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" + err })
+
+    }
+
 }

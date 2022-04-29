@@ -78,10 +78,9 @@ exports.AuthToken = async (req, res, next) => {
     try {
 
 
-        console.log(req.body)
-        console.log(req.headers)
+
         // req.cookies.uuid || req.body.uuid   ||req.headers.cookie.uuiid|| 
-        const userToken = req.cookies.uuid || req.body.uuid   ||req.headers.cookie.uuiid||  req.headers.authorization.split("Bearer ")[1]
+        const userToken = req.cookies.uuid || req.body.uuid || req.headers.cookie.uuiid || req.headers.authorization.split("Bearer ")[1]
         console.log("user token", userToken)
         console.log(userToken)
         const verifyToken = await jwt.verify(userToken, KEY)
@@ -97,12 +96,12 @@ exports.AuthToken = async (req, res, next) => {
             return res.status(401).json({ message: "user not verify" })
 
         }
-        else if(VerifyUser){
+        else if (VerifyUser) {
             req.token = userToken
             req._id = verifyToken._id
             req.userData = VerifyUser
         }
-        
+
         next()
 
 

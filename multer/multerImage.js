@@ -457,4 +457,11 @@ router.put("/visibility/user/post/local/:post_id", Auth.AuthToken, BlobControlle
 
 //update the privay of any post
 router.put("/api/setPrivacy/:post_id", Auth.AuthToken, BlobController.setPrivacy)
+
+//get search user information when user search the user in search bar
+router.post("/finduserprofile/", Auth.AuthToken, BlobController.finduser)
+router.post("/number/comment/length/", Auth.AuthToken, BlobController.commentLength)
+router.post("/sendfriendrequest/", Auth.AuthToken, BlobController.friendrequest)
+router.delete("/deletefriend/request", Auth.AuthToken, BlobController.deletefriendrequest)
+router.post("/acceptfriend/request", Auth.AuthToken, BlobController.acceptfriendrequest)
 module.exports = router;

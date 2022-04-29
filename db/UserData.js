@@ -15,7 +15,11 @@ const Schema = new mongoose.Schema({
     degree: String,
     position: String,
     aboutMe: String,
-    googleId: String
+    googleId: String,
+    url: String,
+    friends: Array,
+    senderrequest: Array,
+    receiverrequest: Array,
 })
 
 
