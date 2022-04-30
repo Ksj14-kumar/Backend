@@ -66,60 +66,43 @@ module.exports = (io, req, res) => {
     function Load(req, res) {
         io.on("connection", async (socket) => {
 
+
             socket.on("newUser", async (data) => {
-                console.log({ data })
+
+                console.log("someone is conencted")
                 if (data) {
 
                     // // add new user jo like krta hai
                     const { _id } = await jwt.verify(data, KEY)
                     if (await Post.findOne({ googleId: _id }) !== null) {
-                        const { fname, lname } = await Post.findOne({ googleId: _id })
-                        AddUser(fname + " " + lname, socket.id, _id, "")
+                        const { fname, lname, url } = await Post.findOne({ googleId: _id })
+                        AddUser(fname + " " + lname, socket.id, _id, url)
 
-                        AddNewUserIntoDb(fname + " " + lname, socket.id, _id, "")
-                        console.log({ data })
+                        // AddNewUserIntoDb(fname + " " + lname, socket.id, _id, "")
+                        console.log({ onlineUser })
 
                         socket.on("like", async (data) => {
-                            console.log("log data")
                             console.log({ data })
-                            const { likedBy, post_Id, likeTo, type, bg, profile } = data
 
-                            //jisnko like kiya hai uska name ptaa krna
-                            const { fname, lname } = await Post.findOne({ googleId: likeTo })
-                            //jisne like kiya hai uska name ptaa krna
+                            const { likedBy, post_id, likeTo, type, bg, profile } = data
+                            const likeToValue = await Post.findOne({ googleId: likeTo })
+                            const { fname, lname } = likeToValue
                             const sender = await Post.findOne({ googleId: likedBy })
-                            // const sender = await Post.findOne({ googleId: likedBy })
-
-                            //check kre ki jisne like kiya hai wo online hai or nhi
-                            // fname + " " + lname
                             const receiver = await getUser(fname + " " + lname)
-                            //jispost ko like kiya hai uski post_id se image url niklna
-                            // const PostImageUrl = await TextPost.findOne({ userId: likedBy })
-                            //take the profile url jisne like kiya hai
-                            const result = await cloudinary.search.expression(
-                                "folder:" + likedBy + "/profileImage",
+                            console.log({ onlineUser })
 
-                            )
-                                .sort_by('created_at', 'desc')
-                                // .max_results(20)
-                                .execute()
-                            const url = result.resources[0].url
-
-                            console.log({
-                                name: sender.fname + " " + sender.lname,
-                                postImageURL: bg,
-                                url: url,
-                                type: type
-                            })
-                            io.to(receiver?.socketId).emit("getNotification", {
-                                name: sender.fname + " " + sender.lname,
-                                postImageURL: bg,
-                                url: url,
-                                type: type
-                            })
+                            if (type === false) {
+                                io.to(receiver?.socketId).emit("getNotification", {
+                                    name: sender?.fname + " " + sender?.lname,
+                                    postImageURL: bg,
+                                    url: sender?.url,
+                                    post_Id: post_id,
+                                    likedBy,
+                                    type: type
+                                })
+                            }
                         })
                         // socket.broadcast.to(socket.id).emit("he1", { name: socket.id })
-                        console.log(onlineUser)
 
                         socket.on("disconnect", async () => {
                             await removeUser(socket.id)
@@ -128,7 +111,7 @@ module.exports = (io, req, res) => {
                         })
 
 
-                        console.log("connected from index.js")
+                        // console.log("connected from index.js")
 
                     }
 
@@ -138,49 +121,51 @@ module.exports = (io, req, res) => {
 
 
 
+                //ENABLE THE REALTIME FRIENDS REQUEST
+
                 //send the friend request
-                socket.on("sendFriendRequest", async (data) => {
-                    const { senderName, recieverName, userId, currentUser, anotherUserId, message, senderUrl, receiverUrl } = data
-                    console.log({ data })
+                // socket.on("sendFriendRequest", async (data) => {
+                //     const { senderName, recieverName, userId, currentUser, anotherUserId, message, senderUrl, receiverUrl } = data
+                //     console.log({ data })
 
-                    if(currentUser === anotherUserId){
-                        return
-                    }
-                    
-
-                    const isAlreadyExit = await UserData.findOne({ googleId: currentUser })
-                    console.log({ isAlreadyExit })
-                    if (isAlreadyExit.senderrequest.some((item) => item.anotherUserId === anotherUserId) === false) {
-
-                        const receiverUpdate = await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, currentUser: currentUser, message: message, url: senderUrl } } }, { new: true })
-
-                        const senderUpdate = await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, anotherUserId: anotherUserId, message: message, url: receiverUrl } } }, { new: true })
-                        console.log({ senderUpdate })
-                        console.log({ receiverUpdate })
-                        io.to(socket.id).emit("getNotification", {
-                            name: senderName,
-                            postImageURL: senderUrl,
-                            url: receiverUrl,
-                            type: "friendRequest"
-                        })
-
-                    }
-                    else {
-                        console.log("already exit")
-                    }
-
-                    socket.on("getReply", (message) => {
-                        console.log(message)
-
-                    })
+                //     if (currentUser === anotherUserId) {
+                //         return
+                //     }
 
 
+                //     const isAlreadyExit = await UserData.findOne({ googleId: currentUser })
+                //     console.log({ isAlreadyExit })
+                //     if (isAlreadyExit.senderrequest.some((item) => item.anotherUserId === anotherUserId) === false) {
+
+                //         const receiverUpdate = await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, currentUser: currentUser, message: message, url: senderUrl } } }, { new: true })
+
+                //         const senderUpdate = await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, anotherUserId: anotherUserId, message: message, url: receiverUrl } } }, { new: true })
+                //         console.log({ senderUpdate })
+                //         console.log({ receiverUpdate })
+                //         io.to(socket.id).emit("getNotification", {
+                //             name: senderName,
+                //             postImageURL: senderUrl,
+                //             url: receiverUrl,
+                //             type: "friendRequest"
+                //         })
+
+                //     }
+                //     else {
+                //         console.log("already exit")
+                //     }
+
+                //     socket.on("getReply", (message) => {
+                //         console.log(message)
+
+                //     })
 
 
-                    socket.emit("isAccepted", {
-                        message: "okay accepted"
-                    })
-                })
+
+
+                //     socket.emit("isAccepted", {
+                //         message: "okay accepted"
+                //     })
+                // })
 
 
 
@@ -200,6 +185,8 @@ module.exports = (io, req, res) => {
             }
             )
         })
+        console.log(onlineUser)
+
     }
     Load()
 

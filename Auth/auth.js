@@ -81,13 +81,13 @@ exports.AuthToken = async (req, res, next) => {
 
         // req.cookies.uuid || req.body.uuid   ||req.headers.cookie.uuiid|| 
         const userToken = req.cookies.uuid || req.body.uuid || req.headers.cookie.uuiid || req.headers.authorization.split("Bearer ")[1]
-        console.log("user token", userToken)
-        console.log(userToken)
+        // console.log("user token", userToken)
+        // console.log(userToken)
         const verifyToken = await jwt.verify(userToken, KEY)
-        console.log("verifytoken", verifyToken)
-        console.log(verifyToken)
+        // console.log("verifytoken", verifyToken)
+        // console.log(verifyToken)
         const VerifyUser = await GoogleDb.findOne({ _id: verifyToken._id })
-        console.log("verigy user")
+        // console.log("verigy user")
         // console.log(VerifyUser)
 
         if (!VerifyUser) {

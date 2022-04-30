@@ -13,6 +13,7 @@ const Post = require("../db/UserData");
 const Comments = require("../db/Comments");
 const TextPost = require("../db/TextPost");
 const Model = require("../public/Nsfw_Model/min_nsfwjs/model.json")
+const Message = require("../db/Message")
 const onlineUsers = require("../db/OnlineUser")
 
 
@@ -393,7 +394,7 @@ exports.loadComments = async (req, res) => {
         const AllUsersCommentslength = await Comments.find({
             post_id: post_id
         })
-        console.log(+value)
+        // console.log(+value)
 
         // console.log("all comment after new post upload")
         // console.log(AllUsersComments)
@@ -856,7 +857,7 @@ exports.loadAllUserPost = async (req, res) => {
     try {
         const _id = req._id
         const { value } = req.params
-        console.log({ value: +value })
+        // console.log({ value: +value })
         // const { _id } = await jwt.verify(token, KEY)
 
         //get all post by userId 
@@ -1018,7 +1019,7 @@ exports.loadAllNoti = async (req, res) => {
         const _id = req._id
         // const { _id } = await jwt.verify(token, KEY)
         const result = await Noti.find({ likeTo: _id })
-        console.log({ result })
+        // console.log({ result })
         return res.status(200).json({ message: "successfull", data: result })
 
 
@@ -1114,16 +1115,55 @@ exports.commentLength = async (req, res) => {
 
 exports.friendrequest = async (req, res) => {
     try {
-        const { anotherUserId } = req.body
+        const { profileUrl, anotherUserId, recieverName, senderName, userId, currentUser, receiverUrl, senderUrl, connectMessage } = req.body
+
+
         const _id = req._id
-        if (!anotherUserId) {
-            return res.status(403).json({ message: "invalid" })
+
+        if (currentUser === anotherUserId) {
+            return
         }
-        else {
-            const checkFriend = await UserData.find({ userId: _id, friendId: anotherUserId })
-            return res.status(200).json({ message: "successfull", checkFriend })
+        else if (connectMessage === false) {
+            const senderUser = await UserData.findOne({ googleId: currentUser })
+            const recieverUser = await UserData.findOne({ googleId: anotherUserId })
+            // console.log({ senderUser })
+            // console.log(senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId))
+            // console.log({ recieverUser })
+            // console.log(recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true)
+
+            if (senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true) {
+                return res.status(409).json({ message: "already send" })
+            }
+            else {
+
+                await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, anotherUserId: anotherUserId, url: receiverUrl } } }, { new: true })
+
+                await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, currentUser: currentUser, url: senderUrl } } }, { new: true })
+                return res.status(200).json({ message: "successfull sent" })
+            }
         }
 
+        else if (connectMessage === true) {
+            const recieverUser = await UserData.findOne({ googleId: anotherUserId })
+            const senderUser = await UserData.findOne({ googleId: currentUser })
+
+            // console.log(senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId))
+            // console.log(recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true)
+
+            if (senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true) {
+
+
+                await UserData.findOneAndUpdate(
+                    { googleId: currentUser }, { $pull: { senderrequest: { anotherUserId: anotherUserId } } }, { new: true }
+                )
+                await UserData.findOneAndUpdate(
+                    { googleId: anotherUserId }, { $pull: { receiverrequest: { currentUser: currentUser } } }, { new: true }
+
+                )
+                return res.status(200).json({ message: "Successfull delete" })
+            }
+
+        }
 
 
     } catch (err) {
@@ -1136,6 +1176,7 @@ exports.deletefriendrequest = async (req, res) => {
     try {
         const { senderId } = req.body
         const _id = req._id
+        console.log(req.body)
         if (!senderId) {
             return res.status(403).json({ message: "not delete" })
         }
@@ -1147,6 +1188,7 @@ exports.deletefriendrequest = async (req, res) => {
             console.log({ data })
 
             return res.status(200).json({ message: "successfull delete" })
+
         }
 
     }
@@ -1168,18 +1210,15 @@ exports.acceptfriendrequest = async (req, res) => {
             return res.status(403).json({ message: "some error" })
         }
         else {
-            //    const RecieverRequest = await UserData.findOne({ googleId: _id }, { receiverrequest: { $elemMatch: { currentUser: senderId } } })
-            //     const getSenderRequest = await UserData.findOne({ googleId: senderId }, { senderrequest: { $elemMatch: { anotherUserId: _id } } })
-            //     console.log({ RecieverRequest })
-            //     console.log({ getSenderRequest })
+
 
             const RecieverRequest = await UserData.findOne({ googleId: _id })
-            console.log(RecieverRequest)
+            console.log({ RecieverRequest })
             const FilterRequestData = await RecieverRequest.receiverrequest.filter(item => {
                 return item.currentUser === senderId
             })
 
-            console.log({ FilterRequestData })
+            // console.log({ FilterRequestData })
 
 
             const getSenderRequest = await UserData.findOne({ googleId: senderId })
@@ -1187,7 +1226,7 @@ exports.acceptfriendrequest = async (req, res) => {
             const FilterSenderData = await getSenderRequest.senderrequest.filter(item => {
                 return item.anotherUserId === _id
             })
-            console.log({ FilterSenderData })
+            // console.log({ FilterSenderData })
 
 
 
@@ -1196,10 +1235,11 @@ exports.acceptfriendrequest = async (req, res) => {
             await UserData.updateOne({ googleId: _id }, { $push: { friends: FilterRequestData[0] } }, { new: true })
             await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { anotherUserId: _id } } }, { new: true })
             await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { currentUser: senderId } } }, { new: true })
+            await UserData.findOneAndUpdate({ googleId: senderId }, { $push: { message: { name: RecieverRequest.fname + "" + RecieverRequest.lname, url: RecieverRequest.url, type: "friend", acceptorId: _id } } }, { new: true })
+
 
             return res.status(200).json({ message: "successfull accecpted" })
         }
-
     }
     catch (err) {
         return res.status(500).json({ message: "somethinng error occured" + err })
@@ -1207,3 +1247,30 @@ exports.acceptfriendrequest = async (req, res) => {
     }
 
 }
+
+
+
+exports.disconnectfriend = async (req, res) => {
+    try {
+        const { senderId } = req.body
+        const _id = req._id
+        console.log(req.body)
+
+        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { currentUser: senderId } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { anotherUserId: _id } } }, { new: true })
+
+        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { anotherUserId: senderId } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { currentUser: _id } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: _id }, {$pull:{message:{acceptorId:senderId}}},{new:true})
+        return res.status(200).json({ message: "Successfull delete" })
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" })
+
+    }
+}
+
+
+
+

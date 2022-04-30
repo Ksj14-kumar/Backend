@@ -20,6 +20,7 @@ const Schema = new mongoose.Schema({
     friends: Array,
     senderrequest: Array,
     receiverrequest: Array,
+    message: Array,
 })
 
 

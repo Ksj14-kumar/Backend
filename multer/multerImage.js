@@ -327,7 +327,7 @@ router.put("/user/like/:post_id", async (req, res) => {
 
 
             }, { new: true }, async (err, data) => {
-                console.log({ data })
+                // console.log({ data })
                 // UserBlob/
 
 
@@ -368,7 +368,7 @@ router.put("/user/like/:post_id", async (req, res) => {
                             const allNoti = await Noti.find({ post_id })
 
 
-                            pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti, }, req.body.socketId)
+                            // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti, }, req.body.socketId)
                         }
                     })
 
@@ -378,7 +378,7 @@ router.put("/user/like/:post_id", async (req, res) => {
                 else {
                     //if user ne apni profile picture upload nhi ki ho tb
                     const { fname, lname } = await Post.findOne({ googleId: likedBy })
-                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname }, req.body.socketId)
+                    // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname }, req.body.socketId)
 
 
                 }
@@ -413,13 +413,13 @@ router.put("/user/like/:post_id", async (req, res) => {
                 if (result.resources.length > 0) {
                     const url = result.resources[0].url
                     const allNoti = await Noti.find({})
-                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti }, req.body.socketId)
+                    // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti }, req.body.socketId)
 
 
                 }
                 else {
                     const allNoti = await Noti.find({})
-                    pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname, allNoti }, req.body.socketId)
+                    // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname, allNoti }, req.body.socketId)
 
 
 
@@ -464,4 +464,5 @@ router.post("/number/comment/length/", Auth.AuthToken, BlobController.commentLen
 router.post("/sendfriendrequest/", Auth.AuthToken, BlobController.friendrequest)
 router.delete("/deletefriend/request", Auth.AuthToken, BlobController.deletefriendrequest)
 router.post("/acceptfriend/request", Auth.AuthToken, BlobController.acceptfriendrequest)
+router.post("/disconnect/friend", Auth.AuthToken, BlobController.disconnectfriend)
 module.exports = router;

@@ -39,6 +39,7 @@ const router = require("./router/router");
 const GoogleRoute = require("./router/AllLogin")
 const TwitterRoute = require("./router/twitterRoute")
 const multerfile = require("./multer/multerImage")
+const history = require("./multer/History")
 
 const compression = require('compression')
 
@@ -118,8 +119,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(function (req, res, next) {
-    console.log("in index.js files")
-    console.log(req.user)
+    // console.log("in index.js files")
+    // console.log(req.user)
     res.locals.user = req.user || null
     next();
 })
@@ -142,6 +143,7 @@ app.use(function (req, res, next) {
 app.use("/", router)
 app.use("/all", GoogleRoute)
 app.use("/blob", multerfile)
+app.use("/history", history)
 // app.use("/", TwitterRoute)
 
 
