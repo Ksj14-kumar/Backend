@@ -40,8 +40,9 @@ const GoogleRoute = require("./router/AllLogin")
 const TwitterRoute = require("./router/twitterRoute")
 const multerfile = require("./multer/multerImage")
 const history = require("./multer/History")
-
-const compression = require('compression')
+const Conversation = require("./router/Conversation")
+const chatMessages = require('./router/Messages')
+const compression = require("compression")
 
 const session = require("express-session");
 const cookieSession = require("cookie-session")
@@ -55,6 +56,7 @@ const port = process.env.PORT || 5001
 
 
 require("./Socket Middleware/Socket")(io)
+require("./Socket/SocketMessage")
 
 
 
@@ -130,7 +132,6 @@ app.use(function (req, res, next) {
 //     origin: "http://localhost:3000/",
 //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 //     credentials: true,
-
 // }
 
 
@@ -139,11 +140,13 @@ app.use(function (req, res, next) {
 
 // ALL ENV VARIABLE 
 
-
+// require("./Socket/SocketMessage")
 app.use("/", router)
 app.use("/all", GoogleRoute)
 app.use("/blob", multerfile)
 app.use("/history", history)
+app.use("/conversation", Conversation)
+app.use("/chatmessages", chatMessages)
 // app.use("/", TwitterRoute)
 
 

@@ -11,6 +11,8 @@ const GoogleDB = require('../db/googledb');
 const { cloudinary } = require("../Cloudnary/cloudnary");
 const path = require("path");
 const { AuthToken } = require('../Auth/auth');
+const { route } = require("./Conversation");
+const UserData = require("../db/UserData");
 
 const KEY = process.env.SECRET_KEY
 const clientURL = process.env.CLIENT_URL
@@ -352,6 +354,28 @@ router.get("/profile", AuthToken, (req, res) => {
 
     res.status(200).send("welcome to the profile")
 })
+
+
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await UserData.findOne({ googleId: req.params.id })
+        console.log({ user })
+        if (user) {
+            return res.status(200).json({ user })
+        }
+        else {
+            return res.status(400).json({ message: "User Not Found" })
+        }
+
+
+
+    } catch (err) {
+        res.status(400).json({ message: "Opps Something error Occured, try Again" })
+        return
+
+    }
+})
+
 
 module.exports = router;
 

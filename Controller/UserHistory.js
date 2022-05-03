@@ -16,40 +16,54 @@ exports.history = async (req, res) => {
         const userDetails = await UserData.findOne({ googleId: usernameId })
 
         const isAlreadyExit = await History.findOne({ adminId: adminId })
-        console.log({ isAlreadyExit })
+        // console.log({ isAlreadyExit })
 
         // UserData.findOneAndUpdate
         if (isAlreadyExit) {
-            const saveHistory = await History.findOneAndUpdate({
-                adminId: adminId,
-            },
-                {
-                    $push: {
+            const isAlreadyExit = await History.findOne({ adminId: _id })
+            const checkHistoryAlreadyExit = isAlreadyExit.history.some((item) => item.searchUserId === usernameId)
 
-                        history: {
-                            searchUserId: usernameId,
-                            name: userDetails?.fname + " " + userDetails?.lname,
-                            url: userDetails?.url
+            if (!checkHistoryAlreadyExit) {
+                await History.findOneAndUpdate({
+                    adminId: adminId,
+                },
+                    {
+                        $push: {
 
-                            // name,
-                            // receiverUrl
+                            history: {
+                                searchUserId: usernameId,
+                                name: userDetails?.fname + " " + userDetails?.lname,
+                                url: userDetails?.url
+
+                                // name,
+                                // receiverUrl
+                            }
                         }
                     }
-                }
 
-            )
+                )
+            }
+
 
         }
         else {
-            const saveUser = await History({
-                adminId: adminId,
-                history: {
-                    searchUserId: usernameId,
-                    name: userDetails?.fname + " " + userDetails?.lname,
-                    url: userDetails?.url
-                }
-            })
-            await saveUser.save()
+            const isAlreadyExit = await History.findOne({ adminId: _id })
+            const checkHistoryAlreadyExit = isAlreadyExit.history.some((item) => item.searchUserId === usernameId)
+            console.log({ checkHistoryAlreadyExit })
+            if (!checkHistoryAlreadyExit) {
+
+                const saveUser = await History({
+                    adminId: adminId,
+                    history: {
+                        searchUserId: usernameId,
+                        name: userDetails?.fname + " " + userDetails?.lname,
+                        url: userDetails?.url
+                    }
+                })
+                await saveUser.save()
+            }
+
+
 
         }
 
@@ -83,7 +97,7 @@ exports.deletehistory = async (req, res) => {
         const bool = findUserHistorydata?.history.some(item => item.searchUserId === searchUserId)
 
         if (bool) {
-            await History.findOneAndDelete({
+            await History.findOneAndUpdate({
                 adminId: _id
 
             }, {
@@ -97,6 +111,33 @@ exports.deletehistory = async (req, res) => {
 
     } catch (err) {
         return res.status(500).json({ message: "error" })
+
+    }
+}
+
+
+exports.loadFriends = async (req, res) => {
+    try {
+        const _id = req._id
+        //load all the friends except user friends
+        const allFriends = await UserData.find({})
+        const loadAdminFriends = await UserData.findOne({ googleId: _id })
+        const adminFriends = loadAdminFriends.friends
+        const filterData = allFriends.filter((item) => {
+            const userDetails = adminFriends.find((i) => {
+                return i.currentUser || i.anotherUserId
+            })
+
+
+
+
+            return item.googleId !== _id && userDetails.anotherUserId !== item.googleId && userDetails.currentUser !== item.googleId
+        })
+
+        return res.status(200).json({ data: filterData })
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
 
     }
 }

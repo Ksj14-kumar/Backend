@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 
 const Schema = new mongoose.Schema({
-
     post_id: String,
     text: String,
     username: String,
@@ -27,9 +26,10 @@ const Schema = new mongoose.Schema({
 
     time: {
         type: String,
-        default: new Date(Date.now()).getTime().toLocaleString()
+        default: Date.now()
 
     },
+
 
 
 })

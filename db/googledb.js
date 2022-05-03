@@ -38,7 +38,8 @@ const Schema = new mongoose.Schema({
     stream: String,
     degree: String,
     position: String,
-    aboutMe: String
+    aboutMe: String,
+
 
 
 

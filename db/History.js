@@ -6,7 +6,8 @@ const Schema = new mongoose.Schema({
         type: Array,
 
 
-    }
+    },
+
 
 })
 

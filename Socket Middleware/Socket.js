@@ -10,32 +10,14 @@ const TextPost = require("../db/TextPost")
 const { cloudinary } = require("../Cloudnary/cloudnary");
 const UserData = require('../db/UserData');
 
+
+
 let onlineUser = []
+
 
 let AddUser = (username, socketId, adminId, profilePic) => {
     !onlineUser.some((item) => { item.username === username }) && onlineUser.push({ username, socketId, adminId, profilePic })
 }
-
-let AddNewUserIntoDb = async (username, socketId, adminId, profilePic) => {
-    const isExit = await onlineUsers.findOne({ socketId: socketId })
-
-    if (isExit) {
-        return
-    }
-    else {
-        const newUser = new onlineUsers({
-            name: username,
-            socketId: socketId,
-            adminId: adminId,
-            profilePic: profilePic,
-
-            time: new Date(Date.now())
-        })
-        await newUser.save()
-    }
-}
-
-
 const removeUser = async (socketId) => {
     return onlineUser.filter((item) => {
         return item.socketId !== socketId
@@ -43,22 +25,12 @@ const removeUser = async (socketId) => {
 
 }
 
-let RemoveUserFromDbAfterDisconnect = async (socketId) => {
-    await onlineUsers.findOneAndRemove({ socketId: socketId })
-
-}
-
-
 const getUser = (username) => {
     return onlineUser.find((item) => {
         return item.username === username
     })
 }
 
-
-const getUserFromDb = (username) => {
-    return onlineUsers.findOne({ name: username })
-}
 
 
 module.exports = (io, req, res) => {
@@ -69,6 +41,7 @@ module.exports = (io, req, res) => {
 
             socket.on("newUser", async (data) => {
 
+
                 console.log("someone is conencted")
                 if (data) {
 
@@ -78,8 +51,19 @@ module.exports = (io, req, res) => {
                         const { fname, lname, url } = await Post.findOne({ googleId: _id })
                         AddUser(fname + " " + lname, socket.id, _id, url)
 
-                        // AddNewUserIntoDb(fname + " " + lname, socket.id, _id, "")
+
                         console.log({ onlineUser })
+                        //check user is exit in friends list of admin
+                        const adminInfo = await UserData.findOne({ googleId: _id })
+
+
+                        const friends = adminInfo.friends !== undefined && adminInfo.friends
+                        const value = await getDifference(friends, onlineUser)
+
+
+                        socket.emit("online", { data: onlineUser })
+
+
 
                         socket.on("like", async (data) => {
                             console.log({ data })
@@ -121,51 +105,18 @@ module.exports = (io, req, res) => {
 
 
 
-                //ENABLE THE REALTIME FRIENDS REQUEST
-
-                //send the friend request
-                // socket.on("sendFriendRequest", async (data) => {
-                //     const { senderName, recieverName, userId, currentUser, anotherUserId, message, senderUrl, receiverUrl } = data
-                //     console.log({ data })
-
-                //     if (currentUser === anotherUserId) {
-                //         return
-                //     }
-
-
-                //     const isAlreadyExit = await UserData.findOne({ googleId: currentUser })
-                //     console.log({ isAlreadyExit })
-                //     if (isAlreadyExit.senderrequest.some((item) => item.anotherUserId === anotherUserId) === false) {
-
-                //         const receiverUpdate = await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, currentUser: currentUser, message: message, url: senderUrl } } }, { new: true })
-
-                //         const senderUpdate = await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, anotherUserId: anotherUserId, message: message, url: receiverUrl } } }, { new: true })
-                //         console.log({ senderUpdate })
-                //         console.log({ receiverUpdate })
-                //         io.to(socket.id).emit("getNotification", {
-                //             name: senderName,
-                //             postImageURL: senderUrl,
-                //             url: receiverUrl,
-                //             type: "friendRequest"
-                //         })
-
-                //     }
-                //     else {
-                //         console.log("already exit")
-                //     }
-
-                //     socket.on("getReply", (message) => {
-                //         console.log(message)
-
-                //     })
+                
 
 
 
 
-                //     socket.emit("isAccepted", {
-                //         message: "okay accepted"
-                //     })
-                // })
+
+
+
+
+
+
+
 
 
 
@@ -182,6 +133,12 @@ module.exports = (io, req, res) => {
                     })
 
                 })
+
+
+               
+
+
+
             }
             )
         })
@@ -191,3 +148,14 @@ module.exports = (io, req, res) => {
     Load()
 
 }
+
+
+function getDifference(array1, array2) {
+    return array1.filter(object1 => {
+        return !array2.some(object2 => {
+            return (object1.anotherUserId === object2.adminId) || (object1.currentUser === object2.adminId);
+        });
+    });
+}
+
+

@@ -1116,6 +1116,7 @@ exports.commentLength = async (req, res) => {
 exports.friendrequest = async (req, res) => {
     try {
         const { profileUrl, anotherUserId, recieverName, senderName, userId, currentUser, receiverUrl, senderUrl, connectMessage } = req.body
+        console.log(req.body)
 
 
         const _id = req._id
@@ -1213,7 +1214,7 @@ exports.acceptfriendrequest = async (req, res) => {
 
 
             const RecieverRequest = await UserData.findOne({ googleId: _id })
-            console.log({ RecieverRequest })
+            const SenderRequest = await UserData.findOne({ googleId: senderId })
             const FilterRequestData = await RecieverRequest.receiverrequest.filter(item => {
                 return item.currentUser === senderId
             })
@@ -1236,6 +1237,8 @@ exports.acceptfriendrequest = async (req, res) => {
             await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { anotherUserId: _id } } }, { new: true })
             await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { currentUser: senderId } } }, { new: true })
             await UserData.findOneAndUpdate({ googleId: senderId }, { $push: { message: { name: RecieverRequest.fname + "" + RecieverRequest.lname, url: RecieverRequest.url, type: "friend", acceptorId: _id } } }, { new: true })
+
+            await UserData.findOneAndUpdate({ googleId: _id }, { $push: { message: { name: SenderRequest.fname + "" + SenderRequest.lname, url: SenderRequest.url, type: "friend", acceptorId: senderId } } }, { new: true })
 
 
             return res.status(200).json({ message: "successfull accecpted" })
@@ -1261,7 +1264,9 @@ exports.disconnectfriend = async (req, res) => {
 
         await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { anotherUserId: senderId } } }, { new: true })
         await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { currentUser: _id } } }, { new: true })
-        await UserData.findOneAndUpdate({ googleId: _id }, {$pull:{message:{acceptorId:senderId}}},{new:true})
+        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { message: { acceptorId: senderId } } }, { new: true })
+
+        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { message: { acceptorId: _id } } }, { new: true })
         return res.status(200).json({ message: "Successfull delete" })
 
     }

@@ -8,7 +8,8 @@ const Schema = new mongoose.Schema({
     adminId: String,
     socketId: String,
     profilePic: String,
-    time: String
+    time: String,
+
 
 
 

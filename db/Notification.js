@@ -17,7 +17,8 @@ const NotificationSchema = new mongoose.Schema({
 
     likeTo: String,
     likedBy: String,
-    postImageURL: String
+    postImageURL: String,
+
 })
 
 
