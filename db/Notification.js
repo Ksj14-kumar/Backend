@@ -18,6 +18,10 @@ const NotificationSchema = new mongoose.Schema({
     likeTo: String,
     likedBy: String,
     postImageURL: String,
+    time: {
+        type: String,
+        default: Date.now()
+    }
 
 })
 

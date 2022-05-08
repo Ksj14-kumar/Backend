@@ -36,5 +36,24 @@ router.get("/:userId", async (req, res) => {
     }
 })
 
+//get con between two user
+router.get("/:userId/:userId2", async (req, res) => {
+
+    try {
+        const data = await Conversation.findOne({ members: { $all: [req.params.userId, req.params.userId2] } })
+        console.log({ data })
+
+        return res.status(200).json({ data: data })
+
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+
+
+    }
+
+})
+
 
 module.exports = router

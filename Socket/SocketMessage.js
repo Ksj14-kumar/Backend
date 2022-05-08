@@ -31,17 +31,29 @@ io.on('connection', (socket) => {
 
 
 
-
+console.log({onlineMessageUsers})
     console.log('a user connected');
 
     //realtime messages system
 
     //add user when user connect
     socket.on("addNewMessageUser", (data) => {
-        // io.emit("message", { data: onlineMessageUsers })
         AddNewMessageUser(socket.id, data)
+        io.emit("getOnlineUsers", { data: onlineMessageUsers })
 
     })
+
+    // socket.on("typing",async (data) => {
+    //     console.log({ data })
+
+    //     const user = await getUser(data.receiverId)
+    //     console.log({ user, onlineMessageUsers })
+    //     io.to(user?.socketId).emit("typingIndi", {
+    //         senderId: data.senderId,
+    //         typing: data.typing
+    //     })
+
+    // })
 
 
     //send and get message
@@ -57,7 +69,7 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         RemoveMessageUser(socket.id)
-        // io.emit("message", { data: onlineMessageUsers })
+        io.emit("getOnlineUsers", { data: onlineMessageUsers })
 
         console.log('user disconnected');
     });

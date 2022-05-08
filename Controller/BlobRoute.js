@@ -130,7 +130,7 @@ exports.getProfileImage = async (req, res) => {
             .sort_by('created_at', 'desc')
             // .max_results(20)
             .execute()
-        res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
+        res.status(200).json({ url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
     } catch (err) {
         console.log(err)
         res.status(500).json({ message: "Something Error  Occured" })
@@ -187,10 +187,11 @@ exports.saveUserInformation = async (req, res) => {
     try {
 
         const _id = req._id
+        console.log(req.body)
 
-        const { UserProfileInformationm, url } = req.body
+        const { UserProfileInformation, url, uuid } = req.body
 
-        const { username, fname, lname, gender, address, city, country, postalCode, college, stream, degree, position, aboutMe } = UserProfileInformationm
+        const { username, fname, lname, gender, address, city, country, postalCode, college, stream, degree, position, aboutMe } = UserProfileInformation
 
         if (!username || !fname || !lname || !gender || !address || !city || !country || !postalCode || !aboutMe || !college || !stream || !degree || !position) {
             res.status(401).json({ message: "Please fill all the fields" })
@@ -202,16 +203,18 @@ exports.saveUserInformation = async (req, res) => {
             const IsUserInfoAvaila = await new Post(
                 {
                     username,
-                    fname,
-                    lname,
-                    gender,
-                    address,
-                    city,
-                    country,
+                    fname: fname[0].toUpperCase() + fname.slice(1).toLowerCase(),
+                    lname: lname[0].toUpperCase() + lname.slice(1).toLowerCase(),
+                    gender: gender[0].toUpperCase() + gender.slice(1).toLowerCase(),
+                    address: address.toLowerCase(),
+                    city: city[0].toUpperCase() + city.slice(1).toLowerCase(),
+                    country: country[0].toUpperCase() + country.slice(1).toLowerCase(),
                     postalCode,
                     url: url,
                     aboutMe,
-                    college, stream,
+                    college,
+
+                    stream,
                     degree,
                     position,
                     googleId: _id,
@@ -236,7 +239,7 @@ exports.saveUserInformation = async (req, res) => {
 
 
 
-            const checkUserAlreadyExit = await Post.findOneAndUpdate({ googleId: _id }, { ...req.body.UserProfileInformationm, url }, { new: true, upsert: true })
+            const checkUserAlreadyExit = await Post.findOneAndUpdate({ googleId: _id }, { ...req.body.UserProfileInformation, url }, { new: true, upsert: true })
 
 
 
@@ -1017,8 +1020,33 @@ exports.loadAllNoti = async (req, res) => {
 
 
         const _id = req._id
+        const id = req.params.id
         // const { _id } = await jwt.verify(token, KEY)
-        const result = await Noti.find({ likeTo: _id })
+
+        const result = await Noti.find({
+            $and: [{
+                likeTo: _id
+            }, { likedBy: { $ne: _id } }]
+        }).sort({ $natural: -1 }).limit(5)
+        // console.log({ result })
+        return res.status(200).json({ message: "successfull", data: result })
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "somethinng error occured" + err })
+
+    }
+}
+exports.loadAllNotification = async (req, res) => {
+    try {
+
+
+        const _id = req._id
+        const id = req.params.id
+
+        // const { _id } = await jwt.verify(token, KEY)
+
+        const result = await Noti.find({ $and: [{ likeTo: _id }, { likedBy: { $ne: _id } }] })
         // console.log({ result })
         return res.status(200).json({ message: "successfull", data: result })
 
@@ -1055,6 +1083,28 @@ exports.finduser = async (req, res) => {
         const _id = req._id
         const { anotherUserId } = req.body
 
+        // /get profile
+        const ProfileImage = await cloudinary.search.expression(
+            "folder:" + anotherUserId + "/profileImage")
+            .sort_by('created_at', 'desc').execute()
+
+        // console.log( ProfileImage.resources[0] )
+
+        //get Bg
+        const BgImage = await cloudinary.search.expression(
+            "folder:" + anotherUserId + "/background")
+            .sort_by('created_at', 'desc').execute()
+        // console.log({ BgImage })
+
+
+        const BgURL = (BgImage.resources.length > 0 && BgImage.resources !== undefined) && BgImage.resources[0].url
+        const ProfileURL = (ProfileImage.resources.length > 0 && ProfileImage.resources !== undefined) && ProfileImage.resources[0].url
+
+
+
+        const userGeneralInfo = await Post.find({ googleId: anotherUserId })
+
+        // console.log({ userGeneralInfo })
         if (!anotherUserId) {
 
             return res.status(403).json({ message: "please, select user" })
@@ -1065,26 +1115,49 @@ exports.finduser = async (req, res) => {
 
                 getUserPost = await TextPost.find({ userId: anotherUserId })
                 ShowDot = true
+
+                return res.status(200).json({ getUserPost, ProfileURL, BgURL, userGeneralInfo, ShowDot })
             }
             else {
                 getUserPost = await TextPost.find({ userId: anotherUserId, privacy: "public" })
                 ShowDot = false
+                return res.status(200).json({ getUserPost, ProfileURL, BgURL, userGeneralInfo, ShowDot })
 
             }
 
-            const ProfileImage = await cloudinary.search.expression(
-                "folder:" + anotherUserId + "/profileImage")
-                .sort_by('created_at', 'desc').execute()
-            const ProfileURL = ProfileImage.resources[0].url
+            // const ProfileImage = await cloudinary.search.expression(
+            //     "folder:" + anotherUserId + "/profileImage")
+            //     .sort_by('created_at', 'desc').execute()
 
-            const BgImage = await cloudinary.search.expression(
-                "folder:" + anotherUserId + "/background")
-                .sort_by('created_at', 'desc').execute()
-            const BgURL = BgImage.resources[0].url
+            // console.log("profile")
+            // console.log(ProfileImage)
+            // if (ProfileImage.resources.length > 0 && ProfileImage.resources !== undefined) {
 
-            const userGeneralInfo = await Post.find({ googleId: anotherUserId })
+            //     const ProfileURL = ProfileImage.resources[0].url
 
-            return res.status(200).json({ getUserPost, ProfileURL, BgURL, userGeneralInfo, ShowDot })
+            //     const BgImage = await cloudinary.search.expression(
+            //         "folder:" + anotherUserId + "/background")
+            //         .sort_by('created_at', 'desc').execute()
+
+            //     if (BgImage.resources.length > 0 && BgImage.resources !== undefined) {
+
+            //         const BgURL = BgImage.resources[0].url
+
+            //         return res.status(200).json({ getUserPost, ProfileURL, BgURL, userGeneralInfo, ShowDot })
+            //     }
+            //     else {
+
+
+            //         return res.status(200).json({ getUserPost, ProfileURL, userGeneralInfo, ShowDot })
+            //     }
+            // }
+            // else {
+
+            //     return res.status(200).json({ getUserPost, ShowDot, userGeneralInfo })
+            // }
+
+
+
 
 
 
@@ -1116,6 +1189,7 @@ exports.commentLength = async (req, res) => {
 exports.friendrequest = async (req, res) => {
     try {
         const { profileUrl, anotherUserId, recieverName, senderName, userId, currentUser, receiverUrl, senderUrl, connectMessage } = req.body
+        console.log("send reqiest")
         console.log(req.body)
 
 
@@ -1278,4 +1352,26 @@ exports.disconnectfriend = async (req, res) => {
 
 
 
+
+exports.getfriends = async (req, res) => {
+    try {
+
+        const user = await UserData.findOne({ googleId: req.params.userId });
+        const friends = await Promise.all(
+            user.friends.map((friendId) => {
+                return UserData.findOne({ $or: [{ googleId: friendId.anotherUserId }, { googleId: friendId.currentUser }] })
+            })
+        );
+
+        let friendList = [];
+        friends.map((friend) => {
+            console.log(friend)
+
+            friendList.push({ _id: friend.googleId, name: friend.fname + " " + friend.lname, url: friend.url });
+        });
+        return res.status(200).json({ friendList })
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
 

@@ -20,6 +20,7 @@ const BlobController = require("../Controller/BlobRoute")
 
 
 let Pusher = require('pusher');
+const UserData = require("../db/UserData");
 let pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
     key: process.env.PUSHER_APP_KEY,
@@ -448,6 +449,7 @@ router.get("/search/", Auth.AuthToken, BlobController.search)
 
 //load the all notification
 router.get("/load/all/notification/:id", Auth.AuthToken, BlobController.loadAllNoti)
+router.get("/load/all/notification/byId/:id", Auth.AuthToken, BlobController.loadAllNotification)
 
 
 //change visibilty of any post
@@ -465,4 +467,5 @@ router.post("/sendfriendrequest/", Auth.AuthToken, BlobController.friendrequest)
 router.delete("/deletefriend/request", Auth.AuthToken, BlobController.deletefriendrequest)
 router.post("/acceptfriend/request", Auth.AuthToken, BlobController.acceptfriendrequest)
 router.post("/disconnect/friend", Auth.AuthToken, BlobController.disconnectfriend)
+router.get("/friends/:userId", Auth.AuthToken, BlobController.getfriends);
 module.exports = router;

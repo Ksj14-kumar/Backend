@@ -7,6 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend":"npm start --prefix frontend",
     "client": "npm start frontend"
   },
   "keywords": [],
@@ -42,6 +43,7 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.15"
   }
 }
