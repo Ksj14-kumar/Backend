@@ -33,15 +33,15 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
 }, async (req, accessToken, refreshToken, profile, done) => {
-    console.log("iser profile dta")
-    console.log(profile)
+    // console.log("iser profile dta")
+    // console.log(profile)
     // return done(null, profile);
 
 
 
 
-    console.log("profile data")
-    console.log(profile)
+    // console.log("profile data")
+    // console.log(profile)
 
 
     // const userToken = await jsonToken.sign({ _id: profile.id }, KEY)
@@ -49,8 +49,8 @@ passport.use(new GoogleStrategy({
         googleId: profile.id
     }).then(async (user) => {
         if (user) {
-            console.log("user-1")
-            console.log(user)
+            // console.log("user-1")
+            // console.log(user)
             // req.user = tokenId
             req.user = user
             // res.cookie("uuid", userToken)
@@ -94,8 +94,8 @@ passport.use(new GoogleStrategy({
             // req.user = profile
 
             newUser.save().then((user) => {
-                console.log("user-2")
-                console.log(user)
+                // console.log("user-2")
+                // console.log(user)
                 req.user = user
                 // res.cookie("uuid", userToken)
 
@@ -282,8 +282,8 @@ passport.use(new FacebookStrategy({
 passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
     GoogleDB.findOne({ email: email }, async (err, user) => {
 
-        console.log("local  users")
-        console.log(user)
+        // console.log("local  users")
+        // console.log(user)
 
 
         if (err) {
@@ -299,8 +299,8 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
                 return done(null, false, { message: "Invalid credentials" });
             }
             else {
-                console.log("user is found")
-                console.log(user)
+                // console.log("user is found")
+                // console.log(user)
                 return done(null, user);
             }
 
@@ -374,14 +374,14 @@ passport.use(new GithubStrategy({
 
                 })
 
-                console.log("save data")
+                // console.log("save data")
                 user.save((err) => {
                     if (err) {
-                        console.log("user not save ", err.name)
+                        // console.log("user not save ", err.name)
                         return done(null, err)
                     }
                     else {
-                        console.log("save successfull")
+                        // console.log("save successfull")
                         return done(null, user)
                     }
 

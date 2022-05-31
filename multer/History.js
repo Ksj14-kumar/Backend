@@ -10,7 +10,7 @@ const userHistory = require("../Controller/UserHistory")
 router.post("/user/history", Auth.AuthToken, userHistory.history)
 router.get("/user/history/fetch", Auth.AuthToken, userHistory.historyfetch)
 router.delete("/delete/history", Auth.AuthToken, userHistory.deletehistory)
-router.get("/load/friends/:id", userHistory.loadFriends)
+router.get("/load/friends/",Auth.AuthToken, userHistory.loadFriends)
 
 
 module.exports = router

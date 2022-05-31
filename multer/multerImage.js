@@ -361,10 +361,10 @@ router.put("/user/like/:post_id", async (req, res) => {
                     SaveNoti.save(async (err) => {
                         if (err) {
                             console.log("noti not saved", err)
-                            console.log(err)
+                            // console.log(err)
                         }
                         else {
-                            console.log("noti saved")
+                            // console.log("noti saved")
                             //find all notification regarding to specific post
                             const allNoti = await Noti.find({ post_id })
 

@@ -121,8 +121,8 @@ exports.deletehistory = async (req, res) => {
 
 exports.loadFriends = async (req, res) => {
     try {
-        const _id = req._id
-        const id = req.params.id
+        const id = req._id
+        // const id = req.params.id
         //load all the friends except user friends
         const allFriends = await UserData.find({ googleId: { $ne: id } })
         const loadAdminFriends = await UserData.findOne({ googleId: id })
@@ -130,32 +130,21 @@ exports.loadFriends = async (req, res) => {
 
 
         // console.log({ allFriends })
+        // console.log({ loadAdminFriends })
         const filterData = allFriends.filter((item) => {
 
+            return !adminFriends.some((i) => {
 
-            return adminFriends.some((i) => {
-                console.log({ i })
-                return i.currentUser !== item.googleId && i.anotherUserId !== item.googleId
+                return i._id === item.googleId
             })
 
-            // // return adminFriends.some(i=>{return i.currentUser || i.anotherUserId})
-
-            // // console.log({ adminFriends })
-            // const userDetails = adminFriends.length > 0 && adminFriends.filter((i) => {
-
-            //     return (i.currentUser || i.anotherUserId)
-            // })
-
-
-
-            // // console.log({ userDetails })
 
             // const value = item.googleId !== _id && userDetails.anotherUserId !== item.googleId && userDetails.currentUser !== item.googleId
             // console.log({ value })
             // return value
         })
 
-        console.log({ filterData })
+        // console.log({ filterData })
 
         return res.status(200).json({ data: filterData })
 

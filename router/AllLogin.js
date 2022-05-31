@@ -20,28 +20,28 @@ const jwtToken = require("jsonwebtoken")
 router.get("/google/success", async (req, res) => {
 
     try {
-        console.log("google user")
-        console.log(req.user)
+        // console.log("google user")
+        // console.log(req.user)
         // console.log(req.session)
 
         const { _id } = req.user
 
         const userToken = await jwtToken.sign({ _id }, process.env.SECRET_KEY)
 
-        console.log(userToken)
+        // console.log(userToken)
 
         // create a folder
         if (fs.existsSync(path.dirname(__dirname) + "/public/UserBlob/" + _id)) {
-            console.log("already created")
+            // console.log("already created")
         }
         else {
             // console.log("not created")
             fs.mkdirSync(path.dirname(__dirname) + "/public/UserBlob/" + _id, { recursive: true })
         }
 
-        console.log("token created ")
+        // console.log("token created ")
 
-        console.log(req.user)
+        // console.log(req.user)
         if (req.user) {
             res.status(200).cookie("uuid", userToken).json({
                 message: "Login Successfull",
@@ -64,8 +64,8 @@ router.get("/google/success", async (req, res) => {
 
 
 router.get("/login/failed", (req, res) => {
-    console.log("invalid cr3edentials")
-    console.log(req.user)
+    // console.log("invalid cr3edentials")
+    // console.log(req.user)
     res.status(401).json({ message: "Invalid Credentials" })
 })
 
@@ -82,8 +82,8 @@ router.get("/google", passport.authenticate("google", {
 
 router.get("/api/login/google/redirect", (req, res, next) => {
 
-    console.log("redirect user details", req.user)
-    console.log(req.user)
+    // console.log("redirect user details", req.user)
+    // console.log(req.user)
     passport.authenticate("google", {
         failureRedirect: "/login/failed",
         successRedirect: clientURL + "/dashboard",

@@ -3,15 +3,8 @@ const mongoose = require('mongoose');
 
 
 const Schema = new mongoose.Schema({
-
-    acceptUserId: String,
-    acceptMessage: String,
-    acceptDate: String,
-    url: String,
-
-
-
-
+    conversations: Array,
+    messages: Array
 })
 
-module.exports = mongoose.model('messages', Schema)
+module.exports = mongoose.model('messages', Schema);

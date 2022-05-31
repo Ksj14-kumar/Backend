@@ -70,21 +70,30 @@ require("./Socket/SocketMessage")
 
 app.use(function (req, res, next) {
     res.setTimeout(120000, function () {
-        console.log('Request has timed out.');
+        console.log(' from index file Request has timed out.');
         res.sendStatus(408);
     });
 
     next();
 });
 app.use(cors())
-mongoose.connect(URL, (err) => {
-    if (err) {
-        console.log("not connected")
-    }
-    else {
-        console.log("connected to db")
-    }
-})
+
+try {
+    mongoose.connect(URL,  (err) => {
+        if (err) {
+            console.log("not connected")
+        }
+        else {
+            console.log("connected to db")
+        }
+    })
+
+} catch (err) {
+    process.exit(1)
+
+}
+
+
 
 
 
@@ -94,8 +103,8 @@ app.use(compression())
 app.use(express.static(path.join(__dirname, '/public/userDirectories')))
 // app.set('trust proxy', 1)
 app.use(cookieParser())
-app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }))
-app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
+app.use(bodyParser.json({ limit: '200mb' }))
 app.use(cors())
 app.use(session({
     name: "session id",
@@ -111,7 +120,7 @@ app.use(session({
     }
 }))
 
-console.log(process.env.NODE_ENV)
+// console.log("",process.env.NODE_ENV)
 
 
 
@@ -121,8 +130,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(function (req, res, next) {
-    // console.log("in index.js files")
-    // console.log(req.user)
     res.locals.user = req.user || null
     next();
 })
@@ -145,8 +152,8 @@ app.use("/", router)
 app.use("/all", GoogleRoute)
 app.use("/blob", multerfile)
 app.use("/history", history)
-app.use("/conversation", Conversation)
-app.use("/chatmessages", chatMessages)
+app.use("/api", Conversation)
+app.use("/api", chatMessages)
 // app.use("/", TwitterRoute)
 
 

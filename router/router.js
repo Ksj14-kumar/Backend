@@ -134,12 +134,12 @@ router.post("/api/register", async (req, res) => {
 //LOCAL LOGIN
 
 router.post("/api/login", (req, res, next) => {
-    console.log(req.body)
+    // console.log(req.body)
     // console.log("local storage user", req.user)
-    console.log("local user when login")
-    console.log(req.body)
-    console.log(req.user)
-    console.log("local user when logout")
+    // console.log("local user when login")
+    // console.log(req.body)
+    // console.log(req.user)
+    // console.log("local user /when logout")
 
     passport.authenticate("local", {
         successRedirect: "/success",
@@ -155,38 +155,33 @@ router.post("/api/login", (req, res, next) => {
 
 //  SUCCESS AND FAILURE ROUTE AFTER LOGIN local auth
 router.get("/success", async (req, res) => {
-    console.log("user success req.user")
-    console.log(req.user)
+    // console.log("user success req.user")
+    // console.log(req.user)
 
     try {
-        console.log("private user")
+        // console.log("private user")
         // console.log(req._user)
 
-        console.log("local user data")
-        console.log(res.locals.user)
-        console.log(req.user)
-        console.log("success is end")
-
+        // console.log("local user data")
+        // console.log(res.locals.user)
+        // console.log(req.user)
+        // console.log("success is /end")
 
 
         // fs.mkdirSync(__dirname+"/public/images/"+req.user.email)
         const { _id } = req.user
-
-
         if (fs.existsSync(path.dirname(__dirname) + "/public/UserBlob/" + _id)) {
-            console.log("already created")
+            // console.log("already created")
         }
         else {
             // console.log("not created")
             fs.mkdirSync(path.dirname(__dirname) + "/public/UserBlob/" + _id, { recursive: true })
         }
-
-        const userToken = await jsonToken.sign({ _id: req.user._id }, KEY,)
+        const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
         // console.log("user local stargety login token")
-        console.log(userToken)
+        // console.log(userToken)
         res.cookie("uuid", userToken)
         // console.log({ user: req.user })
-
         const { name } = req.user
         if (req.user) {
 
@@ -197,8 +192,6 @@ router.get("/success", async (req, res) => {
                 cookie: userToken
             })
         }
-
-
     } catch (err) {
         res.status(400).json({ message: "Opps Something error Occured in the field, try Again" + err })
         return
@@ -277,8 +270,8 @@ router.delete("/delete/account/:id", AuthToken, async (req, res) => {
 
                 cloudinary.api.delete_resources_by_prefix(FindUserImagesAndPost.resources[0].folder.split("/")[0],
                     function (result) {
-                        console.log(result)
-                        console.log("delete profile")
+                        // console.log(result)
+                        // console.log("delete profile")
                     })
             }
 
@@ -288,8 +281,8 @@ router.delete("/delete/account/:id", AuthToken, async (req, res) => {
 
                 cloudinary.api.delete_resources_by_prefix(backgroundImages.resources[0].folder.split("/")[0],
                     function (result) {
-                        console.log(result)
-                        console.log("delete back")
+                        // console.log(result)
+                        // console.log("delete back")
                     })
             }
 
@@ -359,7 +352,7 @@ router.get("/profile", AuthToken, (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const user = await UserData.findOne({ googleId: req.params.id })
-        console.log({ user })
+        // console.log({ user })
         if (user) {
             return res.status(200).json({ user })
         }
@@ -378,6 +371,3 @@ router.get("/:id", async (req, res) => {
 
 
 module.exports = router;
-
-
-

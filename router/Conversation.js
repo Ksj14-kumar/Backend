@@ -5,10 +5,12 @@ const router = require("express").Router()
 
 
 //add the chat into db
-router.post("/", async (req, res) => {
+router.post("/v1", async (req, res) => {
     try {
+
+        // console.log("conversation", req.body)
         const conversation = await Conversation({
-            members: [req.body.senderId, req.body.receiverId]
+            members: [req.body.adminId, req.body.friend_id]
         })
 
         await conversation.save()
@@ -41,7 +43,7 @@ router.get("/:userId/:userId2", async (req, res) => {
 
     try {
         const data = await Conversation.findOne({ members: { $all: [req.params.userId, req.params.userId2] } })
-        console.log({ data })
+        // console.log({ data })
 
         return res.status(200).json({ data: data })
 

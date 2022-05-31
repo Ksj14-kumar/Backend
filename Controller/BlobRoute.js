@@ -84,7 +84,7 @@ exports.profileImagePost = async (req, res) => {
 
 
             //if image is not  contain voilence stuff
-            console.log({ uploadResponse })
+            // console.log({ uploadResponse })
             if (FilterData === undefined) {
                 await Post.findOneAndUpdate({ googleId: _id }, { $set: { url: uploadResponse.url } })
                 await TextPost.findOneAndUpdate({ userId: _id }, { $set: { profileImage: uploadResponse.url } })
@@ -111,7 +111,7 @@ exports.profileImagePost = async (req, res) => {
         }
     }
     catch (err) {
-        console.log(err)
+        // console.log(err)
         return res.status(499).json({ message: "not uploaded please try again" + err })
     }
 
@@ -132,7 +132,7 @@ exports.getProfileImage = async (req, res) => {
             .execute()
         res.status(200).json({ url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         res.status(500).json({ message: "Something Error  Occured" })
 
     }
@@ -187,7 +187,7 @@ exports.saveUserInformation = async (req, res) => {
     try {
 
         const _id = req._id
-        console.log(req.body)
+        // console.log(req.body)
 
         const { UserProfileInformation, url, uuid } = req.body
 
@@ -308,7 +308,7 @@ exports.backgroundImagePost = async (req, res) => {
             invalidate: true,
             phash: true
         })
-        console.log({ uploadResponse })
+        // console.log({ uploadResponse })
 
 
         //pass the image url to Detecteing image
@@ -361,7 +361,7 @@ exports.DeleteAssestsBackgroundImage = async (req, res) => {
     try {
 
         const { uploadImageDataFromBackground } = req.body
-        console.log(uploadImageDataFromBackground)
+        // console.log(uploadImageDataFromBackground)
         const id = req._id
         const allUserIdAssestsForBg = await cloudinary.search.expression(
             "folder:" + `${id}/background`,
@@ -389,7 +389,7 @@ exports.loadComments = async (req, res) => {
         // console.log(req.params)
         const { post_id, userId } = req.params
         const { value } = req.params
-        console.log({ post_id, userId })
+        // console.log({ post_id, userId })
         const AllUsersComments = await Comments.find({
             post_id: post_id
         }).limit(+value)
@@ -425,7 +425,7 @@ exports.saveComment = async (req, res) => {
     try {
 
         const userId = req.params.commentId
-        console.log(req.body)
+        // console.log(req.body)
         const { comment } = req.body
 
 
@@ -489,13 +489,10 @@ exports.updateComment = async (req, res) => {
 exports.saveUserPostIntoCloudinary = async (req, res) => {
 
     try {
-
-
-
         let array = []
         const postId = req.params.id
-        const { text, image, privacy, post_id, time } = req.body
-        console.log({ image })
+        const { text, image, privacy, post_id, time, fileType, name, userProfileImageUrl } = req.body
+        // console.log(req.body)
         const data = image
         const userId = postId.split("-")[0]
         if (image || text) {
@@ -512,6 +509,7 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                         return res.status(500).json({ message: "Not Uploaded, Try Again" + err })
                     }
                     else {
+
 
 
 
@@ -546,7 +544,10 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                                             }
                                             else {
                                                 //find all the text post after save new text post 
-                                                const allTextPost = await TextPost.find({})
+                                                const allTextPost = await TextPost.find({
+                                                    userId: postId
+                                                })
+                                                console.log(allTextPost)
                                                 if (allTextPost.length > 0) {
                                                     array.push(allTextPost)
                                                     return res.status(200).json({ message: "Post added successfully", data: array })
@@ -558,6 +559,9 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
 
                                         })
                                     }
+                                    else {
+                                        return res.status(200).json({ message: "success full added", data: array })
+                                    }
                                 }
                             }
 
@@ -568,12 +572,17 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                                 //if text is not empty
 
                                 if (text) {
-                                    const userTextPost = await new TextPost({
+                                    const userTextPost = await  TextPost({
                                         post_id: post_id,
                                         text: text,
+                                        username:"",
+                                        image:"",                              
                                         privacy: privacy,
                                         userId: userId,
-                                        createdAt: time
+                                        createdAt: time,
+                                        fileType:"",
+                                        profileImage:""
+
 
                                     })
 
@@ -632,7 +641,7 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
 
                                 userTextPost.save(async (err) => {
                                     if (err) {
-                                        return res.status(500).json({ message: "Something error occured" })
+                                        return res.status(500).json({ message: "Something error occured in message" +err})
                                     }
                                     else {
                                         const TakeAllTextPost = await TextPost.find({})
@@ -649,21 +658,11 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                             }
                         }
                     }
-
-
                 })
-
-
             }
-
-
-
-
         }
-
-
     } catch (error) {
-        return res.status(500).json({ message: "Something Error Occurred" })
+        return res.status(500).json({ message: "Something Error Occurred"+err })
 
     }
 }
@@ -673,7 +672,7 @@ exports.getUserPublicPostintoCloudinary = async (req, res) => {
     try {
         let array = []
         // const { id } = req.query
-        console.log("isd", { _id: req.params.id })
+        // console.log("isd", { _id: req.params.id })
         const result = await cloudinary.search.expression(
             "folder:" + `${req.params.id}/post`,
         ).execute()
@@ -789,10 +788,10 @@ exports.saveUserPostIntoMongoDB = async (req, res) => {
 
 
         const { text, image, name, privacy, post_id, time, fileType, likes_count, liked, userProfileImageUrl } = req.body
-        console.log("user post")
-        console.log(req.body)
-        console.log("file type")
-        console.log(fileType)
+        // console.log("user post")
+        // console.log(req.body)
+        // console.log("file type")
+        // console.log(fileType)
         //filter the local image url
         const filterUrl = image.split("blob")[1].slice(1)
         const SaveUserPosts = await new TextPost({
@@ -811,13 +810,13 @@ exports.saveUserPostIntoMongoDB = async (req, res) => {
             createdAt: time,
 
         })
-        console.log({ SaveUserPosts })
+        // console.log({ SaveUserPosts })
         // await TextPost.dropIndexes({index:"*"})
 
 
         SaveUserPosts.save(async (err) => {
             if (err) {
-                console.log(err)
+                // console.log(err)
                 return res.status(500).json({ message: "Not Post" + err })
             }
             else {
@@ -887,7 +886,7 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
         const deletePost = await TextPost.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
         await Noti.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
         // console.log("deleted response is ", deletePost)
-        console.log(deletePost)
+        // console.log(deletePost)
         if (deletePost) {
 
             //delete all comment related to post
@@ -897,7 +896,7 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
             })
             //getallpost after delete
             const GetAllPostsAfterDelete = await TextPost.find({})
-            console.log({ GetAllPostsAfterDelete })
+            // console.log({ GetAllPostsAfterDelete })
 
             const allNotiAfterDelete = await Noti.find({})
 
@@ -967,8 +966,8 @@ exports.privacy = async (req, res) => {
 exports.likedPost = async (req, res) => {
     try {
         const userId = req.params.id
-        console.log({ userId })
-        console.log("loked")
+        // console.log({ userId })
+        // console.log("loked")
 
         // find user details which liked post
         const userDetailsFind = await Post.findOne({ googleId: userId })
@@ -977,8 +976,8 @@ exports.likedPost = async (req, res) => {
             .sort_by('created_at', 'desc')
             .execute()
 
-        console.log("user proifile image")
-        console.log(UserProfileImage)
+        // console.log("user proifile image")
+        // console.log(UserProfileImage)
         // pusher.trigger("userDetails", 'message1', {
         //     userDetailsFind,
         //     UserProfileImage
@@ -1046,7 +1045,7 @@ exports.loadAllNotification = async (req, res) => {
 
         // const { _id } = await jwt.verify(token, KEY)
 
-        const result = await Noti.find({ $and: [{ likeTo: _id }, { likedBy: { $ne: _id } }] })
+        const result = await Noti.find({ $and: [{ likeTo: _id }, { likedBy: { $ne: _id } }] }).sort({ $natural: -1 })
         // console.log({ result })
         return res.status(200).json({ message: "successfull", data: result })
 
@@ -1174,7 +1173,7 @@ exports.commentLength = async (req, res) => {
     try {
         const { post_id } = req.body
         const length = await Comments.find({ post_id }).countDocuments()
-        console.log(length)
+        // console.log(length)
         return res.status(200).json({ message: "successfull", data: length })
 
 
@@ -1194,9 +1193,10 @@ exports.friendrequest = async (req, res) => {
 
 
         const _id = req._id
+        console.log(_id)
 
         if (currentUser === anotherUserId) {
-            return
+            return res.status(403).json({ message: "you can't send request to yourself" })
         }
         else if (connectMessage === false) {
             const senderUser = await UserData.findOne({ googleId: currentUser })
@@ -1206,14 +1206,14 @@ exports.friendrequest = async (req, res) => {
             // console.log({ recieverUser })
             // console.log(recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true)
 
-            if (senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true) {
+            if (senderUser.senderrequest.some((item) => item._id === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item._id === currentUser) === true) {
                 return res.status(409).json({ message: "already send" })
             }
             else {
 
-                await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, anotherUserId: anotherUserId, url: receiverUrl } } }, { new: true })
+                await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, _id: anotherUserId, url: receiverUrl } } }, { new: true })
 
-                await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, currentUser: currentUser, url: senderUrl } } }, { new: true })
+                await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, _id: currentUser, url: senderUrl } } }, { new: true })
                 return res.status(200).json({ message: "successfull sent" })
             }
         }
@@ -1225,14 +1225,14 @@ exports.friendrequest = async (req, res) => {
             // console.log(senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId))
             // console.log(recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true)
 
-            if (senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true) {
+            if (senderUser.senderrequest.some((item) => item._id === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item._id === currentUser) === true) {
 
 
                 await UserData.findOneAndUpdate(
-                    { googleId: currentUser }, { $pull: { senderrequest: { anotherUserId: anotherUserId } } }, { new: true }
+                    { googleId: currentUser }, { $pull: { senderrequest: { _id: anotherUserId } } }, { new: true }
                 )
                 await UserData.findOneAndUpdate(
-                    { googleId: anotherUserId }, { $pull: { receiverrequest: { currentUser: currentUser } } }, { new: true }
+                    { googleId: anotherUserId }, { $pull: { receiverrequest: { _id: currentUser } } }, { new: true }
 
                 )
                 return res.status(200).json({ message: "Successfull delete" })
@@ -1251,16 +1251,16 @@ exports.deletefriendrequest = async (req, res) => {
     try {
         const { senderId } = req.body
         const _id = req._id
-        console.log(req.body)
+        // console.log(req.body)
         if (!senderId) {
             return res.status(403).json({ message: "not delete" })
         }
         else {
 
-            await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { currentUser: senderId } } })
+            await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { _id: senderId } } })
 
-            const data = await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { anotherUserId: _id } } }, { new: true })
-            console.log({ data })
+            const data = await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { _id: _id } } }, { new: true })
+            // console.log({ data })
 
             return res.status(200).json({ message: "successfull delete" })
 
@@ -1279,6 +1279,8 @@ exports.acceptfriendrequest = async (req, res) => {
     try {
         const { senderId, name } = req.body
         const _id = req._id
+        // console.log("accept")
+        // console.log(req.body)
 
 
         if (!senderId) {
@@ -1290,16 +1292,16 @@ exports.acceptfriendrequest = async (req, res) => {
             const RecieverRequest = await UserData.findOne({ googleId: _id })
             const SenderRequest = await UserData.findOne({ googleId: senderId })
             const FilterRequestData = await RecieverRequest.receiverrequest.filter(item => {
-                return item.currentUser === senderId
+                return item._id === senderId
             })
 
             // console.log({ FilterRequestData })
 
 
             const getSenderRequest = await UserData.findOne({ googleId: senderId })
-            console.log({ getSenderRequest })
+            // console.log({ getSenderRequest })
             const FilterSenderData = await getSenderRequest.senderrequest.filter(item => {
-                return item.anotherUserId === _id
+                return item._id === _id
             })
             // console.log({ FilterSenderData })
 
@@ -1308,11 +1310,11 @@ exports.acceptfriendrequest = async (req, res) => {
 
             await UserData.updateOne({ googleId: senderId }, { $push: { friends: FilterSenderData[0] } }, { new: true })
             await UserData.updateOne({ googleId: _id }, { $push: { friends: FilterRequestData[0] } }, { new: true })
-            await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { anotherUserId: _id } } }, { new: true })
-            await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { currentUser: senderId } } }, { new: true })
-            await UserData.findOneAndUpdate({ googleId: senderId }, { $push: { message: { name: RecieverRequest.fname + "" + RecieverRequest.lname, url: RecieverRequest.url, type: "friend", acceptorId: _id } } }, { new: true })
+            await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { _id: _id } } }, { new: true })
+            await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { _id: senderId } } }, { new: true })
+            await UserData.findOneAndUpdate({ googleId: senderId }, { $push: { message: { name: RecieverRequest.fname + "" + RecieverRequest.lname, url: RecieverRequest.url, type: "friend", _id: _id } } }, { new: true })
 
-            await UserData.findOneAndUpdate({ googleId: _id }, { $push: { message: { name: SenderRequest.fname + "" + SenderRequest.lname, url: SenderRequest.url, type: "friend", acceptorId: senderId } } }, { new: true })
+            await UserData.findOneAndUpdate({ googleId: _id }, { $push: { message: { name: SenderRequest.fname + "" + SenderRequest.lname, url: SenderRequest.url, type: "friend", _id: senderId } } }, { new: true })
 
 
             return res.status(200).json({ message: "successfull accecpted" })
@@ -1331,16 +1333,16 @@ exports.disconnectfriend = async (req, res) => {
     try {
         const { senderId } = req.body
         const _id = req._id
-        console.log(req.body)
+        // console.log(req.body)
 
-        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { currentUser: senderId } } }, { new: true })
-        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { anotherUserId: _id } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { _id: senderId } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { _id: _id } } }, { new: true })
 
-        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { anotherUserId: senderId } } }, { new: true })
-        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { currentUser: _id } } }, { new: true })
-        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { message: { acceptorId: senderId } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { friends: { _id: senderId } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { friends: { _id: _id } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: _id }, { $pull: { message: { _id: senderId } } }, { new: true })
 
-        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { message: { acceptorId: _id } } }, { new: true })
+        await UserData.findOneAndUpdate({ googleId: senderId }, { $pull: { message: { _id: _id } } }, { new: true })
         return res.status(200).json({ message: "Successfull delete" })
 
     }
@@ -1359,13 +1361,13 @@ exports.getfriends = async (req, res) => {
         const user = await UserData.findOne({ googleId: req.params.userId });
         const friends = await Promise.all(
             user.friends.map((friendId) => {
-                return UserData.findOne({ $or: [{ googleId: friendId.anotherUserId }, { googleId: friendId.currentUser }] })
+                return UserData.findOne({ googleId: friendId._id })
             })
         );
 
         let friendList = [];
         friends.map((friend) => {
-            console.log(friend)
+            // console.log(friend)
 
             friendList.push({ _id: friend.googleId, name: friend.fname + " " + friend.lname, url: friend.url });
         });
@@ -1374,4 +1376,3 @@ exports.getfriends = async (req, res) => {
         return res.status(500).json(err);
     }
 }
-

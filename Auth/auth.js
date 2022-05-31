@@ -83,6 +83,7 @@ exports.AuthToken = async (req, res, next) => {
         const userToken = req.cookies.uuid || req.body.uuid || req.headers.cookie.uuiid || req.headers.authorization.split("Bearer ")[1]
         // console.log("user token", userToken)
         // console.log(userToken)
+
         const verifyToken = await jwt.verify(userToken, KEY)
         // console.log("verifytoken", verifyToken)
         // console.log(verifyToken)

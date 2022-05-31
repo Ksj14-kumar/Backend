@@ -11,8 +11,8 @@ router.get("/twitter", passport.authenticate("twitter"))
 
 router.get("/api/login/google/redirect", (req, res, next) => {
 
-    console.log("redirect user details", req.user)
-    console.log(req.user)
+    // console.log("redirect user details", req.user)
+    // console.log(req.user)
     passport.authenticate("google", {
         failureRedirect: "/login/failed",
         successRedirect: clientURL + "/dashboard",

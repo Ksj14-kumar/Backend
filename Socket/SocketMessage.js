@@ -31,8 +31,8 @@ io.on('connection', (socket) => {
 
 
 
-console.log({onlineMessageUsers})
-    console.log('a user connected');
+// console.log({onlineMessageUsers})
+    // console.log('a user connected');
 
     //realtime messages system
 
@@ -58,7 +58,7 @@ console.log({onlineMessageUsers})
 
     //send and get message
     socket.on("sendMessage", (data) => {
-        console.log({ data })
+        // console.log({ data })
 
         const user = getUser(data.receiverId)
         io.to(user?.socketId).emit("getMessage", {
@@ -74,7 +74,3 @@ console.log({onlineMessageUsers})
         console.log('user disconnected');
     });
 })
-
-
-
-
