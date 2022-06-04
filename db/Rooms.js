@@ -28,6 +28,7 @@ const Schema = new mongoose.Schema({
     RoomLastMessageSeenStatus: String,
     RoomLastMessageSeenStatusBy: String,
     RoomLastMessageSeenStatusDate: String,
+    time: String,
 
 
 

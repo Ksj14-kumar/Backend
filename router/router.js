@@ -13,7 +13,7 @@ const path = require("path");
 const { AuthToken } = require('../Auth/auth');
 const { route } = require("./Conversation");
 const UserData = require("../db/UserData");
-
+const LocalStrategy = require("passport-local").Strategy;
 const KEY = process.env.SECRET_KEY
 const clientURL = process.env.CLIENT_URL
 let userInfo = null
@@ -21,6 +21,75 @@ let userInfo = null
 router.get("/", (req, res) => {
     res.send("Hello World");
 })
+
+
+
+
+
+
+
+
+// //PASSWORD DESCRILIZE AND STRATEGY
+// passport.serializeUser(function (user, done) {
+//     // console.log(done(null, user.id))
+//     console.log(user)
+//      done(null, user.id);
+//     // done(null, user)
+// });
+// passport.deserializeUser(function (id, done) {
+//     GoogleDB.findById(id, function (err, user) {
+//         if (err) {
+//              done(null, false, { error: err });
+//         }
+//         else {
+//              done(null, user)
+//         }
+//     });
+//     // done(null, user)
+// });
+
+
+
+
+// passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+//     GoogleDB.findOne({ email: email }, async (err, user) => {
+//         // console.log("local  users")
+//         // console.log(user)
+//         if (err) {
+//             return done(err);
+//         }
+//         if (!user) {
+//             return done(null, false, { message: "User not found" });
+//         }
+//         else {
+//             const VerifyPassword = await bcrypt.compare(password, user.password);
+//             if (!VerifyPassword) {
+//                 return done(null, false, { message: "Invalid credentials" });
+//             }
+//             else {
+//                 // console.log("user is found")
+//                 // console.log(user)
+//                  done(null, user);
+//             }
+//         }
+//     })
+// }))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -133,23 +202,26 @@ router.post("/api/register", async (req, res) => {
 
 //LOCAL LOGIN
 
-router.post("/api/login", (req, res, next) => {
-    // console.log(req.body)
-    // console.log("local storage user", req.user)
-    // console.log("local user when login")
-    // console.log(req.body)
-    // console.log(req.user)
-    // console.log("local user /when logout")
-
-    passport.authenticate("local", {
-        successRedirect: "/success",
-        failureRedirect: "/login/failed",
-    })(req, res, next)
+router.post("/api/login", passport.authenticate("local", {
+    successRedirect: "/success",
+    failureRedirect: "/login/failed",
+}))
 
 
+// router.post("/api/login", (req, res, next) => {
+//     // console.log("local storage user", req.user)
+//     console.log("local user when login")
+//     console.log(req.body)
+//     console.log(req.user)
+//     // console.log("local user /when logout")
 
+//     passport.authenticate("local", {
+//         successRedirect: "/success",
+//         failureRedirect: "/login/failed",
+//     })(req, res, next)
+//     console.log(req.user)
 
-})
+// })
 
 
 
@@ -157,6 +229,7 @@ router.post("/api/login", (req, res, next) => {
 router.get("/success", async (req, res) => {
     // console.log("user success req.user")
     // console.log(req.user)
+    console.log("success")
 
     try {
         // console.log("private user")
@@ -202,6 +275,7 @@ router.get("/success", async (req, res) => {
 
 
 router.get("/login/failed", (req, res) => {
+    console.Console("lofginb")
     res.status(401).json({ message: "Invalid Credentials" })
 })
 

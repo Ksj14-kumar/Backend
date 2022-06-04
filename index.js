@@ -32,7 +32,6 @@ const io = new Server(server, {
 
 //top file end
 
-require("./Stretegy/Googlestrtegy")
 const bodyParser = require("body-parser")
 app.set("views engine", "ejs")
 const router = require("./router/router");
@@ -53,8 +52,7 @@ const path = require('path');
 
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
-
-
+require("./Stretegy/Googlestrtegy")
 require("./Socket Middleware/Socket")(io)
 require("./Socket/SocketMessage")
 
@@ -79,7 +77,7 @@ app.use(function (req, res, next) {
 app.use(cors())
 
 try {
-    mongoose.connect(URL,  (err) => {
+    mongoose.connect(URL, (err) => {
         if (err) {
             console.log("not connected")
         }
@@ -102,10 +100,20 @@ try {
 app.use(compression())
 app.use(express.static(path.join(__dirname, '/public/userDirectories')))
 // app.set('trust proxy', 1)
+app.use(cors(
+    {
+        origin: "http://localhost:3000",
+        // credentials: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        // preflightContinue: false,
+        optionsSuccessStatus: 200
+
+    }
+))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
 app.use(bodyParser.json({ limit: '200mb' }))
-app.use(cors())
+
 app.use(session({
     name: "session id",
     secret: process.env.SECRET_KEY,
@@ -115,6 +123,7 @@ app.use(session({
         // name: "session",
         // maxAge: 1000 * 60 * 60 * 24 * 7,
         // httpOnly: false,
+        // expires: false,
         secure: "auto",
         sameSite: "lax",
     }
@@ -125,14 +134,16 @@ app.use(session({
 
 
 
+app.use(function (req, res, next) {
+    console.log("req.session", req.session)
+    console.log(req.user)
+    res.locals.user = req.user || null
+    next();
+})
 
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(function (req, res, next) {
-    res.locals.user = req.user || null
-    next();
-})
 
 
 // {
@@ -149,6 +160,7 @@ app.use(function (req, res, next) {
 
 // require("./Socket/SocketMessage")
 app.use("/", router)
+
 app.use("/all", GoogleRoute)
 app.use("/blob", multerfile)
 app.use("/history", history)

@@ -14,8 +14,8 @@ const { cloudinary } = require("../Cloudnary/cloudnary");
 let onlineUser = []
 
 
-let AddUser = (username, socketId, adminId, profilePic) => {
-    !onlineUser.some((item) => { item.username === username }) && onlineUser.push({ username, socketId, adminId, profilePic })
+let AddUser = (username, socketId, adminId, profilePic, mongoId) => {
+    !onlineUser.some((item) => { item.username === username }) && onlineUser.push({ username, socketId, adminId, profilePic, mongoId })
 }
 const removeUser = async (socketId) => {
     const value = onlineUser.filter((item) => {
@@ -56,7 +56,7 @@ module.exports = (io, req, res) => {
                 const { _id } = await jwt.verify(data, KEY)
                 UserDetails = await UserData.findOne({ googleId: _id })
 
-                await AddUser(UserDetails.fname + " " + UserDetails.lname, socket.id, _id, UserDetails.url)
+                await AddUser(UserDetails.fname + " " + UserDetails.lname, socket.id, _id, UserDetails.url, UserDetails._id.valueOf())
                 io.emit("onlineUsers", onlineUser)
 
                 // console.log(onlineUser)
@@ -76,6 +76,27 @@ module.exports = (io, req, res) => {
                 time: message.time,
                 type: message.type,
                 messageID: message.MessageId
+
+            })
+
+        })
+        console.log(onlineUser)
+        socket.on('sendGroupMessage', async (message) => {
+            console.log({ message })
+            console.log({ onlineUser })
+            const getUser = await getUserById(message.receiverId)
+            console.log({ getUser })
+            io.to(getUser?.socketId).emit("getGroupMessage", {
+
+                name: message.name,
+
+                userId: message.userId,
+                message: message.message,
+                time: message.time,
+                type: message.type,
+                messageId: message.messageId,
+                roomId: message.roomId,
+                url: message.url
 
             })
 

@@ -426,16 +426,24 @@ passport.use(new GithubStrategy({
 //PASSWORD DESCRILIZE AND STRATEGY
 passport.serializeUser(function (user, done) {
 
-    done(null, user.id);
+
+    // console.log(done(null, user.id))
+    return done(null, user.id);
     // done(null, user)
 
 });
 
 passport.deserializeUser(function (id, done) {
-  
+
     GoogleDB.findById(id, function (err, user) {
-        // console.log(user)
-        done(err, user);
+
+        if (err) {
+            return done(null, false, { error: err });
+        }
+        else {
+
+            return done(null, user)
+        }
     });
     // done(null, user)
 });

@@ -29,6 +29,11 @@ router.post("/v1/group/image", Auth.AuthToken, chatMessageRouterController.group
 router.get("/v1/search/query/q", Auth.AuthToken, chatMessageRouterController.searchfriends)
 router.post("/v1/group/add/friend/:userId", Auth.AuthToken, chatMessageRouterController.addFriendsInGroup)
 router.post("/v1/group/friends/", Auth.AuthToken, chatMessageRouterController.getfriends)
+router.delete("/v1/delete/user/group", Auth.AuthToken, chatMessageRouterController.deleteUser)
+router.put("/v1/group/makeAdmin/:userId", Auth.AuthToken, chatMessageRouterController.makeAdmin)
+router.post("/v1/group/message/save", Auth.AuthToken, chatMessageRouterController.saveGroupMessage)
+router.get("/v1/rooms/check", Auth.AuthToken, chatMessageRouterController.roomExits)
+router.get("/v1/group/messages/get/:groupId", Auth.AuthToken, chatMessageRouterController.getGroupMessages)
 
 
 module.exports = router

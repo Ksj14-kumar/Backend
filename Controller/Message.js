@@ -4,10 +4,10 @@ const UserData = require("../db/UserData")
 const Messages = require("../db/Message")
 const Rooms = require("../db/Rooms")
 exports.PostMessage = async (req, res) => {
-    const { type, message, senderId, messageID, adminId, friend_id } = req.body
+    const { type, message, senderId, messageID, adminId, friend_id, base } = req.body
     try {
         let messageChange;
-        // console.log(req.body)
+        console.log(req.body)
 
         // console.log()
         const msg = message.split("data:video/mp4;base64,")[1]
@@ -17,16 +17,12 @@ exports.PostMessage = async (req, res) => {
         if (friend_id && adminId) {
 
             if (
-                message.split(";")[0].split(":")[1] === "image/jpeg"
-                || message.split(";")[0].split(":")[1] === "image/jpg"
-                || message.split(";")[0].split(":")[1] === "image/png"
-                || message.split(";")[0].split(":")[1] === "image/jpeg" ||
-                message.split(";")[0].split(":")[1] === "image/gif" || message.split(";")[0].split(":")[1] === "image/webp" || message.split(";")[0].split(":")[1] === "image/svg+xml" || message.split(";")[0].split(":")[1] === "video/mp4" || message.split(";")[0].split(":")[1] === "video/webm" || message.split(";")[0].split(":")[1] === "video/ogg" || type === "text" || message.split(";")[0].split(":")[1] === "audio/mp3" || message.split(";")[0].split(":")[1] === "audio/ogg" || message.split(";")[0].split(":")[1] === "audio/wav" || message.split(";")[0].split(":")[1] === "audio/mpeg" || type === "GIF"
+                type === "image" || type === "video" || type === "text" || type === "GIF" || type === "audio"
             ) {
-                if (type === "image" || type === "video") {
+                if (type === "image" || type === "video" || type === "audio") {
 
 
-                    const Url = await cloudinary.uploader.upload(message, {
+                    const Url = await cloudinary.uploader.upload(base, {
                         folder: `${"62434a58ac9ad04e29be7e1b25"}/chatsImages`,
                         resource_type: "auto"
                     })
@@ -71,7 +67,7 @@ exports.PostMessage = async (req, res) => {
                         },
                         { new: true }, (err, result) => {
                             if (err) {
-                                return res.status(500).json({ message: "Sometyhing error occured" + err, messageId: messageID })
+                                return res.status(500).json({ message: "Something error occured", messageId: messageID })
                             }
                             else {
                                 return res.status(200).json({ message: "Successfully", result })
@@ -146,7 +142,7 @@ exports.GetUserMessages = async (req, res) => {
         return res.status(200).json(message)
 
     } catch (err) {
-        return res.status(500).json({ message: "Sometyhing error occured" })
+        return res.status(500).json({ message: "Something error occured" })
 
     }
 }
@@ -160,7 +156,7 @@ exports.getUserConversation = async (req, res) => {
         return res.status(200).json(users)
 
     } catch (err) {
-        return res.status(500).json({ message: "Sometyhing error occured" })
+        return res.status(500).json({ message: "Something error occured" })
 
     }
 }
@@ -169,11 +165,20 @@ exports.getUserConversation = async (req, res) => {
 exports.getUserDeatils = async (req, res) => {
     try {
         // console.log(req.params)
-        const { fname, lname, url } = await UserData.findOne({ googleId: req.params.user })
-        return res.status(200).json({ fname, lname, url, id: req.params.user })
+
+        const UserDetails = await UserData.findOne({ googleId: req.params.user })
+        if (UserDetails) {
+            const { fname, lname, url } = UserDetails
+            return res.status(200).json({ fname, lname, url, id: req.params.user })
+        }
+        else {
+            return res.status(404).json({ message: "Something error occured" })
+
+        }
+
     }
     catch (err) {
-        return res.status(500).json({ message: "Sometyhing error occured" })
+        return res.status(500).json({ message: "Something error occured" })
 
 
     }
@@ -215,7 +220,7 @@ exports.updateMessageStatus = async (req, res) => {
             { returnOriginal: false },
             (err, result) => {
                 if (err) {
-                    return res.status(500).json({ message: "Sometyhing error occured" + err })
+                    return res.status(500).json({ message: "Something error occured" })
                 }
                 else {
                     // return res.status(200).json({ message: "Successfully", data: message })
@@ -229,7 +234,7 @@ exports.updateMessageStatus = async (req, res) => {
 
 
     } catch (err) {
-        return res.status(500).json({ message: "Sometyhing error occured" + err })
+        return res.status(500).json({ message: "Something error occured" })
 
 
     }
@@ -255,7 +260,7 @@ exports.unreadMessage = async (req, res) => {
 
     }
     catch (err) {
-        return res.status(500).json({ message: "Sometyhing error occured" })
+        return res.status(500).json({ message: "Something error occured" })
 
     }
 }
@@ -273,15 +278,17 @@ exports.getAllUser = async (req, res) => {
         }
 
     } catch (err) {
-        return res.status(500).json({ message: "Sometyhing error occured" })
+        return res.status(500).json({ message: "Something error occured" })
     }
 }
 
 
 exports.createRoom = async (req, res) => {
     try {
-        const { RoomCreatedBy, adminId } = req.body
+        const { RoomCreatedBy, adminId, googleId } = req.body
         const _id = req._id
+        // console.log({ adminId })
+        const { fname, lname, url } = await UserData.findById({ _id: adminId })
         // console.log()
         // console.log(req.body)
         if (req.body) {
@@ -297,7 +304,15 @@ exports.createRoom = async (req, res) => {
                 RoomModifiedBy: "",
                 RoomModifiedDate: "",
                 RoomStatus: true,
-                RoomMembers: [],
+                RoomMembers: [{
+                    _id: adminId,
+                    name: fname + "" + lname,
+                    url,
+                    admin: true,
+                    googleId: googleId
+
+
+                }],
                 RoomMessages: [],
                 RoomLastMessage: "",
 
@@ -313,7 +328,8 @@ exports.createRoom = async (req, res) => {
                 }
                 else {
 
-                    const AllRooms = await Rooms.find({ admin: adminId })
+                    const AllRooms = await Rooms.find({ "RoomMembers._id": { $elemMatch: { adminId } } })
+                    console.log({ AllRooms })
                     return res.status(200).json({ message: "Successfully", AllRooms })
                 }
             })
@@ -321,7 +337,7 @@ exports.createRoom = async (req, res) => {
         }
 
     } catch (err) {
-        return res.status(500).json({ message: "Something error occured" })
+        return res.status(500).json({ message: "Something error occuredd" })
     }
 }
 
@@ -333,8 +349,9 @@ exports.getAllRooms = async (req, res) => {
         const { roomadmin } = req.headers
         // console.log(req.headers)
         // console.log(req.body)
-        const AllRooms = await Rooms.find({ admin: roomadmin })
+        const AllRooms = await Rooms.find({ "RoomMembers._id": roomadmin })
         if (AllRooms.length) {
+            // console.log({ AllRooms })
             return res.status(200).json(AllRooms)
         }
         else {
@@ -366,26 +383,24 @@ exports.groupImage = async (req, res) => {
     try {
         const _id = req._id
         // console.log({ _id })
-        const { base, roomId } = req.body
-        // console.log(req.body)
-        if (base) {
-            const checkRoom = await Rooms.findOne({ _id: roomId })
-            // console.log(checkRoom)
-            if (checkRoom) {
-                const room = await Rooms.findOneAndUpdate({ _id: roomId }, { $set: { RoomImage: base } }, { new: true })
-                return res.status(200).json({ message: "Successfully", room })
+        const { base, roomId, FileType } = req.body
+        if (FileType === "image/jpeg" || FileType === "image/png" || FileType === "image/jpg") {
+
+            if (base) {
+                const checkRoom = await Rooms.findOne({ _id: roomId })
+                // console.log(checkRoom)
+                if (checkRoom) {
+                    const room = await Rooms.findOneAndUpdate({ _id: roomId }, { $set: { RoomImage: base } }, { new: true })
+                    return res.status(200).json({ message: "Successfully", room: room.RoomImage })
+                }
             }
         }
-        // const AllRooms = await Rooms.findOne({ RoomId: roomID })
-        // if (AllRooms) {
-        //     return res.status(200).json(AllRooms)
-        // }
-        // else {
-        //     return res.status(200).json([])
-        // }
-        // return res.end()
+        else {
+            return res.status(400).json({ message: "Select a Image with PNG, JPEG, JPG extension" })
+        }
+
     } catch (err) {
-        return res.status(500).json({ message: "Something error occured" + err })
+        return res.status(500).json({ message: "Something error occured" })
     }
 }
 
@@ -395,6 +410,7 @@ exports.searchfriends = async (req, res) => {
         // console.log({ _id })
         const { q } = req.query
         // console.log(_id)
+
         const userData = await UserData.findOne({ googleId: _id })
         // console.log(userData.friends)
         const Search = (data) => {
@@ -407,7 +423,7 @@ exports.searchfriends = async (req, res) => {
 
         return res.status(200).json(Search(userData.friends))
     } catch (error) {
-        return res.status(500).json({ message: "Something error occured" + error })
+        return res.status(500).json({ message: "Something error occured" })
 
     }
 }
@@ -432,10 +448,11 @@ exports.addFriendsInGroup = async (req, res) => {
                 const room = await Rooms.findOneAndUpdate({ _id: roomId }, {
                     $push: {
                         RoomMembers: {
-                            _id,
+                            _id: _id.toString(),
                             name: fname + "" + lname,
                             url,
                             admin: isAdmin,
+                            googleId: userId
                         }
                     }
                 }, { new: true })
@@ -451,7 +468,7 @@ exports.addFriendsInGroup = async (req, res) => {
         // }
         // return res.end()
     } catch (err) {
-        return res.status(500).json({ message: "Something error occured" + err })
+        return res.status(500).json({ message: "Something error occured" })
     }
 
 }
@@ -479,6 +496,7 @@ exports.getfriends = async (req, res) => {
             });
 
 
+            console.log("hello")
             const notUserExitInRoomMembers = friendList.filter(item => {
                 // console.log({ item })
                 if (fetchRoom.RoomMembers.length > 0) {
@@ -491,14 +509,112 @@ exports.getfriends = async (req, res) => {
                     return item
                 }
             })
-            console.log("filter")
-            console.log(notUserExitInRoomMembers)
+            // console.log("filter")
+            // console.log(notUserExitInRoomMembers)
             // :notUserExitInRoomMembers
             return res.status(200).json({ friendList: notUserExitInRoomMembers })
 
         }
+        else {
+            return res.status(200).json({ message: "please provide value" })
+        }
 
     } catch (err) {
         return res.status(500).json(err);
+    }
+}
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const _id = req._id
+        const { userId, roomId } = req.body
+        // console.log(req.body)
+        const FetchUSerDetails = await Rooms.findOneAndUpdate({ _id: roomId }, { $pull: { RoomMembers: { _id: userId } } }
+            , { new: true })
+        await Rooms.findOneAndUpdate({ _id: roomId }, { $pull: { admin: userId } })
+        // console.log({ FetchUSerDetails })
+        if (FetchUSerDetails) {
+            return res.status(200).json({ message: "Successfully", FetchUSerDetails })
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" });
+
+    }
+
+}
+
+exports.makeAdmin = async (req, res) => {
+    try {
+        const _id = req._id
+        const { userId } = req.params
+        const { roomId } = req.body
+        // { _id: roomId },
+        const FetchUSerDetails = await Rooms.findOneAndUpdate({ _id: roomId }, { $push: { admin: userId } }, { new: true })
+        if (FetchUSerDetails) {
+            return res.status(200).json({ message: "Successfully", FetchUSerDetails })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" });
+    }
+}
+
+exports.saveGroupMessage = async (req, res) => {
+    try {
+        const _id = req._id
+        const { roomId, message, name, userId, url, messageId } = req.body
+        console.log(req.body)
+        const FetchUSerDetails = await Rooms.findOneAndUpdate({ RoomId: roomId }, { $push: { RoomMessages: req.body } }, { new: true })
+        // console.log({ FetchUSerDetails })
+        if (FetchUSerDetails) {
+            return res.status(200).json({ message: "Successfully", result: FetchUSerDetails })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something eror occured" })
+    }
+}
+
+
+exports.getGroupMessages = async (req, res) => {
+    try {
+        const _id = req._id
+        const { groupId } = req.params
+        // console.log(req.body)
+        if (groupId) {
+            const FetchUSerDetails = await Rooms.findOne({ RoomId: groupId })
+            if (FetchUSerDetails) {
+                return res.status(200).json({ message: "Successfully", result: FetchUSerDetails.RoomMessages })
+            }
+            else {
+                return res.status(404).json({ message: "no group found" })
+            }
+        }
+        else {
+            return res.status(200).json({ message: "Something eror occured" })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+
+    }
+
+}
+
+
+
+exports.roomExits = async (req, res) => {
+    try {
+        const _id = req._id
+        const { roomid } = req.headers
+        const FetchUSerDetails = await Rooms.findOne({ RoomId: roomid })
+        if (FetchUSerDetails) {
+            return res.status(200).json({ message: "Successfully" })
+        }
+        else {
+            return res.status(404).json({ message: "Room not exits" })
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+
     }
 }
