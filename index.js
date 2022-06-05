@@ -52,7 +52,6 @@ const path = require('path');
 
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
-require("./Stretegy/Googlestrtegy")
 require("./Socket Middleware/Socket")(io)
 require("./Socket/SocketMessage")
 
@@ -99,20 +98,20 @@ try {
 
 app.use(compression())
 app.use(express.static(path.join(__dirname, '/public/userDirectories')))
+app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
+app.use(bodyParser.json({ limit: '200mb' }))
 // app.set('trust proxy', 1)
 app.use(cors(
     {
-        origin: "http://localhost:3000",
-        // credentials: true,
+        origin: ["http://localhost:3000", "http://localhost:3001"],
+        credentials: false,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         // preflightContinue: false,
-        optionsSuccessStatus: 200
+        // optionsSuccessStatus: 200
 
     }
 ))
-app.use(cookieParser())
-app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
-app.use(bodyParser.json({ limit: '200mb' }))
+
 
 app.use(session({
     name: "session id",
@@ -128,21 +127,25 @@ app.use(session({
         sameSite: "lax",
     }
 }))
-
-// console.log("",process.env.NODE_ENV)
-
-
-
-
-app.use(function (req, res, next) {
-    console.log("req.session", req.session)
-    console.log(req.user)
-    res.locals.user = req.user || null
-    next();
-})
+app.use(cookieParser())
 
 app.use(passport.initialize())
 app.use(passport.session())
+// app.use(function (req, res, next) {
+//     // console.log("req.session", req.session)
+//     // console.log(req.user)
+//     res.locals.user = req.user || null
+//     next();
+// })
+// console.log("",process.env.NODE_ENV
+require("./Stretegy/Googlestrtegy")(passport)
+
+
+
+
+
+
+
 
 
 

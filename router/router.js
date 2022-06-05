@@ -202,11 +202,40 @@ router.post("/api/register", async (req, res) => {
 
 //LOCAL LOGIN
 
-router.post("/api/login", passport.authenticate("local", {
-    successRedirect: "/success",
-    failureRedirect: "/login/failed",
-}))
+router.post("/api/login", async (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            res.status(400).json({ message: "Opps Something error Occured, try Again" })
+            return
+        }
+        if (!user) {
+            res.status(400).json({ message: "login failed" })
+            return
+        }
+        req.logIn(user, async (err) => {
+            if (err) {
+                res.status(400).json({ message: "login failed" })
+                return
+            }
 
+            const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
+            res.status(200).json({
+                url: clientURL,
+                message: "Login Successfull",
+                user: user.name,
+                cookie: userToken
+            })
+            return
+        })
+    })(req, res, next)
+
+
+})
+
+// passport.authenticate("local", {
+//     successRedirect: "/success",
+//     failureRedirect: "/login/failed",
+// })
 
 // router.post("/api/login", (req, res, next) => {
 //     // console.log("local storage user", req.user)

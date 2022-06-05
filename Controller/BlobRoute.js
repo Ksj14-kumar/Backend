@@ -352,7 +352,7 @@ exports.getBackgroundImage = async (req, res) => {
         return res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
 
     } catch (err) {
-        return res.status(500).json({ message: "Something error occured" })
+        return res.status(500).json({ message: "Something error occured" + err })
 
     }
 }
@@ -572,16 +572,16 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                                 //if text is not empty
 
                                 if (text) {
-                                    const userTextPost = await  TextPost({
+                                    const userTextPost = await TextPost({
                                         post_id: post_id,
                                         text: text,
-                                        username:"",
-                                        image:"",                              
+                                        username: "",
+                                        image: "",
                                         privacy: privacy,
                                         userId: userId,
                                         createdAt: time,
-                                        fileType:"",
-                                        profileImage:""
+                                        fileType: "",
+                                        profileImage: ""
 
 
                                     })
@@ -641,7 +641,7 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
 
                                 userTextPost.save(async (err) => {
                                     if (err) {
-                                        return res.status(500).json({ message: "Something error occured in message" +err})
+                                        return res.status(500).json({ message: "Something error occured in message" + err })
                                     }
                                     else {
                                         const TakeAllTextPost = await TextPost.find({})
@@ -662,7 +662,7 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
             }
         }
     } catch (error) {
-        return res.status(500).json({ message: "Something Error Occurred"+err })
+        return res.status(500).json({ message: "Something Error Occurred" + err })
 
     }
 }
@@ -919,7 +919,7 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
 exports.getAllCommentNumber = async (req, res) => {
     try {
         const _id = req._id
-        // console.log({ id })
+        console.log({ id })
         const token = req.params.id
 
         //verify token for current user

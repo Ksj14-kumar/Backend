@@ -80,9 +80,13 @@ exports.AuthToken = async (req, res, next) => {
 
 
         // req.cookies.uuid || req.body.uuid   ||req.headers.cookie.uuiid|| 
-        const userToken = req.cookies.uuid || req.body.uuid || req.headers.cookie.uuiid || req.headers.authorization.split("Bearer ")[1]
+        // console.log("header token")
+        // console.log(req.headers.authorization.split("Bearer ")[1])
+        // req.headers.cookie.uuid ||
+        const userToken = req.cookies.uuid || req.body.uuid || req.headers.authorization.split("Bearer ")[1]
         // console.log("user token", userToken)
         // console.log(userToken)
+        // console.log("tokjen end")
 
         const verifyToken = await jwt.verify(userToken, KEY)
         // console.log("verifytoken", verifyToken)
@@ -92,7 +96,7 @@ exports.AuthToken = async (req, res, next) => {
         // console.log(VerifyUser)
 
         if (!VerifyUser) {
-            console.log("user not verify")
+            // console.log("user not verify")
             // res.redirect("http://localhost:3000/dashboard")
             return res.status(401).json({ message: "user not verify" })
 
@@ -108,7 +112,7 @@ exports.AuthToken = async (req, res, next) => {
 
 
     } catch (err) {
-        return res.status(401).json({ message: "user not verify" })
+        return res.status(401).json({ message: "user not verify" + err })
 
 
     }

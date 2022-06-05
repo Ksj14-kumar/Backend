@@ -185,7 +185,7 @@ router.delete("/delete/user/post/local/delete", Auth.AuthToken, BlobController.d
 
 //take all the number of comment for current use
 
-router.get("/all/comment/user/", Auth.AuthToken, BlobController.getAllCommentNumber)
+router.get("/all/comment/user/:id", Auth.AuthToken, BlobController.getAllCommentNumber)
 
 
 // ============================================//LIKE AND UNLIKE COUNT////////////////////////////////////////////////////////

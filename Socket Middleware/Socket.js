@@ -55,9 +55,12 @@ module.exports = (io, req, res) => {
             if (data) {
                 const { _id } = await jwt.verify(data, KEY)
                 UserDetails = await UserData.findOne({ googleId: _id })
+                if(UserDetails){
 
-                await AddUser(UserDetails.fname + " " + UserDetails.lname, socket.id, _id, UserDetails.url, UserDetails._id.valueOf())
-                io.emit("onlineUsers", onlineUser)
+                    await AddUser(UserDetails.fname + " " + UserDetails.lname, socket.id, _id, UserDetails.url, UserDetails._id.valueOf())
+                    io.emit("onlineUsers", onlineUser)
+                }
+
 
                 // console.log(onlineUser)
             }
