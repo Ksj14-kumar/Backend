@@ -185,6 +185,7 @@ router.delete("/delete/user/post/local/delete", Auth.AuthToken, BlobController.d
 
 //take all the number of comment for current use
 
+
 router.get("/all/comment/user/:id", Auth.AuthToken, BlobController.getAllCommentNumber)
 
 
@@ -207,14 +208,6 @@ router.put("/user/like/:post_id", async (req, res) => {
 
         // console.log({ online })
         // console.log({ socket })
-
-
-
-
-
-
-
-
         //add new user which not exit in database
 
         //fetch from mongo db
