@@ -97,7 +97,7 @@ app.use(bodyParser.json({ limit: '200mb' }))
 // app.set('trust proxy', 1)
 app.use(cors(
     {
-        origin: [process.env.CLIENT_URL],
+        origin: "*",
         credentials: false,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         // preflightContinue: false,
