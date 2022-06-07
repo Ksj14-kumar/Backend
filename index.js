@@ -15,17 +15,12 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: process.env.CLIENT_URL,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-
-
         // credentials: true,
         // maxAge: "3600",
         // preflightContinue: false
     }
-
-
-
 })
 
 
@@ -103,12 +98,11 @@ app.use(bodyParser.json({ limit: '200mb' }))
 // app.set('trust proxy', 1)
 app.use(cors(
     {
-        origin: ["http://localhost:3000", "http://localhost:3001"],
+        origin: [process.env.CLIENT_URL],
         credentials: false,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         // preflightContinue: false,
         // optionsSuccessStatus: 200
-
     }
 ))
 
@@ -131,37 +125,12 @@ app.use(cookieParser())
 
 app.use(passport.initialize())
 app.use(passport.session())
-// app.use(function (req, res, next) {
-//     // console.log("req.session", req.session)
-//     // console.log(req.user)
-//     res.locals.user = req.user || null
-//     next();
-// })
+
 // console.log("",process.env.NODE_ENV
 require("./Stretegy/Googlestrtegy")(passport)
 
 
 
-
-
-
-
-
-
-
-// {
-//     origin: "http://localhost:3000/",
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     credentials: true,
-// }
-
-
-
-
-
-// ALL ENV VARIABLE 
-
-// require("./Socket/SocketMessage")
 app.use("/", router)
 
 app.use("/all", GoogleRoute)
