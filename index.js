@@ -15,7 +15,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL,
+        origin: "*",
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         // credentials: true,
         // maxAge: "3600",
@@ -68,7 +68,6 @@ app.use(function (req, res, next) {
 
     next();
 });
-app.use(cors())
 
 try {
     mongoose.connect(URL, (err) => {
@@ -122,7 +121,6 @@ app.use(session({
     }
 }))
 app.use(cookieParser())
-
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -132,7 +130,6 @@ require("./Stretegy/Googlestrtegy")(passport)
 
 
 app.use("/", router)
-
 app.use("/all", GoogleRoute)
 app.use("/blob", multerfile)
 app.use("/history", history)
