@@ -15,7 +15,6 @@ const Comments = require("../db/Comments");
 const TextPost = require("../db/TextPost");
 const Model = require("../public/Nsfw_Model/min_nsfwjs/model.json")
 const onlineUsers = require("../db/OnlineUser")
-
 const BlobController = require("../Controller/BlobRoute")
 
 
@@ -461,4 +460,5 @@ router.delete("/deletefriend/request", Auth.AuthToken, BlobController.deletefrie
 router.post("/acceptfriend/request", Auth.AuthToken, BlobController.acceptfriendrequest)
 router.post("/disconnect/friend", Auth.AuthToken, BlobController.disconnectfriend)
 router.get("/friends/:userId", Auth.AuthToken, BlobController.getfriends);
+router.get("/load/all/postlength", Auth.AuthToken, BlobController.postLength);
 module.exports = router;

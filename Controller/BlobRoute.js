@@ -1376,3 +1376,21 @@ exports.getfriends = async (req, res) => {
         return res.status(500).json(err);
     }
 }
+
+
+exports.postLength = async (req, res) => {
+    try {
+
+        const user = await TextPost.find({});
+        if (user) {
+            console.log(user.length)
+            return res.status(200).json({ l: user.length })
+        }
+        else {
+            return res.status(200).json({ l: 0 })
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: "something error occured" });
+    }
+}
