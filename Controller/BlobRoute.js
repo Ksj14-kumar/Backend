@@ -560,6 +560,10 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                                         })
                                     }
                                     else {
+                                        const allTextPost = await TextPost.find({
+                                            userId: postId
+                                        })
+                                        array.push(allTextPost)
                                         return res.status(200).json({ message: "success full added", data: array })
                                     }
                                 }
