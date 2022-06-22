@@ -21,6 +21,8 @@ const Schema = new mongoose.Schema({
     senderrequest: Array,
     receiverrequest: Array,
     message: Array,
+    bookMarkPost: Array,
+    bookMarkBy: Array,
 
 })
 

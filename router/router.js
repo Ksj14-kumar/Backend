@@ -205,7 +205,7 @@ router.post("/api/register", async (req, res) => {
 router.post("/api/login", async (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) {
-            res.status(400).json({ message: "Opps Something error Occured, try Again" + err })
+            res.status(400).json({ message: "please check your internet connection" })
             return
         }
         if (!user) {

@@ -108,63 +108,36 @@ router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYht
 
 router.get("/bg/image/mwQgga2z5KfChXjuF1s0/r6dg0LqqWmCG4W5UQOTa/ftFhzft7YNwT6jb9EVoX/ogvnbpOcPnjgMatu3mtb/JSC2PQZQVlK19QXDbSl1/", Auth.AuthToken, BlobController.getBackgroundImage)
 
-
-
 router.delete("/delete/assest/bg/", Auth.AuthToken, BlobController.DeleteAssestsBackgroundImage)
 
 
 //=======================USER COMMENTS===============
 
-router.get("/root/load/all/comments/:post_id/:userId/:value", Auth.AuthToken, BlobController.loadComments)
-
-
-
+router.get("/root/load/all/comments/:post_id/:userId/", Auth.AuthToken, BlobController.loadComments)
 
 router.post("/post/comment/save", Auth.AuthToken, BlobController.saveComment)
 
 
-
-
-
-
 router.delete("/post/comment/delete/:commentId", Auth.AuthToken, BlobController.deleteComment)
 
-
-
 router.put("/update/comment/:commentId", Auth.AuthToken, BlobController.updateComment)
-
-
-
-
-
 
 //=======================USERS POST SAVE AND LOAD into cloudinary============
 
 router.post("/users/post/:id", Auth.AuthToken, BlobController.saveUserPostIntoCloudinary)
-
-
 
 router.get("/users/public/posts/:id", Auth.AuthToken, BlobController.getUserPublicPostintoCloudinary)
 
 
 
 //DELETE THE POST BY SPECIf id
-
 router.delete("/delete/user/post/:id", Auth.AuthToken, BlobController.deleteUserPostByCloudinary)
-
-
-
-
-
-
 
 
 //==================================save user post into the mongodb  by local url=========================
 
+
 router.post("/local/url/", Auth.AuthToken, BlobController.saveUserPostIntoMongoDB)
-
-
-
 //Each post url for share the post or download the post
 router.get("/user/post/:post_id", Auth.AuthToken, BlobController.GetPostFromMongoDb)
 
@@ -175,13 +148,8 @@ router.get("/user/post/:post_id", Auth.AuthToken, BlobController.GetPostFromMong
 //load the user post
 
 router.get("/load/all/post/:value", Auth.AuthToken, BlobController.loadAllUserPost)
-
-
 //delete the user post
-
 router.delete("/delete/user/post/local/delete", Auth.AuthToken, BlobController.deleteUserPostByMongoDB)
-
-
 //take all the number of comment for current use
 
 
@@ -461,4 +429,8 @@ router.post("/acceptfriend/request", Auth.AuthToken, BlobController.acceptfriend
 router.post("/disconnect/friend", Auth.AuthToken, BlobController.disconnectfriend)
 router.get("/friends/:userId", Auth.AuthToken, BlobController.getfriends);
 router.get("/load/all/postlength", Auth.AuthToken, BlobController.postLength);
+router.get("/api/posts/single/:auther/:post", Auth.AuthToken, BlobController.SinglePost);
+router.get("/api/v1/user/react/:userId", Auth.AuthToken, BlobController.ReactUser);
+router.post("/api/v1/bookmark/:userId", Auth.AuthToken, BlobController.Bookmark);
+router.post("/api/v1/_user/single/post/:post_id/", Auth.AuthToken, BlobController.GetSinglePost)
 module.exports = router;

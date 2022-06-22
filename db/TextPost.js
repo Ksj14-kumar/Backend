@@ -29,12 +29,10 @@ const Schema = new mongoose.Schema({
         default: Date.now()
 
     },
+    admin: Boolean
 
 
 
 })
 
 module.exports = mongoose.model('TextPosts', Schema)
-
-
-

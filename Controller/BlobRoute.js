@@ -15,11 +15,14 @@ const TextPost = require("../db/TextPost");
 const Model = require("../public/Nsfw_Model/min_nsfwjs/model.json")
 const Message = require("../db/Message")
 const onlineUsers = require("../db/OnlineUser")
+const Cache = require("node-cache")
+const NodeCache = new Cache()
 
 
 let Pusher = require('pusher');
 const UserData = require("../db/UserData");
 const { send } = require("process");
+const { post } = require("../multer/multerImage");
 let pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
     key: process.env.PUSHER_APP_KEY,
@@ -122,18 +125,26 @@ exports.profileImagePost = async (req, res) => {
 exports.getProfileImage = async (req, res) => {
     try {
 
-
         const _id = req._id
-        const result = await cloudinary.search.expression(
-            "folder:" + _id + "/profileImage",
-        )
-            .sort_by('created_at', 'desc')
-            // .max_results(20)
-            .execute()
-        res.status(200).json({ url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
+        if (NodeCache.has(_id + "profileImage")) {
+            return res.status(200).json(NodeCache.get(_id + "profileImage"))
+        }
+        else {
+
+            const result = await cloudinary.search.expression(
+                "folder:" + _id + "/profileImage",
+            )
+                .sort_by('created_at', 'desc')
+                // .max_results(20)
+                .execute()
+            NodeCache.set(_id + "profileImage", { url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
+            return res.status(200).json({ url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
+        }
+
+
     } catch (err) {
         // console.log(err)
-        res.status(500).json({ message: "Something Error  Occured" })
+        res.status(500).json({ message: "Something Error  Occured" + err })
 
     }
 }
@@ -276,14 +287,18 @@ exports.saveUserInformation = async (req, res) => {
 
 exports.getUserInformation = async (req, res) => {
     try {
+        if (NodeCache.has(req._id + "userInformation")) {
+            return res.status(200).json({ "message": NodeCache.get(req._id + "userInformation") })
+        }
+        else {
+            const _id = req._id
+            const userInformationLoadFromServer = await Post.findOne({ googleId: _id })
+            NodeCache.set(req._id + "userInformation", userInformationLoadFromServer)
+            return res.status(200).json({ message: userInformationLoadFromServer })
 
-
-
-        const _id = req._id
-        const userInformationLoadFromServer = await Post.findOne({ googleId: _id })
-        res.status(200).json({ message: userInformationLoadFromServer })
+        }
     } catch (err) {
-        res.status(500).json({ message: "error occured, check internet connection!!!" })
+        return res.status(500).json({ message: "error occured, check internet connection!!!" })
 
     }
 }
@@ -344,16 +359,24 @@ exports.getBackgroundImage = async (req, res) => {
     try {
         const _id = req._id
         const result = await cloudinary.search.expression(
-            "folder:" + `${_id}/background`,
-        )
+            "folder:" + `${_id}/background`)
             .sort_by('created_at', 'desc')
             // .max_results(20)
             .execute()
-        return res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
-
+        if (NodeCache.has(_id + "bgImage")) {
+            return res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
+        }
+        else {
+            if (result.resources.length > 0) {
+                NodeCache.set(_id + "bgImage", { url: result.resources[0].url, assest_id: result.resources[0].asset_id })
+                return res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id })
+            }
+            else {
+                return res.status(404).json({ message: "Background Image not exits" })
+            }
+        }
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" + err })
-
     }
 }
 
@@ -390,15 +413,9 @@ exports.loadComments = async (req, res) => {
         const { post_id, userId } = req.params
         const { value } = req.params
         // console.log({ post_id, userId })
-        const AllUsersComments = await Comments.find({
-            post_id: post_id
-        }).limit(+value)
-
-        const AllUsersCommentslength = await Comments.find({
-            post_id: post_id
-        })
+        const AllUsersComments = await Comments.find({ post_id: post_id })
+        const AllUsersCommentslength = await Comments.find({ post_id: post_id })
         // console.log(+value)
-
         // console.log("all comment after new post upload")
         // console.log(AllUsersComments)
 
@@ -408,13 +425,7 @@ exports.loadComments = async (req, res) => {
         }
         else {
             return res.status(200).json({ message: "All comments", data: AllUsersComments, length: AllUsersCommentslength.length })
-
-
         }
-
-
-
-
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
 
@@ -431,11 +442,15 @@ exports.saveComment = async (req, res) => {
 
         const UserComments = await Comments(comment)
 
-        UserComments.save((err) => {
+        UserComments.save(async (err, result) => {
             if (err) {
                 return res.status(500).json({ message: "Something error occured" })
             }
-            return res.status(200).json({ message: "Comments added successfully", data: req.body })
+            else {
+                console.log({ result })
+                const length = await Comments.find({ post_id: comment.post_id }).countDocuments()
+                return res.status(200).json({ message: "successfully saved", data: req.body, length })
+            }
         })
 
 
@@ -472,6 +487,7 @@ exports.updateComment = async (req, res) => {
 
         const { commentId } = req.params
         const { text, post_id } = req.body
+        console.log({ text })
         const updateComment = await Comments.findOneAndUpdate({ uuid: commentId }, { $set: { body: text } }, { new: true })
         if (updateComment) {
             const GetAllComments = await Comments.find({ post_id })
@@ -491,180 +507,187 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
     try {
         let array = []
         const postId = req.params.id
-        const { text, image, privacy, post_id, time, fileType, name, userProfileImageUrl } = req.body
+        // text, image, name, privacy, post_id, time, fileType, likes_count, liked, userProfileImageUrl
+        const { text, image, privacy, post_id, time, fileType, name, userProfileImageUrl, likes_count, liked } = req.body
         // console.log(req.body)
         const data = image
         const userId = postId.split("-")[0]
-        if (image || text) {
-            if (image) {
-
-                cloudinary.uploader.upload(image, {
-                    folder: `${userId}/post`,
-                    public_id: `${post_id}`,
-                    timeout: 60000,
-
-
-                }, async (err, result) => {
-                    if (err) {
-                        return res.status(500).json({ message: "Not Uploaded, Try Again" + err })
-                    }
-                    else {
 
 
 
 
-                        //GET ALL POST AFTER INE IMAGE SAVE
-                        cloudinary.search.expression(
-                            "folder:" + `${userId}/post`,
-                        ).sort_by('public_id', 'desc').execute(async (err, result) => {
-
-                            //IF RESOURCE FOLDER IS NOT EMPTY
-
-                            if (result.resources.length > 0) {
-
-                                array.push(result.resources)
-                                if (result.resources.length > 0) {
 
 
+        // if (image || text) {
+        //     if (image) {
 
-                                    //Now check text is exit or not 
-                                    if (text) {
-                                        const userTextPost = await new TextPost({
-                                            post_id: post_id,
-                                            text: text,
-                                            privacy: privacy,
-                                            userId: userId,
-                                            createdAt: time
-
-                                        })
-
-                                        userTextPost.save(async (err) => {
-                                            if (err) {
-                                                return res.status(500).json({ message: "Something error occured" })
-                                            }
-                                            else {
-                                                //find all the text post after save new text post 
-                                                const allTextPost = await TextPost.find({
-                                                    userId: postId
-                                                })
-                                                console.log(allTextPost)
-                                                if (allTextPost.length > 0) {
-                                                    array.push(allTextPost)
-                                                    return res.status(200).json({ message: "Post added successfully", data: array })
-
-                                                }
+        //         cloudinary.uploader.upload(image, {
+        //             folder: `${userId}/post`,
+        //             public_id: `${post_id}`,
+        //             timeout: 60000,
 
 
-                                            }
-
-                                        })
-                                    }
-                                    else {
-                                        const allTextPost = await TextPost.find({
-                                            userId: postId
-                                        })
-                                        array.push(allTextPost)
-                                        return res.status(200).json({ message: "success full added", data: array })
-                                    }
-                                }
-                            }
-
-                            //IF INTIALY RESOURCES IS EMPTY THEN ONLY TEXT POST WILL BE ADDED
-                            else if (result.resources.length === 0) {
-                                array.push(result)
-
-                                //if text is not empty
-
-                                if (text) {
-                                    const userTextPost = await TextPost({
-                                        post_id: post_id,
-                                        text: text,
-                                        username: "",
-                                        image: "",
-                                        privacy: privacy,
-                                        userId: userId,
-                                        createdAt: time,
-                                        fileType: "",
-                                        profileImage: ""
-
-
-                                    })
-
-                                    userTextPost.save(async (err) => {
-                                        if (err) {
-                                            return res.status(500).json({ message: "Something error occured" })
-                                        }
-                                        else {
-                                            //find all the text post after save new text post 
-                                            const allTextPost = await TextPost.find({})
-                                            if (allTextPost.length > 0) {
-                                                array.push(allTextPost)
-                                                return res.status(200).json({ message: "Post added successfully", data: array })
-
-                                            }
-
-
-                                        }
-
-                                    })
-                                }
-
-                            }
-
-                        })
+        //         }, async (err, result) => {
+        //             if (err) {
+        //                 return res.status(500).json({ message: "Not Uploaded, Try Again" + err })
+        //             }
+        //             else {
 
 
 
-                    }
-                })
-            }
+
+        //                 //GET ALL POST AFTER INE IMAGE SAVE
+        //                 cloudinary.search.expression(
+        //                     "folder:" + `${userId}/post`,
+        //                 ).sort_by('public_id', 'desc').execute(async (err, result) => {
+
+        //                     //IF RESOURCE FOLDER IS NOT EMPTY
+
+        //                     if (result.resources.length > 0) {
+
+        //                         array.push(result.resources)
+        //                         if (result.resources.length > 0) {
 
 
-            //if image is empty but text is not empty
 
-            else if (text) {
+        //                             //Now check text is exit or not 
+        //                             if (text) {
+        //                                 const userTextPost = await new TextPost({
+        //                                     post_id: post_id,
+        //                                     text: text,
+        //                                     privacy: privacy,
+        //                                     userId: userId,
+        //                                     createdAt: time
 
-                cloudinary.search.expression(
-                    "folder:" + `${userId}/post`,
-                ).sort_by('public_id', 'desc').execute(async (err, result) => {
-                    if (result.resources.length > 0) {
-                        array.push(result.resources)
-                        if (result.resources.length > 0) {
+        //                                 })
 
-                            // array.push(result.resources)
-                            // array.push(result)
-                            if (text) {
-                                const userTextPost = await new TextPost({
-                                    post_id: post_id,
-                                    text: text,
-                                    privacy: privacy,
-                                    userId: userId,
-                                    createdAt: time
+        //                                 userTextPost.save(async (err) => {
+        //                                     if (err) {
+        //                                         return res.status(500).json({ message: "Something error occured" })
+        //                                     }
+        //                                     else {
+        //                                         //find all the text post after save new text post 
+        //                                         const allTextPost = await TextPost.find({
+        //                                             userId: postId
+        //                                         })
+        //                                         console.log(allTextPost)
+        //                                         if (allTextPost.length > 0) {
+        //                                             array.push(allTextPost)
+        //                                             return res.status(200).json({ message: "Post added successfully", data: array })
 
-                                })
+        //                                         }
 
-                                userTextPost.save(async (err) => {
-                                    if (err) {
-                                        return res.status(500).json({ message: "Something error occured in message" + err })
-                                    }
-                                    else {
-                                        const TakeAllTextPost = await TextPost.find({})
-                                        if (TakeAllTextPost.length > 0) {
 
-                                            array.push(
-                                                TakeAllTextPost
-                                            )
-                                            return res.status(200).json({ message: "Post added successfully", data: array })
-                                        }
-                                    }
+        //                                     }
 
-                                })
-                            }
-                        }
-                    }
-                })
-            }
-        }
+        //                                 })
+        //                             }
+        //                             else {
+        //                                 const allTextPost = await TextPost.find({
+        //                                     userId: postId
+        //                                 })
+        //                                 array.push(allTextPost)
+        //                                 return res.status(200).json({ message: "success full added", data: array })
+        //                             }
+        //                         }
+        //                     }
+
+        //                     //IF INTIALY RESOURCES IS EMPTY THEN ONLY TEXT POST WILL BE ADDED
+        //                     else if (result.resources.length === 0) {
+        //                         array.push(result)
+
+        //                         //if text is not empty
+
+        //                         if (text) {
+        //                             const userTextPost = await TextPost({
+        //                                 post_id: post_id,
+        //                                 text: text,
+        //                                 username: "",
+        //                                 image: "",
+        //                                 privacy: privacy,
+        //                                 userId: userId,
+        //                                 createdAt: time,
+        //                                 fileType: "",
+        //                                 profileImage: ""
+
+
+        //                             })
+
+        //                             userTextPost.save(async (err) => {
+        //                                 if (err) {
+        //                                     return res.status(500).json({ message: "Something error occured" })
+        //                                 }
+        //                                 else {
+        //                                     //find all the text post after save new text post 
+        //                                     const allTextPost = await TextPost.find({})
+        //                                     if (allTextPost.length > 0) {
+        //                                         array.push(allTextPost)
+        //                                         return res.status(200).json({ message: "Post added successfully", data: array })
+
+        //                                     }
+
+
+        //                                 }
+
+        //                             })
+        //                         }
+
+        //                     }
+
+        //                 })
+
+
+
+        //             }
+        //         })
+        //     }
+
+
+        //     //if image is empty but text is not empty
+
+        //     else if (text) {
+
+        //         cloudinary.search.expression(
+        //             "folder:" + `${userId}/post`,
+        //         ).sort_by('public_id', 'desc').execute(async (err, result) => {
+        //             if (result.resources.length > 0) {
+        //                 array.push(result.resources)
+        //                 if (result.resources.length > 0) {
+
+        //                     // array.push(result.resources)
+        //                     // array.push(result)
+        //                     if (text) {
+        //                         const userTextPost = await new TextPost({
+        //                             post_id: post_id,
+        //                             text: text,
+        //                             privacy: privacy,
+        //                             userId: userId,
+        //                             createdAt: time
+
+        //                         })
+
+        //                         userTextPost.save(async (err) => {
+        //                             if (err) {
+        //                                 return res.status(500).json({ message: "Something error occured in message" + err })
+        //                             }
+        //                             else {
+        //                                 const TakeAllTextPost = await TextPost.find({})
+        //                                 if (TakeAllTextPost.length > 0) {
+
+        //                                     array.push(
+        //                                         TakeAllTextPost
+        //                                     )
+        //                                     return res.status(200).json({ message: "Post added successfully", data: array })
+        //                                 }
+        //                             }
+
+        //                         })
+        //                     }
+        //                 }
+        //             }
+        //         })
+        //     }
+        // }
     } catch (error) {
         return res.status(500).json({ message: "Something Error Occurred" + err })
 
@@ -789,15 +812,58 @@ exports.deleteUserPostByCloudinary = async (req, res) => {
 exports.saveUserPostIntoMongoDB = async (req, res) => {
     try {
         const id = req._id
-
-
         const { text, image, name, privacy, post_id, time, fileType, likes_count, liked, userProfileImageUrl } = req.body
-        // console.log("user post")
-        // console.log(req.body)
-        // console.log("file type")
-        // console.log(fileType)
-        //filter the local image url
-        const filterUrl = image.split("blob")[1].slice(1)
+        console.log(req.body)
+        let mediaURL = ''
+        // if (image.length > 0) {
+        //     cloudinary.uploader.upload(image, {
+        //         folder: `${id}/post`,
+        //         public_id: `${post_id}`,
+        //         timeout: 60000,
+
+        //     }, async (err, result) => {
+        //         if (err) {
+        //             return res.status(500).json({ message: "not upload" })
+        //         }
+        //         else {
+        //             console.log({ result })
+        //             mediaURL = result.url
+        //             // return res.status(200).json({ message: result })
+        //             const SaveUserPosts = await new TextPost({
+        //                 username: name,
+        //                 text: text,
+        //                 // image: image,
+        //                 image: result.url,
+        //                 fileType: fileType,
+        //                 privacy: privacy,
+        //                 post_id: post_id,
+        //                 userId: id,
+        //                 profileImage: userProfileImageUrl,
+        //                 likes_count: likes_count,
+        //                 liked: liked,
+        //                 post_url: "/user/single/post?post=" + post_id + `&&auther=${name}`,
+        //                 createdAt: time,
+        //             })
+        //             SaveUserPosts.save(async (err) => {
+        //                 if (err) {
+        //                     // console.log(err)
+        //                     return res.status(500).json({ message: "Not Post" + err })
+        //                 }
+        //                 else {
+        //                     //send all user post by Id
+        //                     const GetAllUserPost = await TextPost.find({ $or: [{ userId: id }, { privacy: "public" }] })
+
+        //                     return res.status(200).json({ message: "Posted Successsfully", data: GetAllUserPost })
+
+        //                     // return res.end()
+        //                 }
+        //             })
+        //         }
+
+        //     })
+        // }
+        // else {
+
         const SaveUserPosts = await new TextPost({
             username: name,
             text: text,
@@ -809,15 +875,9 @@ exports.saveUserPostIntoMongoDB = async (req, res) => {
             profileImage: userProfileImageUrl,
             likes_count: likes_count,
             liked: liked,
-            post_url: "http://localhost:5000/blob/user/post/" + post_id,
-
+            post_url: "/user/single/post?post=" + post_id + `&&auther=${name}`,
             createdAt: time,
-
         })
-        // console.log({ SaveUserPosts })
-        // await TextPost.dropIndexes({index:"*"})
-
-
         SaveUserPosts.save(async (err) => {
             if (err) {
                 // console.log(err)
@@ -826,19 +886,17 @@ exports.saveUserPostIntoMongoDB = async (req, res) => {
             else {
                 //send all user post by Id
                 const GetAllUserPost = await TextPost.find({ $or: [{ userId: id }, { privacy: "public" }] })
-                // await pusher.trigger("AddPost", "AddPostMessage", {
-                //     GetAllUserPost: GetAllUserPost.reverse()
-                // }, req.body.socketId);
 
-                // console.log("hello worrld")
-
-
-                // console.log({ GetAllUserPost })
                 return res.status(200).json({ message: "Posted Successsfully", data: GetAllUserPost.reverse() })
 
                 // return res.end()
             }
         })
+        // }
+
+
+
+
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" + err })
     }
@@ -846,10 +904,18 @@ exports.saveUserPostIntoMongoDB = async (req, res) => {
 
 exports.GetPostFromMongoDb = async (req, res) => {
     try {
-        const { post_id } = req.params
 
-        const post = await TextPost.findOne({ post_id: post_id })
-        return res.status(200).json({ post_url: post })
+        const { post_id } = req.params
+        if (NodeCache.has(req.params.post_id + "PostFromMongoDb")) {
+            const data = NodeCache.get(req.params.post_id + "PostFromMongoDb")
+            return res.status(200).json(data)
+
+        }
+        else {
+            const post = await TextPost.findOne({ post_id: post_id })
+            NodeCache.set(req.params.post_id + "PostFromMongoDb", { post_url: post })
+            return res.status(200).json({ post_url: post })
+        }
 
 
     } catch (err) {
@@ -867,55 +933,46 @@ exports.loadAllUserPost = async (req, res) => {
         // const { _id } = await jwt.verify(token, KEY)
 
         //get all post by userId 
-        const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).limit(+value)
+        const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).hint({ $natural: -1 }).limit(+value)
         const GetAllUserPost1 = GetAllUserPost.filter((item) => {
             return
         })
         return res.status(200).json({ message: "successfull load", data: GetAllUserPost.reverse() })
     } catch (error) {
-
         return res.status(500).json({ message: "Something error occured" + error })
     }
 }
 
 exports.deleteUserPostByMongoDB = async (req, res) => {
     try {
-
         const id = req._id
-
-
         const { userId, post_id } = req.body
-
-
         const deletePost = await TextPost.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
         await Noti.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
         // console.log("deleted response is ", deletePost)
         // console.log(deletePost)
-        if (deletePost) {
+        if (id === userId) {
+            if (deletePost) {
+                //delete all comment related to post
+                await Comments.deleteMany({
+                    post_id
+                        : post_id
+                })
+                //getallpost after delete
+                const GetAllPostsAfterDelete = await TextPost.find({})
+                const allNotiAfterDelete = await Noti.find({})
 
-            //delete all comment related to post
-            await Comments.deleteMany({
-                post_id
-                    : post_id
-            })
-            //getallpost after delete
-            const GetAllPostsAfterDelete = await TextPost.find({})
-            // console.log({ GetAllPostsAfterDelete })
-
-            const allNotiAfterDelete = await Noti.find({})
-
-            // pusher.trigger("DeletePost", "PostDeleted", { GetAllPostsAfterDelete: GetAllPostsAfterDelete.reverse() }, req.body.socketId)
-            // pusher.trigger("DeleteNotiByPost", "DeleteNotiMessage", { allNotiAfterDelete }, req.body.socketId)
-
-            return res.status(200).json({ message: "Post deleted successfully", data: GetAllPostsAfterDelete.reverse() })
+                return res.status(200).json({ message: "Post deleted successfully", data: GetAllPostsAfterDelete.reverse() })
+            }
+            else {
+                return res.status(200).json({ message: "Deleted Successfully." })
+            }
         }
         else {
-            return res.status(200).json({ message: "Deleted Successfully." })
+            return res.status(401).json({ message: "you can not delete this post. you are not admin of this post" })
         }
-
     } catch (error) {
-        return res.status(500).json({ message: "Something error   occured" + error })
-
+        return res.status(500).json({ message: "Something error   occured" })
     }
 }
 
@@ -923,22 +980,20 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
 exports.getAllCommentNumber = async (req, res) => {
     try {
         const _id = req._id
-        console.log({ id })
         const token = req.params.id
-
         //verify token for current user
         // const { _id } = await jwt.verify(token, KEY)
-
         const { post_id } = req.body
         const GetAllComment = await Comments.find({ userId: _id })
-        await pusher.trigger("updateComment", "updateCommentMessage", { GetAllComment: GetAllComment.reverse() }, req.body.socketId)
-        return res.status(200).json({ message: "successfull load", data: GetAllComment.reverse() })
-
-
+        if (NodeCache.has(_id + "NumberComments")) {
+            return res.status(200).json({ data: NodeCache.get(_id + "NumberComments") })
+        }
+        else {
+            NodeCache.set(_id + "NumberComments", GetAllComment.reverse())
+            return res.status(200).json({ message: "successfull load", data: GetAllComment.reverse() })
+        }
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" + err })
-
-
     }
 }
 
@@ -956,43 +1011,29 @@ exports.privacy = async (req, res) => {
                 return res.status(200).json({ message: "successfull", data: allPost.reverse() })
             }
         })
-
-
     } catch (err) {
         return res.status(500).json({ message: "somethinng error occured" + err })
-
-
     }
-
-
 }
 
 exports.likedPost = async (req, res) => {
     try {
         const userId = req.params.id
-        // console.log({ userId })
-        // console.log("loked")
-
-        // find user details which liked post
-        const userDetailsFind = await Post.findOne({ googleId: userId })
-        const UserProfileImage = await cloudinary.search.expression(
-            "folder:" + userId + "/profileImage")
-            .sort_by('created_at', 'desc')
-            .execute()
-
-        // console.log("user proifile image")
-        // console.log(UserProfileImage)
-        // pusher.trigger("userDetails", 'message1', {
-        //     userDetailsFind,
-        //     UserProfileImage
-        // }, req.body.socketId);
-        return res.status(200).json({ message: "successfull", data: [userDetailsFind, UserProfileImage] })
-
+        if (NodeCache.has(userId + "likedPost")) {
+            return res.status(200).json({ data: NodeCache.get(userId + "likedPost") })
+        }
+        else {
+            const userDetailsFind = await Post.findOne({ googleId: userId })
+            const UserProfileImage = await cloudinary.search.expression(
+                "folder:" + userId + "/profileImage")
+                .sort_by('created_at', 'desc')
+                .execute()
+            NodeCache.set(userId + "likedPost", { data: [userDetailsFind, UserProfileImage] })
+            return res.status(200).json({ message: "successfull", data: [userDetailsFind, UserProfileImage] })
+        }
 
     } catch (err) {
-
         return res.status(500).json({ message: "somethinng error occured" + err })
-
     }
 }
 
@@ -1020,19 +1061,26 @@ exports.search = async (req, res) => {
 
 exports.loadAllNoti = async (req, res) => {
     try {
-
-
         const _id = req._id
         const id = req.params.id
-        // const { _id } = await jwt.verify(token, KEY)
 
-        const result = await Noti.find({
-            $and: [{
-                likeTo: _id
-            }, { likedBy: { $ne: _id } }]
-        }).sort({ $natural: -1 }).limit(5)
-        // console.log({ result })
-        return res.status(200).json({ message: "successfull", data: result })
+
+        if (NodeCache.has(_id + "LoadAllNoti")) {
+            return res.status(200).json(NodeCache.get(_id + "LoadAllNoti"))
+        }
+        else {
+
+            const result = await Noti.find({
+                $and: [{
+                    likeTo: _id
+                }, { likedBy: { $ne: _id } }]
+            }).sort({ $natural: -1 }).limit(5)
+            // console.log({ result })
+
+            NodeCache.set(_id + "LoadAllNoti", { message: "successfull", data: result })
+
+            return res.status(200).json({ message: "successfull", data: result })
+        }
 
 
     } catch (err) {
@@ -1052,7 +1100,6 @@ exports.loadAllNotification = async (req, res) => {
         const result = await Noti.find({ $and: [{ likeTo: _id }, { likedBy: { $ne: _id } }] }).sort({ $natural: -1 })
         // console.log({ result })
         return res.status(200).json({ message: "successfull", data: result })
-
 
     } catch (err) {
         return res.status(500).json({ message: "somethinng error occured" })
@@ -1178,11 +1225,7 @@ exports.commentLength = async (req, res) => {
         const { post_id } = req.body
         const length = await Comments.find({ post_id }).countDocuments()
         // console.log(length)
-        return res.status(200).json({ message: "successfull", data: length })
-
-
-
-
+        return res.status(200).json({ message: "successfull", data: length, post: post_id })
     } catch (err) {
         return res.status(500).json({ message: "somethinng error occured" })
     }
@@ -1361,21 +1404,30 @@ exports.disconnectfriend = async (req, res) => {
 
 exports.getfriends = async (req, res) => {
     try {
+        const userId = req.params.userId
 
-        const user = await UserData.findOne({ googleId: req.params.userId });
-        const friends = await Promise.all(
-            user.friends.map((friendId) => {
-                return UserData.findOne({ googleId: friendId._id })
-            })
-        );
+        if (NodeCache.has(userId + "friends")) {
+            return res.status(200).json(NodeCache.get(userId + "friends"))
+        }
+        else {
 
-        let friendList = [];
-        friends.map((friend) => {
-            // console.log(friend)
 
-            friendList.push({ _id: friend.googleId, name: friend.fname + " " + friend.lname, url: friend.url });
-        });
-        return res.status(200).json({ friendList })
+            const user = await UserData.findOne({ googleId: req.params.userId });
+            const friends = await Promise.all(
+                user.friends.map((friendId) => {
+                    return UserData.findOne({ googleId: friendId._id })
+                })
+            );
+
+            let friendList = [];
+            friends.map((friend) => {
+                // console.log(friend)
+
+                friendList.push({ _id: friend.googleId, name: friend.fname + " " + friend.lname, url: friend.url });
+            });
+            NodeCache.set(userId + "friends", { friendList })
+            return res.status(200).json({ friendList })
+        }
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -1384,7 +1436,6 @@ exports.getfriends = async (req, res) => {
 
 exports.postLength = async (req, res) => {
     try {
-
         const user = await TextPost.find({});
         if (user) {
             console.log(user.length)
@@ -1393,8 +1444,130 @@ exports.postLength = async (req, res) => {
         else {
             return res.status(200).json({ l: 0 })
         }
-
     } catch (err) {
         return res.status(500).json({ message: "something error occured" });
+    }
+}
+
+exports.SinglePost = async (req, res) => {
+
+    try {
+        const { auther, post } = req.params
+        const splitAuther = auther.split("-").join(" ")
+
+        if (auther && post) {
+            const user = await TextPost.findOne({ post_id: post, username: splitAuther });
+            console.log({ user })
+            return res.status(200).json({ message: "Success", data: user })
+        }
+        else {
+            return res.status(401).json({ message: "Post not Found" })
+        }
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "something error occured" })
+
+    }
+}
+
+
+exports.ReactUser = async (req, res) => {
+    try {
+        const { userId } = req.params
+        const _id = req._id
+        if (userId) {
+            const { fname, lname, url } = await UserData.findOne({ googleId: userId })
+            //check every react user is a friends of current user or not
+            const currentUserDetails = await UserData.findOne({ googleId: _id })
+            const isFriends = currentUserDetails.friends.length > 0 && currentUserDetails.friends.some(item => {
+                return item._id === userId
+            })
+            if (fname && lname) {
+                return res.status(200).json({ message: "success", details: { name: fname + " " + lname, image: url, isFriends, currentUserDetails } })
+            }
+            else {
+                return res.status(404).json({ message: "not found" })
+            }
+        }
+        else {
+            return res.status(200).json({ message: "Not liked" })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something error Occured" })
+
+    }
+}
+
+
+
+exports.Bookmark = async (req, res) => {
+    try {
+        const { userId } = req.params
+        const { bookMarkColor, ...postDetails } = req.body
+        const { post_id } = req.body
+
+        if (userId) {
+            if (bookMarkColor === true) {
+                const user = await UserData.findOneAndUpdate({ _id: userId }, { $pull: { bookMarkPost: { post_id: post_id } } }, { new: true })
+                const user1 = await UserData.findOne({ _id: userId })
+                await UserData.findOneAndUpdate({ googleId: req.body.userId }, { $pull: { bookMarkBy: { _id: userId, post_id } } }, { new: true })
+                return res.status(200).json({ message: "successfull remove", bookmark: user1.bookMarkPost })
+
+            }
+            //remove the post if exits
+
+            else {
+                //add the post if it is exits and also check already exits ot not
+                const alreadyExits = await UserData.findOne({ _id: userId })
+                const isExits = alreadyExits.bookMarkPost.length > 0 && alreadyExits.bookMarkPost.filter((item) => {
+                    return item.post_id === post_id
+                })
+                if (isExits.length > 0) {
+                    return res.status(200).json({ message: "Already exits" })
+                }
+                else {
+
+                    await UserData.findOneAndUpdate({ _id: userId }, { $push: { bookMarkPost: postDetails } }, { new: true })
+                    const user = await UserData.findOne({ _id: userId })
+                    await UserData.findOneAndUpdate({ googleId: req.body.userId }, { $push: { bookMarkBy: { _id: userId, post_id } } }, { new: true })
+                    NodeCache.set(req._id + "userInformation", user)
+                    return res.status(200).json({ message: "bookmark Successfull", bookmark: user.bookMarkPost })
+                }
+            }
+
+
+        }
+
+        else {
+            return res.status(401).json({ message: "Something missing" })
+        }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error Occured" })
+    }
+}
+
+
+
+exports.GetSinglePost = async (req, res) => {
+    try {
+        const { auther, post } = req.body
+        if (auther && post) {
+            const postDetails = await TextPost.find({ $and: [{ username: auther }, { post_id: post }] })
+            if (postDetails) {
+
+                return res.status(200).json({ data: postDetails })
+            }
+            else {
+                return res.status(404).json({ message: "Post not found" })
+            }
+        }
+        else {
+            return res.status(404).json({ message: "Post not found" })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+
     }
 }

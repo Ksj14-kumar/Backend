@@ -55,23 +55,34 @@ module.exports = (io, req, res) => {
             if (data) {
                 const { _id } = await jwt.verify(data, KEY)
                 UserDetails = await UserData.findOne({ googleId: _id })
-                if(UserDetails){
+                if (UserDetails) {
 
                     await AddUser(UserDetails.fname + " " + UserDetails.lname, socket.id, _id, UserDetails.url, UserDetails._id.valueOf())
                     io.emit("onlineUsers", onlineUser)
                 }
-
-
-                // console.log(onlineUser)
             }
         })
 
 
 
+        socket.on("likeCount", (data) => {
+            // console.
+            io.emit("getLikeCount", data)
+        })
+
+        socket.on("commentLength", (data) => {
+            io.emit("getCommentLength", data)
+
+        })
+        socket.on("sendComment", (data) => {
+            console.log({ data })
+            io.emit("getComments", data)
+        })
+
+
+
         socket.on('sendMessage', async (message) => {
-            // console.log({ message })
             const getUser = await getUserById(message.receiverId)
-            // console.log({ getUser })
             io.to(getUser?.socketId).emit("getMessage", {
 
                 senderId: message.senderId,
@@ -83,14 +94,9 @@ module.exports = (io, req, res) => {
             })
 
         })
-        console.log(onlineUser)
         socket.on('sendGroupMessage', async (message) => {
-            console.log({ message })
-            console.log({ onlineUser })
             const getUser = await getUserById(message.receiverId)
-            console.log({ getUser })
             io.to(getUser?.socketId).emit("getGroupMessage", {
-
                 name: message.name,
 
                 userId: message.userId,
@@ -126,9 +132,6 @@ module.exports = (io, req, res) => {
 
         socket.on("callUser", async (data) => {
             const findUser = await getUserById(data.anotherUserId)
-
-
-            console.log(findUser)
             io.to(findUser?.socketId).emit("sendRing", data)
 
         })

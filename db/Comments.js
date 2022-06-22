@@ -12,6 +12,7 @@ const Schema = new mongoose.Schema({
     parentId: String,
     createdAt: String,
     ImageUrl: String,
+    type: String
 
 
 })
