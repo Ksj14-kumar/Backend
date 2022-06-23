@@ -129,7 +129,8 @@ exports.getProfileImage = async (req, res) => {
             // .max_results(20)
             .execute()
         // NodeCache.set(_id + "profileImage", { url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
-        return res.status(200).json({ url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id, profileImage: "profile" })
+        console.log(result)
+        return res.status(200).json({ url: result.resources.length > 0 && result.resources[0].secure_url, assest_id: result.resources.length > 0 && result.resources[0].asset_id, profileImage: "profile" })
         // }
 
 
@@ -365,7 +366,7 @@ exports.getBackgroundImage = async (req, res) => {
         // else {
         if (result.resources.length > 0) {
             // NodeCache.set(_id + "bgImage", { url: result.resources[0].url, assest_id: result.resources[0].asset_id })
-            return res.status(200).json({ url: result.resources[0].url, assest_id: result.resources[0].asset_id, bgImage: "bgImage" })
+            return res.status(200).json({ url: result.resources[0].secure_url, assest_id: result.resources[0].asset_id, bgImage: "bgImage" })
         }
         else {
             return res.status(404).json({ message: "Background Image not exits", bgImage: "bgImage" })
