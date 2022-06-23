@@ -68,25 +68,26 @@ const upload = multer({ storage: storage }).single("file")
 
 
 // ==============================POST THE PROFILE IMAGE --==================
+//if  user ki profile image ko alag palteform pr save krna hai tou simply frontend mai route path url set kr do aur koi modificationn ki need nhi hai
 
-router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD/", Auth.AuthToken, BlobController.profileImagePost
-)
-
-
-
-// =====================================get the profile images===========
+//save the profile image into cloudinary
+router.post("/user/blob/image/9fHtqOJumtxOzmTfLMFT/ETXsG3rHrnx2irUZmefU/njVzxxrEx84ZrUiERB0t/fxXRdJLMKIkzxucTbovy/sO9rLr3E0EuDpjYcawQD/", Auth.AuthToken, BlobController.profileImagePost)
 
 router.get("/profile/image/e9thhvkKqJpnTlYo1sQl/QVbghZqhoSr2Rt5qvNYJ/iKj3RoJojFWmcDo4wTlm/9Olk5vTenhdkjHrdYEWl/", Auth.AuthToken, BlobController.getProfileImage)
 
 router.post("/strategy/images/", Auth.AuthToken, BlobController.getStrategyImages)
 
-
-
-
-// ============================================delete the assests =========
-
+// ============================================delete the assests profile image from cloudinary =========
 //delete profile image
 router.delete("/delete/assest/", Auth.AuthToken, BlobController.DeleteAssestsProfileImage)
+
+
+
+//now save the profile image into data base as base64 hash string
+router.post("/api/v1/user/profile/image", Auth.AuthToken, BlobController.Base64ProfileImage)
+
+
+
 
 
 
@@ -102,7 +103,7 @@ router.get("/user/083525p7ljhwmxifts31/l66cbrsuytmj1wujuauz/nqoye5ozdqj89b4s4qoq
 
 
 
-//-----------------------------------BACKGROUND IMAGES --------------------------
+//-----------------------------------BACKGROUND IMAGES from cloudinary --------------------------
 
 router.post("/user/blob/image/bg/S6MjFqeb8HdJRGjkUs9W/QUCzIb1mKtMevddN24yB/YWYhtXwEEtUlHu0Nkhmq/eAQCSzpYo28SJxXCMV4d/yR3VTmMynJw6N3xlS530/WpsJsZKo4hGf18jaWmZL/", Auth.AuthToken, BlobController.backgroundImagePost)
 

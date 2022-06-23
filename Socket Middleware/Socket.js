@@ -12,8 +12,6 @@ const { cloudinary } = require("../Cloudnary/cloudnary");
 
 
 let onlineUser = []
-
-
 let AddUser = (username, socketId, adminId, profilePic, mongoId) => {
     !onlineUser.some((item) => { item.username === username }) && onlineUser.push({ username, socketId, adminId, profilePic, mongoId })
 }
@@ -22,7 +20,6 @@ const removeUser = async (socketId) => {
         return item.socketId !== socketId
     })
     return value
-
 }
 
 const removeUserById = (id) => {
@@ -50,6 +47,13 @@ module.exports = (io, req, res) => {
 
     io.on('connection', (socket) => {
         console.log("someoe is connected")
+
+        //now get the query hanshshaking query
+        // console.log(socket.handshake.query)
+        // console.log(socket.handshake.headers)
+        // console.log(socket.handshake.custome_header)
+        // console.log(socket.handshake.auth)
+
 
         socket.on('login', async (data) => {
             if (data) {

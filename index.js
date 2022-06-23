@@ -14,16 +14,25 @@ const http = require("http")
 const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
+
+    path: "/collegezone",
+    transports: ["polling", "websocket"],
     cors: {
-        origin: "*",
+        origin: process.env.CLIENT_URL,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        // credentials: true,
-        // maxAge: "3600",
-        // preflightContinue: false
+        credentials: true,
+    },
+    cookie: {
+        name: "session cookie",
+        domain: process.env.CLIENT_URL,
+        secure: "auto",
+        encodeURI: true,
+
     }
 })
 
 
+// io.set("origins", "*:*");
 
 //top file end
 
@@ -43,6 +52,7 @@ const cookieSession = require("cookie-session")
 const cookieParser = require("cookie-parser")
 const passport = require('passport');
 const path = require('path');
+const { truncatedNormal } = require('@tensorflow/tfjs');
 
 
 const URL = process.env.MONGO_URL
@@ -97,8 +107,8 @@ app.use(bodyParser.json({ limit: '200mb' }))
 // app.set('trust proxy', 1)
 app.use(cors(
     {
-        origin: "*",
-        credentials: false,
+        origin: process.env.CLIENT_URL,
+        credentials: true,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         // preflightContinue: false,
         // optionsSuccessStatus: 200
