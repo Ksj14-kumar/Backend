@@ -25,8 +25,7 @@ const io = new Server(server, {
     cookie: {
         name: "session cookie",
         domain: process.env.CLIENT_URL,
-        secure: "auto",
-        encodeURI: true,
+        path: "/",
 
     }
 })
