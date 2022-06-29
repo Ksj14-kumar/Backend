@@ -21,6 +21,7 @@ const NodeCache = new Cache()
 
 let Pusher = require('pusher');
 const UserData = require("../db/UserData");
+const { AsyncResource } = require("async_hooks");
 
 let pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
@@ -129,8 +130,8 @@ exports.getProfileImage = async (req, res) => {
             // .max_results(20)
             .execute()
         // NodeCache.set(_id + "profileImage", { url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id })
-        console.log(result)
-        return res.status(200).json({ url: result.resources.length > 0 && result.resources[0].secure_url, assest_id: result.resources.length > 0 && result.resources[0].asset_id, profileImage: "profile" })
+        // console.log(result)
+        return res.status(200).json({ url: result.resources.length > 0 && result.resources[0].url, assest_id: result.resources.length > 0 && result.resources[0].asset_id, profileImage: "profile" })
         // }
 
 
@@ -417,11 +418,12 @@ exports.loadComments = async (req, res) => {
         // console.log(AllUsersComments)
 
         if (AllUsersComments.length === 0) {
-            return res.status(200).json({ message: "All comments", data: [] })
+            return res.status(200).json({ message: "All comments", data: [], post_id })
 
         }
         else {
-            return res.status(200).json({ message: "All comments", data: AllUsersComments, length: AllUsersCommentslength.length })
+            // console.log({ AllUsersComments })
+            return res.status(200).json({ message: "All comments", data: AllUsersComments, length: AllUsersCommentslength.length, post_id })
         }
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
@@ -444,7 +446,7 @@ exports.saveComment = async (req, res) => {
                 return res.status(500).json({ message: "Something error occured" })
             }
             else {
-                console.log({ result })
+                // console.log({ result })
                 const length = await Comments.find({ post_id: comment.post_id }).countDocuments()
                 return res.status(200).json({ message: "successfully saved", data: req.body, length })
             }
@@ -484,7 +486,7 @@ exports.updateComment = async (req, res) => {
 
         const { commentId } = req.params
         const { text, post_id } = req.body
-        console.log({ text })
+        // console.log({ text })
         const updateComment = await Comments.findOneAndUpdate({ uuid: commentId }, { $set: { body: text } }, { new: true })
         if (updateComment) {
             const GetAllComments = await Comments.find({ post_id })
@@ -558,7 +560,7 @@ exports.saveUserPostIntoCloudinary = async (req, res) => {
                                                 const allTextPost = await TextPost.find({
                                                     userId: postId
                                                 })
-                                                console.log(allTextPost)
+                                                // console.log(allTextPost)
                                                 if (allTextPost.length > 0) {
                                                     array.push(allTextPost)
                                                     return res.status(200).json({ message: "Post added successfully", data: array })
@@ -795,7 +797,7 @@ exports.saveUserPostIntoMongoDB = async (req, res) => {
     try {
         const id = req._id
         const { text, image, name, privacy, post_id, time, fileType, likes_count, liked, userProfileImageUrl } = req.body
-        console.log(req.body)
+        // console.log(req.body)
         let mediaURL = ''
         const type = image.split(";")[0].split(":")[1]
 
@@ -919,14 +921,24 @@ exports.GetPostFromMongoDb = async (req, res) => {
 exports.loadAllUserPost = async (req, res) => {
     try {
         const _id = req._id
-        const { value } = req.params
+        const { value1, value2 } = req.params
         // console.log({ value: +value })
         // const { _id } = await jwt.verify(token, KEY)
 
         //get all post by userId 
-        const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).hint({ $natural: -1 }).limit(+value)
+        const value = value1 + value2
+        const countDoc = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).countDocuments()
+        if (+value1 === 0) {
+            const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).limit(+value)
+            return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
+        }
+        else {
+            const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).skip(+value1).limit(+value)
+            return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
 
-        return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
+
+
+        }
     } catch (error) {
         return res.status(500).json({ message: "Something error occured" + error })
     }
@@ -950,8 +962,10 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
                 //getallpost after delete
                 const GetAllPostsAfterDelete = await TextPost.find({})
                 const allNotiAfterDelete = await Noti.find({})
-
-                return res.status(200).json({ message: "Post deleted successfully", data: GetAllPostsAfterDelete.reverse() })
+                const arrange = GetAllPostsAfterDelete.length > 0 && GetAllPostsAfterDelete.sort((a, b) => {
+                    return b.time - a.time
+                })
+                return res.status(200).json({ message: "Post deleted successfully", data: arrange })
             }
             else {
                 return res.status(200).json({ message: "Deleted Successfully." })
@@ -997,7 +1011,10 @@ exports.privacy = async (req, res) => {
             }
             else {
                 const allPost = await TextPost.find({})
-                return res.status(200).json({ message: "successfull", data: allPost.reverse() })
+                const arrange = allPost.length > 0 && allPost.sort((a, b) => {
+                    return b.time - a.time
+                })
+                return res.status(200).json({ message: "successfull", data: arrange })
             }
         })
     } catch (err) {
@@ -1225,11 +1242,9 @@ exports.friendrequest = async (req, res) => {
     try {
         const { profileUrl, anotherUserId, recieverName, senderName, userId, currentUser, receiverUrl, senderUrl, connectMessage } = req.body
         console.log("send reqiest")
-        console.log(req.body)
 
 
         const _id = req._id
-        console.log(_id)
 
         if (currentUser === anotherUserId) {
             return res.status(403).json({ message: "you can't send request to yourself" })
@@ -1313,37 +1328,26 @@ exports.deletefriendrequest = async (req, res) => {
 
 exports.acceptfriendrequest = async (req, res) => {
     try {
-        const { senderId, name } = req.body
+        const { senderId, name, url } = req.body
         const _id = req._id
         // console.log("accept")
         // console.log(req.body)
-
-
         if (!senderId) {
             return res.status(403).json({ message: "some error" })
         }
         else {
-
-
             const RecieverRequest = await UserData.findOne({ googleId: _id })
             const SenderRequest = await UserData.findOne({ googleId: senderId })
             const FilterRequestData = await RecieverRequest.receiverrequest.filter(item => {
                 return item._id === senderId
             })
-
             // console.log({ FilterRequestData })
-
-
             const getSenderRequest = await UserData.findOne({ googleId: senderId })
             // console.log({ getSenderRequest })
             const FilterSenderData = await getSenderRequest.senderrequest.filter(item => {
                 return item._id === _id
             })
             // console.log({ FilterSenderData })
-
-
-
-
             await UserData.updateOne({ googleId: senderId }, { $push: { friends: FilterSenderData[0] } }, { new: true })
             await UserData.updateOne({ googleId: _id }, { $push: { friends: FilterRequestData[0] } }, { new: true })
             await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { _id: _id } } }, { new: true })
@@ -1353,7 +1357,7 @@ exports.acceptfriendrequest = async (req, res) => {
             await UserData.findOneAndUpdate({ googleId: _id }, { $push: { message: { name: SenderRequest.fname + "" + SenderRequest.lname, url: SenderRequest.url, type: "friend", _id: senderId } } }, { new: true })
 
 
-            return res.status(200).json({ message: "successfull accecpted" })
+            return res.status(200).json({ message: "successfull accecpted", accept: true, Users: [{ name, url, senderId }] })
         }
     }
     catch (err) {
@@ -1536,7 +1540,109 @@ exports.Bookmark = async (req, res) => {
 
 
 
-exports.GetSinglePost = async (req, res) => {
+exports.GetPosts = async (req, res) => {
+    try {
+        const _id = req._id
+        const { text, image, name, privacy, post_id, time, fileType, likes_count, liked, userProfileImageUrl } = req.body
+        let emptyObject = {}
+
+        const path = "_user/_posts" + `/_${_id}`
+        // console.log(image)
+
+
+        const type = image.split(";")[0].split(":")[1]
+        if (type === "image/jpeg" || type === "image/jpg" || type === "image/png" || type === "video/mp4" || type === "video/*") {
+
+            const buffer = Buffer(image.split(",")[1], 'base64')
+            const fileName = `${post_id}_${Date.now()}.${type.split("/")[1]}`
+            const filePath = path + `/${fileName}`
+            if (!fs.existsSync(path)) {
+                fs.mkdirSync(path, { recursive: true })
+            }
+            fs.writeFile(filePath, buffer, (err) => {
+                if (err) {
+                    return res.status(500).json({ message: "something error occured" })
+                }
+                else {
+                    console.log("file saved")
+                    const PostDataIntoDb = new TextPost({
+                        username: name,
+                        text: text,
+                        image: filePath,
+                        fileType: fileType,
+                        privacy: privacy,
+                        post_id: post_id,
+                        userId: _id,
+                        profileImage: userProfileImageUrl,
+                        likes_count: likes_count,
+                        liked: liked,
+                        post_url: "/user/single/post?post=" + post_id + `&&auther=${name}`,
+                        createdAt: time,
+                    })
+
+                    PostDataIntoDb.save(async (err, result) => {
+                        if (err) {
+                            return res.status(500).json({ message: "Something error occured" })
+                        }
+                        else {
+                            // const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] })
+                            return res.status(200).json({ message: "successfull", data: result })
+                        }
+                    })
+
+                }
+            })
+        }
+        else if (image === "") {
+            const PostDataIntoDb = new TextPost({
+                username: name,
+                text: text,
+                image: "",
+                fileType: fileType,
+                privacy: privacy,
+                post_id: post_id,
+                userId: _id,
+                profileImage: userProfileImageUrl,
+                likes_count: likes_count,
+                liked: liked,
+                post_url: "/user/single/post?post=" + post_id + `&&auther=${name}`,
+                createdAt: time,
+            })
+            PostDataIntoDb.save(async (err, result) => {
+                if (err) {
+                    return res.status(500).json({ message: "Something error occured" })
+                }
+                else {
+                    // const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] })
+                    return res.status(200).json({ message: "successfull", data: result })
+                }
+            })
+
+        }
+        else {
+            return res.status(403).json({ message: "invalid file" })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+    }
+}
+
+
+
+exports.Base64ProfileImage = async (req, res) => {
+    try {
+        const _id = req._id
+        const { data, url, uuid } = req.body
+        const UserDetails = await UserData.findOneAndUpdate({ googleId: _id }, { $set: { url: req.body.data } })
+        return res.status(200).json({ message: "successfull upload", data: { url: UserDetails.url } })
+    } catch (err) {
+        return res.status(500).json({ message: "Opps Somethig error occured" + err })
+    }
+}
+
+
+
+exports.SinglePost = async (req, res) => {
     try {
         const { auther, post } = req.body
         if (auther && post) {
@@ -1557,14 +1663,152 @@ exports.GetSinglePost = async (req, res) => {
 }
 
 
-
-exports.Base64ProfileImage = async (req, res) => {
+exports.ServerPost = async (req, res) => {
     try {
-        const _id = req._id
-        const { data, url, uuid } = req.body
-        const UserDetails = await UserData.findOneAndUpdate({ googleId: _id }, { $set: { url: req.body.data } })
-        return res.status(200).json({ message: "successfull upload", data: { url: UserDetails.url } })
+        const { post } = req.headers
+        return res.status(200).sendFile(path.join(__dirname, `../${post}`))
+    }
+    catch (err) {
+        return res.status(500).json({ message: "something error occured" })
+    }
+}
+
+
+
+exports.likeUserPost = async (req, res) => {
+    try {
+        console.log(req.body)
+        const post_id = req.params.postId
+        const { likedBy, likeTo, liked } = req.body
+        if (likedBy && likeTo) {
+            if (liked === false) {
+                //liked post
+                const likedByUser = await UserData.findOne({ googleId: likedBy })
+                const likeToUser = await UserData.findOne({ googleId: likeTo })
+                const { image } = await TextPost.findOne({ post_id: post_id })
+                const value = await UserData.findOneAndUpdate({ googleId: likeTo }, {
+                    $push: {
+                        AllNotification: {
+                            postImagePath: image,
+                            userPorfile:likedByUser.url,
+                            postId: post_id,
+                            name: likedByUser.fname + " " + likedByUser.lname,
+                            post_url: "/user/single/post?post=" + post_id + `&&auther=${likeToUser.fname + " " + likeToUser.lname}`,
+                            type: "like",
+                            time: Date.now(),
+                            read: false,
+                            notification_id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+                            userLikedId: likedBy,
+                        }
+                    }
+                }, { new: true })
+                return res.status(200).json({ message: "liked", value: value })
+
+            }
+            else {
+                // unliked post_id
+                const value = await UserData.findOneAndUpdate({ googleId: likeTo }, { $pull: { AllNotification: { userLikedId: likedBy } } }, { new: true })
+                return res.status(200).json({ message: "Successful unliked", value })
+            }
+        }
+        else {
+            return res.status(403).json({ message: "Something missing" })
+        }
     } catch (err) {
-        return res.status(500).json({ message: "Opps Somethig error occured" + err })
+        return res.status(500).json({ message: "Something error occured" + err })
+
+    }
+}
+
+
+exports.commentUserPost = async (req, res) => {
+    try {
+        const postId = req.params.postId
+        console.log(req.body)
+        const { comment, commentBy, replyParentId } = req.body
+        if (commentBy && comment) {
+            const commentByUser = await UserData.findOne({ googleId: commentBy })
+            const { userId, image } = await TextPost.findOne({ post_id: postId })
+            const { fname, lname, url } = await UserData.findOne({ googleId: userId })
+            if (comment.parentId === null) {
+                //send message to admin post admin
+                const value = await UserData.findOneAndUpdate({ googleId: userId }, {
+                    $push: {
+                        AllNotification: {
+                            name: comment.username,
+                            UserProfile: commentByUser.url,
+                            postId: comment.post_id,
+                            postImagePath: image,
+                            post_url: "/user/single/post?post=" + comment.post_id + `&&auther=${fname + " " + lname}`,
+                            docIdCommentByUserId: commentByUser._id,
+                            type: "comment",
+                            commentParentId: comment.parentId,
+                            commentId: comment.uuid,
+                            time: comment.createdAt,
+                            body: comment.body,
+                            read: false,
+                            notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
+                        }
+                    }
+                })
+                return res.status(200).json({ message: "Successfull saved" })
+            }
+            else {
+                // now add comment message 
+                // 1) add into owner notification as comment
+                //2) add into jisko reply diya hai uske notificatios mai, jisne reply diya hai
+                await UserData.findOneAndUpdate({ googleId: userId }, {
+                    $push: {
+                        AllNotification: {
+                            name: comment.username,
+                            UserProfile: commentByUser.url,
+                            postId: comment.post_id,
+                            postImagePath: image,
+                            post_url: "/user/single/post?post=" + comment.post_id + `&&auther=${fname + " " + lname}`,
+                            docIdCommentByUserId: commentByUser._id,
+                            type: "comment",
+                            commentParentId: comment.parentId,
+                            commentId: comment.uuid,
+                            time: comment.createdAt,
+                            body: comment.body,
+                            read: false,
+                            notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
+                        }
+                    }
+                })
+                if (replyParentId !== commentBy) {
+                    const value = await UserData.findOneAndUpdate({ googleId: replyParentId }, {
+                        $push: {
+                            AllNotification: {
+                                name: comment.username,
+                                UserProfile: commentByUser.url,
+                                postId: comment.post_id,
+                                postImagePath: image,
+                                post_url: "/user/single/post?post=" + comment.post_id + `&&auther=${fname + " " + lname}`,
+                                docIdCommentByUserId: commentByUser._id,
+                                type: "reply",
+                                commentParentId: comment.parentId,
+                                commentId: comment.uuid,
+                                time: comment.createdAt,
+                                body: comment.body,
+                                read: false,
+                                notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
+                            }
+                        }
+                    })
+                    return res.status(200).json({ message: "comment successfull send", value })
+                }
+                else {
+                    return res.status(200).json({ message: "Comment Added" })
+                }
+
+            }
+        }
+        else {
+            return res.status(403).json({ message: "Something  Missing" })
+        }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error occure" + err })
     }
 }

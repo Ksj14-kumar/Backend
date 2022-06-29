@@ -13,9 +13,11 @@ const path = require("path");
 const { AuthToken } = require('../Auth/auth');
 const { route } = require("./Conversation");
 const UserData = require("../db/UserData");
+const TextPost = require("../db/TextPost");
 const LocalStrategy = require("passport-local").Strategy;
 const KEY = process.env.SECRET_KEY
 const clientURL = process.env.CLIENT_URL
+const Comment = require("../db/Comments")
 let userInfo = null
 
 router.get("/", (req, res) => {
@@ -205,7 +207,7 @@ router.post("/api/register", async (req, res) => {
 router.post("/api/login", async (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) {
-            res.status(400).json({ message: "please check your internet connection"+err })
+            res.status(400).json({ message: "please check your internet connection" + err })
             return
         }
         if (!user) {
@@ -340,28 +342,23 @@ router.delete("/delete/account/:id", AuthToken, async (req, res) => {
 
 
 
-        const FindUser = await GoogleDB.findById(req.params.id)
+        const id = req._id
+        console.log({ id })
+        const FindUser = await GoogleDB.findOne({ _id: id })
 
         //search the Profile image of user
 
         const FindUserImagesAndPost = await cloudinary.search.expression(
-            "folder:" + req.params.id + "/profileImage",
+            "folder:" + id + "/profileImage",
 
         ).execute()
 
 
         //seach backgriund images of user
         const backgroundImages = await cloudinary.search.expression(
-            "folder:" + req.params.id + "/background",
+            "folder:" + id + "/background",
 
         ).execute()
-
-        // cloudinary.api.delete_folder(req.params.id, (err,result) => {
-        //     if(err){console.log(err)}
-        //     console.log("folder successful delet"+result)
-        // })
-
-
 
 
         //CHECK USER DATA 
@@ -391,25 +388,15 @@ router.delete("/delete/account/:id", AuthToken, async (req, res) => {
 
         }
 
-        // if (FindUserImagesAndPost.resources.length > 0) {
-        //     await cloudinary.v2.uploader.destroy(FindUserImagesAndPost)
-        //     console.log("assests successful delete")
-
-        // }
-
-
-
         if (FindUser) {
+            //delte all user post and comments
+            await TextPost.deleteMany({ userId: id })
+            await Comment.deleteMany({ userId: id })
+            await GoogleDB.findOneAndDelete({ _id: id })
+            await UserData.findOneAndDelete({ googleId: id })
             req.session = null
             req.logOut()
             res.clearCookie("uuid")
-
-
-
-
-
-
-            await GoogleDB.findByIdAndDelete(req.params.id)
             res.status(200).json({ message: "User Deleted Successfully" })
             return
         }

@@ -12,14 +12,9 @@ const ChatMessages = new mongoose.Schema({
     time: {
         type: String,
         default: Date.now()
-    }
-
-
-
-
-
-
+    },
 
 })
+ChatMessages.index({ text: 1, time: 1 }, { unique: true })
 
 module.exports = mongoose.model('ChatMessages', ChatMessages)

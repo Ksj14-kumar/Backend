@@ -7,15 +7,6 @@ const ConversationSchema = new mongoose.Schema({
         type: Array
     },
 
-
-
-
-
-
-
-
-
-
 })
 
 module.exports = mongoose.model('Conversations', ConversationSchema)

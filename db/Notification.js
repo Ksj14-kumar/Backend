@@ -26,5 +26,8 @@ const NotificationSchema = new mongoose.Schema({
 })
 
 
+NotificationSchema.index({ name: 1, url: 1, post_id: 1 }, { unique: true })
+
+
 
 module.exports = mongoose.model('Notification', NotificationSchema);

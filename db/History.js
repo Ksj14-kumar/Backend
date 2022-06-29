@@ -12,6 +12,8 @@ const Schema = new mongoose.Schema({
 })
 
 
+Schema.index({ adminId: 1 }, { unique: true })
+
 
 
 

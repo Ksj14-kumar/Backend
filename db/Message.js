@@ -7,4 +7,6 @@ const Schema = new mongoose.Schema({
     messages: Array
 })
 
+Schema.index({ conversations: 1 }, { unique: true })
+
 module.exports = mongoose.model('messages', Schema);

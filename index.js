@@ -16,18 +16,19 @@ const { Server } = require("socket.io")
 const io = new Server(server, {
 
     path: "/collegezone",
-    transports: ["polling", "websocket"],
+    // transports: [ "websocket"],
     cors: {
         origin: process.env.CLIENT_URL,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true,
     },
-    cookie: {
-        name: "session cookie",
-        domain: process.env.CLIENT_URL,
-        path: "/",
-
-    }
+    // cookie: {
+    //     name: "session cookie",
+    //     domain: process.env.CLIENT_URL,
+    //     path: "/",
+    //     sameSite: "lax",
+    //     secure: "auto"
+    // }
 })
 
 
@@ -52,31 +53,15 @@ const cookieParser = require("cookie-parser")
 const passport = require('passport');
 const path = require('path');
 const { truncatedNormal } = require('@tensorflow/tfjs');
+const httpProxy = require("http-proxy")
 
 
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
-require("./Socket Middleware/Socket")(io)
-require("./Socket/SocketMessage")
+
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
 
-
-
-//use the socket.io as middleware
-
-// app.use(function (req,res,next){
-//     req.io=io
-//     next()
-// })
-
-app.use(function (req, res, next) {
-    res.setTimeout(120000, function () {
-        console.log(' from index file Request has timed out.');
-        res.sendStatus(408);
-    });
-
-    next();
-});
 
 try {
     mongoose.connect(URL, (err) => {
@@ -90,28 +75,35 @@ try {
 
 } catch (err) {
     process.exit(1)
-
 }
 
 
+//use the socket.io as middleware
 
+// app.use(function (req,res,next){
+//     req.io=io
+//     next()
+// })
+app.use(function (req, res, next) {
+    res.setTimeout(120000, function () {
+        console.log(' from index file Request has timed out.');
+        res.sendStatus(408);
+    });
 
-
-
-
+    next();
+});
 app.use(compression())
 app.use(express.static(path.join(__dirname, '/public/userDirectories')))
 app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
 app.use(bodyParser.json({ limit: '200mb' }))
 // app.set('trust proxy', 1)
-app.use(cors(
-    {
-        origin: process.env.CLIENT_URL,
-        credentials: true,
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        // preflightContinue: false,
-        // optionsSuccessStatus: 200
-    }
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    // preflightContinue: false,
+    // optionsSuccessStatus: 200
+}
 ))
 
 
@@ -155,6 +147,32 @@ console.log = function (d) {
 
 }
 
+//socket middleware
+// io.use((socket, next) => {
+//     const token = socket.handshake.auth.token
+//     console.log(token)
+//     if (token) {
+//         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+//             if (err) {
+//                 console.log(err)
+//                 return next(new Error("Authentication error"))
+//             }
+//             console.log(decode)
+//             console.log("successfull verify")
+//             socket.decoded = decoded
+//             next()
+//         }
+//         )
+//     }
+// })
+
+require("./Socket Middleware/Socket")(io)
+require("./Socket/SocketMessage")
+//reverse proxy for socket.io for production
+httpProxy.createProxyServer({
+    target: process.env.CLIENT_URL,
+    ws: true,
+})
 
 // require("./fsmodule")
 //cludinary practice

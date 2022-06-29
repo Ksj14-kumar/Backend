@@ -46,6 +46,10 @@ let UserDetails;
 module.exports = (io, req, res) => {
 
     io.on('connection', (socket) => {
+
+        // const Token = socket.handshake.auth.token
+        // if (Token) {
+
         console.log("someoe is connected")
 
         //now get the query hanshshaking query
@@ -66,9 +70,6 @@ module.exports = (io, req, res) => {
                 }
             }
         })
-
-
-
         socket.on("likeCount", (data) => {
             // console.
             io.emit("getLikeCount", data)
@@ -82,9 +83,6 @@ module.exports = (io, req, res) => {
             console.log({ data })
             io.emit("getComments", data)
         })
-
-
-
         socket.on('sendMessage', async (message) => {
             const getUser = await getUserById(message.receiverId)
             io.to(getUser?.socketId).emit("getMessage", {
@@ -122,9 +120,6 @@ module.exports = (io, req, res) => {
             io.to(getUser?.socketId).emit("display", m)
 
         })
-
-
-
         // socket.on("callUser",({userToCall, signalData, from,name})=>{
         //     console.log({userToCall, signalData, from,name})
         //     io.to(userToCall).emit("callUser",{
@@ -132,36 +127,25 @@ module.exports = (io, req, res) => {
         //         from,name
         //     })
         // })
-
-
         socket.on("callUser", async (data) => {
             const findUser = await getUserById(data.anotherUserId)
             io.to(findUser?.socketId).emit("sendRing", data)
-
         })
-
         socket.on("answerCall", (data) => {
             io.to(data.to).emit("callAccepted", data.signal)
         })
 
-
-
-
-
-
-
-
-
-
-
+        //now get the post 
+        socket.on("Send_Posts", (data) => {
+            // console.log("posts")
+            console.log(data)
+            socket.emit("get_posts", data)
+        })
         socket.on("logout", async (id) => {
             const value = await removeUser(id)
             // console.log({ value })
             io.emit("onlineUsers", value)
-
-
         })
-
         socket.on("disconnect", async (data) => {
             console.log("disconnected")
             socket.broadcast.emit("callended")
@@ -169,132 +153,10 @@ module.exports = (io, req, res) => {
             // console.log({ value })
             io.emit("onlineUsers", value)
         })
-
-
+        // }
     })
 
-    // function Load(req, res) {
-    //     io.on("connection", async (socket) => {
 
-
-    //         socket.on("newUser", async (data) => {
-
-
-    //             if (data) {
-
-    //                 // // add new user jo like krta hai
-    //                 const { _id } = await jwt.verify(data, KEY)
-    //                 if (await UserData.findOne({ googleId: _id }) !== null) {
-    //                     const { fname, lname, url, googleId } = await UserData.findOne({ googleId: _id })
-
-    //                     const getUser = await getUserById(googleId)
-    //                     if (getUser) {
-    //                         io.emit("online", { data: onlineUser })
-    //                         socket.emit("userExist", {
-    //                             msg: "user already exist"
-    //                         })
-    //                     }
-    //                     else {
-
-
-    //                         AddUser(fname + " " + lname, socket.id, googleId, url)
-    //                         io.emit("online", { data: onlineUser })
-    //                         // console.log({ onlineUser })
-    //                         //check user is exit in friends list of admin
-    //                         const adminInfo = await UserData.findOne({ googleId: _id })
-
-
-    //                         const friends = adminInfo.friends !== undefined && adminInfo.friends
-    //                         const value = await getDifference(friends, onlineUser)
-
-
-
-
-
-    //                         socket.on("like", async (data) => {
-    //                             // console.log({ data })
-
-    //                             const { likedBy, post_id, likeTo, type, bg, profile } = data
-    //                             const likeToValue = await UserData.findOne({ googleId: likeTo })
-    //                             const { fname, lname } = likeToValue
-    //                             const sender = await UserData.findOne({ googleId: likedBy })
-    //                             const receiver = await getUser(fname + " " + lname)
-    //                             console.log({ onlineUser })
-
-    //                             if (type === false) {
-    //                                 io.to(receiver?.socketId).emit("getNotification", {
-    //                                     name: sender?.fname + " " + sender?.lname,
-    //                                     postImageURL: bg,
-    //                                     url: sender?.url,
-    //                                     post_Id: post_id,
-    //                                     likedBy,
-    //                                     type: type
-    //                                 })
-    //                             }
-    //                         })
-    //                     }
-    //                     // socket.broadcast.to(socket.id).emit("he1", { name: socket.id })
-    //                     // console.log("connected from index.js")
-    //                 }
-
-
-
-
-
-    //                 socket.on("cancleRequest", async (data) => {
-    //                     // console.log({ data })
-    //                     const { senderName, recieverName, userId, currentUser, anotherUserId, message, senderUrl, receiverUrl } = data
-
-    //                     const senderUpdate = await UserData.findOneAndUpdate({ googleId: currentUser }, { $pull: { senderrequest: { anotherUserId: anotherUserId } } }, { new: true })
-    //                     const recieverUpdate = await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $pull: { receiverrequest: { currentUser: currentUser } } }, { new: true })
-    //                     // console.log({ senderUpdate })
-    //                     // console.log({ recieverUpdate })
-    //                     socket.emit("cancle", {
-    //                         message: "cancle request"
-    //                     })
-
-    //                 })
-
-    //             }
-
-    //             socket.on("logout", async (data) => {
-    //                 console.log("disconnect connection")
-    //                 console.log({ data })
-    //                 try {
-    //                     // removeUser(socket.id)
-    //                     if (data) {
-    //                         const VerifyToken = await jwt.verify(data.uuid, KEY)
-    //                         const { _id } = VerifyToken
-    //                         await removeUserById(_id)
-    //                         io.emit("online", { data: onlineUser })
-
-    //                     }
-    //                     io.emit("online", { data: onlineUser })
-
-    //                 } catch (err) {
-    //                     console.log(err)
-
-    //                 }
-    //             })
-
-    //             socket.on("disconnect", async (data) => {
-    //                 // const VerifyToken = await jwt.verify(data.uuid, KEY)
-    //                 // console.log({ VerifyToken })
-    //                 // const { _id } = VerifyToken
-    //                 // removeUserById(_id)
-    //                 removeUser(socket.id)
-    //                 io.emit("online", { data: onlineUser })
-    //                 // console.log("someone is disconnected")
-
-
-    //             })
-    //         }
-    //         )
-    //     })
-    //     // console.log(onlineUser)
-
-    // }
-    // Load()
 
 }
 

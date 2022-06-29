@@ -148,7 +148,7 @@ router.get("/user/post/:post_id", Auth.AuthToken, BlobController.GetPostFromMong
 // ===================================SAVE all the user post into the mongodb  by local url=========================
 //load the user post
 
-router.get("/load/all/post/:value", Auth.AuthToken, BlobController.loadAllUserPost)
+router.get("/load/all/post/:value1/:value2", Auth.AuthToken, BlobController.loadAllUserPost)
 //delete the user post
 router.delete("/delete/user/post/local/delete", Auth.AuthToken, BlobController.deleteUserPostByMongoDB)
 //take all the number of comment for current use
@@ -165,146 +165,26 @@ router.put("/user/like/:post_id", async (req, res) => {
         let onlineUser = []
         const { post_id } = req.params
         const { likeTo, likedBy } = req.body
-        // console.log(req.body)
-        // // console.log({ id })]
-        // console.log(post_id)
-        // console.log(likeTo)
-        // console.log(likedBy)
-
-        const socket = req.app.get("socket")
-        const online = req.app.get("array")
-
-        // console.log({ online })
-        // console.log({ socket })
-        //add new user which not exit in database
-
-        //fetch from mongo db
-        // const AddNewUser = async (username, socketId) => {
-        //     const newUSer = await onlineUsers.findOne({
-        //         name: { $eq: username }
-        //     })
-        //     if (!newUSer) {
-        //         const newUser = new onlineUsers({
-        //             name: username,
-        //             adminId: likedBy,
-        //             socketId,
-        //             time: new Date(Date.now()),
-        //         })
-        //         await newUser.save()
-
-        //     }
-        // }
-
-        //remove user after disconenct or not exits
-
-
-
-        // const RemoveNewUser = async (socketId) => {
-        //     const RemoveNewUser = await onlineUsers.findOneAndDelete({
-        //         socketId: { $eq: socketId }
-
-
-        //     })
-        //     return RemoveNewUser
-        // }
-
-
-
-        //get username whose online
-
-
-        // const getNewUser = async (username) => {
-        //     const newUser = await onlineUsers.findOne({ name: username })
-
-        //     return newUser
-        // }
-
-
-
-
-
-
-
-
-        //connect to the scockte.io
-        // req.io.on('connection', (socket) => {
-        //     console.log('a user connected');
-        //     console.log(socket.id)
-        //     //take event from client
-
-        //     //add new user jo like krta hai
-        //     // socket.on("newUser", async (data) => {
-        //     //     const { likedBy, post_id, likeTo } = data
-        //     //     const { fname, lname } = await Post.findOne({ googleId: likedBy })
-        //     //     AddNewUser(fname + " " + lname, socket.id)
-        //     //     console.log({ data })
-        //     // })
-
-        //     //send notification to the user who like the post
-        //     socket.on("like", async (data) => {
-        //         console.log({ data })
-        //         console.log("data is")
-        //         const { likedBy, post_id, likeTo } = data
-        //         const { fname, lname } = await Post.findOne({ googleId: likedBy })
-        //         const likedByUser = await Post.findOne({ googleId: likeTo })
-        //         const { socketId } = await getNewUser(fname + " " + lname)
-        //         console.log({ socketId })
-
-        //         // socket.emit("he1", { name: socketId })
-
-        //         // socket.to(socketId).emit("he", { likedBy, post_id, likeTo })
-
-        //         socket.broadcast.to(socketId).emit("getNoti", { fname: likedByUser.fname, lname: likedByUser.lname, post_id, likeTo })
-
-
-
-
-        //     })
-        //     socket.on('disconnect', () => {
-        //         //remove user when disconenct the window
-        //         RemoveNewUser(socket.id)
-        //         console.log('user disconnected');
-        //     });
-        // })
-
-
-
-
 
         //get the post by post_id
         const FindPostById = await TextPost.findOne({ post_id })
-
-
-
         //check user id is already exit in post like array or not
         if (!FindPostById.liked.includes(likedBy)) {
-
-
-
-
             TextPost.findOneAndUpdate({ post_id }, {
                 $push: {
                     liked: likedBy
                 },
-
-
             }, { new: true }, async (err, data) => {
                 // console.log({ data })
                 // UserBlob/
-
-
-
-
                 //fetch the user image which like post
                 const result = await cloudinary.search.expression(
                     "folder:" + likedBy + "/profileImage",
                 ).sort_by('created_at', 'desc').execute()
-
                 //check  user profile image exit or not jo user like krta hai
                 if (result.resources.length > 0) {
                     //profile image url le liya
                     const url = result.resources[0].url
-
                     //fetch userDetails jisne like ki hai post
                     const { fname, lname } = await Post.findOne({ googleId: likedBy })
                     const { image } = await TextPost.findOne({ post_id })
@@ -328,29 +208,17 @@ router.put("/user/like/:post_id", async (req, res) => {
                             // console.log("noti saved")
                             //find all notification regarding to specific post
                             const allNoti = await Noti.find({ post_id })
-
-
                             // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti, }, req.body.socketId)
                         }
                     })
-
-
-
                 }
                 else {
                     //if user ne apni profile picture upload nhi ki ho tb
                     const { fname, lname } = await Post.findOne({ googleId: likedBy })
                     // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname }, req.body.socketId)
-
-
                 }
-
-
             })
-
             return res.status(200).json({ message: "post liked" })
-
-
         }
         else {
             TextPost.findOneAndUpdate({ post_id }, {
@@ -371,29 +239,18 @@ router.put("/user/like/:post_id", async (req, res) => {
                 const result = await cloudinary.search.expression(
                     "folder:" + likeTo + "/profileImage",
                 ).sort_by('created_at', 'desc').execute()
-
                 if (result.resources.length > 0) {
                     const url = result.resources[0].url
                     const allNoti = await Noti.find({})
                     // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + " " + lname, allNoti }, req.body.socketId)
-
-
                 }
                 else {
                     const allNoti = await Noti.find({})
                     // pusher.trigger("LikePost", "LikePostMessage", { url, name: fname + "" + lname, allNoti }, req.body.socketId)
-
-
-
-
                 }
-
             })
             return res.status(200).json({ message: "post unliked" })
         }
-
-
-
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" + err })
 
@@ -433,5 +290,11 @@ router.get("/load/all/postlength", Auth.AuthToken, BlobController.postLength);
 router.get("/api/posts/single/:auther/:post", Auth.AuthToken, BlobController.SinglePost);
 router.get("/api/v1/user/react/:userId", Auth.AuthToken, BlobController.ReactUser);
 router.post("/api/v1/bookmark/:userId", Auth.AuthToken, BlobController.Bookmark);
-router.post("/api/v1/_user/single/post/:post_id/", Auth.AuthToken, BlobController.GetSinglePost)
+router.post("/api/v1/_user/single/post/", Auth.AuthToken, BlobController.GetPosts)
+
+router.post("/api/v1/_user/single/post/:post_id/", Auth.AuthToken, BlobController.SinglePost)
+router.get("/api/v1/_user/posts/", Auth.AuthToken, BlobController.ServerPost)
+router.put("/api/v1/user/liked/post/:postId", Auth.AuthToken, BlobController.likeUserPost)
+router.put("/api/v1/user/comment/post/:postId", Auth.AuthToken, BlobController.commentUserPost)
+
 module.exports = router;

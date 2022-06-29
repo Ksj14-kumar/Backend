@@ -23,9 +23,11 @@ const Schema = new mongoose.Schema({
     message: Array,
     bookMarkPost: Array,
     bookMarkBy: Array,
+    AllNotification: Array,
 
 })
 
+Schema.index({ username: 1 }, { unique: true })
 
 // Schema.add({
 //     token: {

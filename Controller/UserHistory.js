@@ -10,68 +10,71 @@ exports.history = async (req, res) => {
         const { adminId, usernameId, name, receiverUrl } = req.body
         const _id = req._id
 
+
         console.log(req.body)
 
         if (!adminId || !usernameId) {
-            return
-        }
-        const userDetails = await UserData.findOne({ googleId: usernameId })
-
-        const isAlreadyExit = await History.findOne({ adminId: adminId })
-        console.log({ isAlreadyExit })
-
-
-        // UserData.findOneAndUpdate
-        if (isAlreadyExit) {
-            const isAlreadyExit = await History.findOne({ adminId: _id })
-            const checkHistoryAlreadyExit = isAlreadyExit?.history.some((item) => item.searchUserId === usernameId)
-
-            if (!checkHistoryAlreadyExit) {
-                await History.findOneAndUpdate({
-                    adminId: adminId,
-                },
-                    {
-                        $push: {
-
-                            history: {
-                                searchUserId: usernameId,
-                                name: userDetails?.fname + " " + userDetails?.lname,
-                                url: userDetails?.url
-
-                                // name,
-                                // receiverUrl
-                            }
-                        }
-                    }
-
-                )
-            }
-
-
+            return res.status(422).json({ message: "Missing smething" })
         }
         else {
-            const isAlreadyExit = await History.findOne({ adminId: adminId })
-            const checkHistoryAlreadyExit = isAlreadyExit?.history.some((item) => item.searchUserId === usernameId)
-            console.log({ checkHistoryAlreadyExit })
-            if (!checkHistoryAlreadyExit) {
+            const userDetails = await UserData.findOne({ googleId: usernameId })
+            const adminDetails = await History.findOne({ adminId: adminId })
+            // UserData.findOneAndUpdate
+            if (adminDetails) {
+                const isAlreadyExit = await History.findOne({ adminId: _id })
+                const checkHistoryAlreadyExit = isAlreadyExit?.history.some((item) => item.searchUserId === usernameId)
 
-                const saveUser = await History({
-                    adminId: adminId,
-                    history: {
-                        searchUserId: usernameId,
-                        name: userDetails?.fname + " " + userDetails?.lname,
-                        url: userDetails?.url
-                    }
-                })
-                await saveUser.save()
+                if (checkHistoryAlreadyExit) {
+                    return res.status().json({ message: "already exits" })
+                }
+                else {
+                    await History.findOneAndUpdate({
+                        adminId: adminId,
+                    },
+                        {
+                            $push: {
+
+                                history: {
+                                    searchUserId: usernameId,
+                                    name: userDetails?.fname + " " + userDetails?.lname,
+                                    url: userDetails?.url
+
+                                    // name,
+                                    // receiverUrl
+                                }
+                            }
+                        }
+
+                    )
+                    return res.status(200).json({ message: "successfull saved" })
+                }
+
+
+            }
+            else {
+                const isAlreadyExit = await History.findOne({ adminId: adminId })
+                const checkHistoryAlreadyExit = isAlreadyExit?.history.some((item) => item.searchUserId === usernameId)
+                console.log({ checkHistoryAlreadyExit })
+                if (!checkHistoryAlreadyExit) {
+
+                    const saveUser = await History({
+                        adminId: adminId,
+                        history: {
+                            searchUserId: usernameId,
+                            name: userDetails?.fname + " " + userDetails?.lname,
+                            url: userDetails?.url
+                        }
+                    })
+                    await saveUser.save()
+                }
+
+
+
             }
 
 
-
+            return res.status(200).json({ message: "hisotry save successfull" })
         }
-
-
-        return res.status(200).json({ message: "hisotry save successfull" })
 
     } catch (err) {
         return res.status(500).json({ message: "Something error ocuured" + err })

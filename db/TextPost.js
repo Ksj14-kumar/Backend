@@ -35,4 +35,6 @@ const Schema = new mongoose.Schema({
 
 })
 
+Schema.index({ "post_id": 1 }, { unique: true })
+
 module.exports = mongoose.model('TextPosts', Schema)

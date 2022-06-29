@@ -12,9 +12,12 @@ const Schema = new mongoose.Schema({
     parentId: String,
     createdAt: String,
     ImageUrl: String,
-    type: String
+    type: String,
+
 
 
 })
+
+Schema.index({ body: 1, createdAt: 1 }, { unique: true })
 
 module.exports = mongoose.model('Comments', Schema)
