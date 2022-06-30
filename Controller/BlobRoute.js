@@ -22,6 +22,8 @@ const NodeCache = new Cache()
 let Pusher = require('pusher');
 const UserData = require("../db/UserData");
 const { AsyncResource } = require("async_hooks");
+const { truncate } = require("fs/promises");
+const { mul } = require("@tensorflow/tfjs");
 
 let pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
@@ -1690,7 +1692,7 @@ exports.likeUserPost = async (req, res) => {
                     $push: {
                         AllNotification: {
                             postImagePath: image,
-                            userPorfile:likedByUser.url,
+                            userPorfile: likedByUser.url,
                             postId: post_id,
                             name: likedByUser.fname + " " + likedByUser.lname,
                             post_url: "/user/single/post?post=" + post_id + `&&auther=${likeToUser.fname + " " + likeToUser.lname}`,
@@ -1724,8 +1726,9 @@ exports.likeUserPost = async (req, res) => {
 exports.commentUserPost = async (req, res) => {
     try {
         const postId = req.params.postId
-        console.log(req.body)
         const { comment, commentBy, replyParentId } = req.body
+        const MessageType = comment.type
+        console.log(comment)
         if (commentBy && comment) {
             const commentByUser = await UserData.findOne({ googleId: commentBy })
             const { userId, image } = await TextPost.findOne({ post_id: postId })
@@ -1746,6 +1749,7 @@ exports.commentUserPost = async (req, res) => {
                             commentId: comment.uuid,
                             time: comment.createdAt,
                             body: comment.body,
+                            messageType: MessageType,
                             read: false,
                             notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
                         }
@@ -1771,6 +1775,7 @@ exports.commentUserPost = async (req, res) => {
                             commentId: comment.uuid,
                             time: comment.createdAt,
                             body: comment.body,
+                            messageType: MessageType,
                             read: false,
                             notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
                         }
@@ -1791,6 +1796,7 @@ exports.commentUserPost = async (req, res) => {
                                 commentId: comment.uuid,
                                 time: comment.createdAt,
                                 body: comment.body,
+                                messageType: MessageType,
                                 read: false,
                                 notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
                             }
@@ -1807,6 +1813,30 @@ exports.commentUserPost = async (req, res) => {
         else {
             return res.status(403).json({ message: "Something  Missing" })
         }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error occure" })
+    }
+}
+
+
+
+exports.updateAllNotificationType = async (req, res) => {
+    try {
+        const _id = req._id
+        console.log("hello wrol")
+        console.log(_id)
+        // const value = await UserData.findOneAndUpdate({ googleId: _id }, { $set: { AllNotification: [] } }, { new: true })
+
+        await UserData.update({ googleId: _id }, {
+            $set: {
+                "AllNotification.$[].read": true
+            }
+        },
+            { "multi": true }
+        )
+        const { AllNotification } = await UserData.findOne({ googleId: _id })
+        return res.status(200).json({ message: "Successfull updated", value: AllNotification })
     }
     catch (err) {
         return res.status(500).json({ message: "Something error occure" + err })

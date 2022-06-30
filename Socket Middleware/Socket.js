@@ -138,8 +138,59 @@ module.exports = (io, req, res) => {
         //now get the post 
         socket.on("Send_Posts", (data) => {
             // console.log("posts")
-            console.log(data)
             socket.emit("get_posts", data)
+        })
+
+        console.log({ onlineUser })
+        socket.on("sendNotificationAllType", async (data) => {
+            const { comment, commentBy, replyParentId } = data
+            const { userId, image } = await TextPost.findOne({ post_id: comment.post_id })
+            const getUser = getUserById(userId)
+            if (commentBy && comment) {
+                const commentByUser = await UserData.findOne({ googleId: commentBy })
+                const { userId, image } = await TextPost.findOne({ post_id: comment.post_id })
+                const { fname, lname, url } = await UserData.findOne({ googleId: userId })
+                if (replyParentId === "") {
+                    //someone comment on you post
+                    const sendNotificationAll = {
+                        name: comment.username,
+                        UserProfile: commentByUser.url,
+                        postId: comment.post_id,
+                        postImagePath: image,
+                        post_url: "/user/single/post?post=" + comment.post_id + `&&auther=${fname + " " + lname}`,
+                        docIdCommentByUserId: commentByUser._id,
+                        type: "comment",
+                        commentParentId: comment.parentId,
+                        commentId: comment.uuid,
+                        time: comment.createdAt,
+                        body: comment.body,
+                        read: false,
+                        notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
+                    }
+                    io.to(getUser.socketId).emit("getNotificationAllType", sendNotificationAll)
+                }
+                else {
+                    //someone reply on your post
+                    if (replyParentId !== commentBy) {
+                        const sendNotificationData = {
+                            name: comment.username,
+                            UserProfile: commentByUser.url,
+                            postId: comment.post_id,
+                            postImagePath: image,
+                            post_url: "/user/single/post?post=" + comment.post_id + `&&auther=${fname + " " + lname}`,
+                            docIdCommentByUserId: commentByUser._id,
+                            type: "reply",
+                            commentParentId: comment.parentId,
+                            commentId: comment.uuid,
+                            time: comment.createdAt,
+                            body: comment.body,
+                            read: false,
+                            notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
+                        }
+                        io.to(getUser.socketId).emit("getNotificationAllType", sendNotificationData)
+                    }
+                }
+            }
         })
         socket.on("logout", async (id) => {
             const value = await removeUser(id)
@@ -153,6 +204,7 @@ module.exports = (io, req, res) => {
             // console.log({ value })
             io.emit("onlineUsers", value)
         })
+
         // }
     })
 
