@@ -2,7 +2,21 @@ const { cloudinary } = require("../Cloudnary/cloudnary");
 const chatMessages = require('../db/ChatMessages');
 const UserData = require("../db/UserData")
 const Messages = require("../db/Message")
-const Rooms = require("../db/Rooms")
+const Rooms = require("../db/Rooms");
+const Message = require("../db/Message");
+
+
+async function getUserDetails(id) {
+
+    const value = await UserData.findOne({ googleId: id })
+    return {
+        url: value.url,
+        name: value.fname + " " + value.lname
+    }
+}
+
+
+
 exports.PostMessage = async (req, res) => {
     const { type, message, senderId, messageID, adminId, friend_id, base } = req.body
     try {
@@ -60,7 +74,7 @@ exports.PostMessage = async (req, res) => {
                                     senderId: req.body.adminId,
                                     type: req.body.type,
                                     messageID: req.body.messageID,
-                                    seen: req.body.seen
+                                    read: req.body.seen
 
                                 }
                             }
@@ -90,7 +104,7 @@ exports.PostMessage = async (req, res) => {
                                 senderId: req.body.adminId,
                                 type: req.body.type,
                                 messageID: req.body.messageID,
-                                seen: req.body.seen
+                                read: req.body.seen
 
                             }]
                         })
@@ -101,7 +115,7 @@ exports.PostMessage = async (req, res) => {
                     message.save((err, result) => {
                         if (err) {
                             // console.log(err)
-                            return res.status(500).json({ message: "message not saved Error", messageId: messageID })
+                            return res.status(500).json({ message: "message not saved Error" + err, messageId: messageID })
                         }
                         else {
                             return res.status(200).json({ message: "Successfully", result })
@@ -212,26 +226,29 @@ exports.SearchUser = async (req, res) => {
 exports.updateMessageStatus = async (req, res) => {
     try {
         const { friendId, currentUser, docId } = req.body
-        // console.log(req.body)
-        Messages.findOneAndUpdate(
-            { _id: docId, "messages.senderId": friendId },
-            { $set: { "messages.$[].seen": true } },
-            // {arrayFilters:[{"senderId":friendId}]},
-            { returnOriginal: false },
-            (err, result) => {
-                if (err) {
-                    return res.status(500).json({ message: "Something error occured" })
+        console.log("update response from the user side")
+        console.log(req.body)
+
+        if (docId && friendId) {
+
+            Messages.findOneAndUpdate(
+                { _id: docId, "messages.senderId": friendId },
+                { $set: { "messages.$[].read": true } },
+                { returnOriginal: false },
+                (err, result) => {
+                    if (err) {
+                        return res.status(500).json({ message: "Something error occured" })
+                    }
+                    else {
+                        // return res.status(200).json({ message: "Successfully", data: message })
+                        return res.status(200).json({ message: "Successfully", result })
+                    }
                 }
-                else {
-                    // return res.status(200).json({ message: "Successfully", data: message })
-
-                    return res.status(200).json({ message: "Successfully", result })
-                }
-            }
-        )
-
-        // {'returnNewDocument':true})
-
+            )
+        }
+        else {
+            return res.status(404).json({ message: "Something error occur" })
+        }
 
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
@@ -247,7 +264,7 @@ exports.unreadMessage = async (req, res) => {
             const message = await Messages.findOne({ conversations: { $all: [f1, currentUser] } })
 
             const filterMessage = await message.messages.length && message.messages.filter((item) => {
-                return item.seen === false && item.senderId !== currentUser
+                return item.read === false && item.senderId !== currentUser
             })
             return res.status(200).json({ message: "successfull", data: filterMessage.length })
 
@@ -615,6 +632,69 @@ exports.roomExits = async (req, res) => {
 
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
+
+    }
+}
+
+
+exports.unreadMessages = async (req, res) => {
+    try {
+        const { userId } = req.params
+        const _id = req._id
+        let array = []
+        let empty;
+        if (userId) {
+            const UnreadMessages = await Messages.find({ conversations: { $in: _id } })
+            const getUnreadMessageUserList = UnreadMessages.map((upper) => {
+                if (upper.conversations.includes(_id) && upper.messages.length > 0) {
+                    return {
+                        conversations: upper.conversations,
+                        messages: upper?.messages?.filter((inner) => {
+                            return inner.senderId !== _id && !inner.read
+                        })
+                    }
+                }
+            })
+            //now get the mem message lengthand userId
+            console.log(getUnreadMessageUserList)
+            getUnreadMessageUserList.forEach((value) => {
+                if (value.messages.length > 0) {
+                    const anotherUserId = value.conversations.find(id => id !== _id)
+                    array.push(
+                        {
+                            anotherUserId: anotherUserId,
+                            messageLength: value.messages.length,
+                            time: value.messages[value.messages.length - 1].time,
+                        }
+                    )
+                }
+            })
+
+            if (array.length > 0) {
+                const value = array.map(async (item) => {
+                    const { url, name } = await getUserDetails(item.anotherUserId)
+                    return {
+                        ...item,
+                        url,
+                        name,
+                        type: "chat"
+                    }
+                })
+                empty = await Promise.all(value)
+
+            }
+            else {
+                empty = []
+
+            }
+            return res.status(200).json({ message: "Ok", UnreadMessages, array, empty, getUnreadMessageUserList })
+
+        }
+        else {
+            return res.status(404).json({ message: "Something missing" })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Somethinbg error occure" + err })
 
     }
 }

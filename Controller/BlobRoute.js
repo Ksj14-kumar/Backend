@@ -1243,44 +1243,27 @@ exports.commentLength = async (req, res) => {
 exports.friendrequest = async (req, res) => {
     try {
         const { profileUrl, anotherUserId, recieverName, senderName, userId, currentUser, receiverUrl, senderUrl, connectMessage } = req.body
-        console.log("send reqiest")
-
-
         const _id = req._id
-
         if (currentUser === anotherUserId) {
             return res.status(403).json({ message: "you can't send request to yourself" })
         }
         else if (connectMessage === false) {
             const senderUser = await UserData.findOne({ googleId: currentUser })
             const recieverUser = await UserData.findOne({ googleId: anotherUserId })
-            // console.log({ senderUser })
-            // console.log(senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId))
-            // console.log({ recieverUser })
-            // console.log(recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true)
 
             if (senderUser.senderrequest.some((item) => item._id === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item._id === currentUser) === true) {
                 return res.status(409).json({ message: "already send" })
             }
             else {
-
                 await UserData.findOneAndUpdate({ googleId: currentUser }, { $push: { senderrequest: { name: recieverName, _id: anotherUserId, url: receiverUrl } } }, { new: true })
-
-                await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, _id: currentUser, url: senderUrl } } }, { new: true })
+                await UserData.findOneAndUpdate({ googleId: anotherUserId }, { $push: { receiverrequest: { name: senderName, _id: currentUser, url: senderUrl, read: false } } }, { new: true })
                 return res.status(200).json({ message: "successfull sent" })
             }
         }
-
         else if (connectMessage === true) {
             const recieverUser = await UserData.findOne({ googleId: anotherUserId })
             const senderUser = await UserData.findOne({ googleId: currentUser })
-
-            // console.log(senderUser.senderrequest.some((item) => item.anotherUserId === anotherUserId))
-            // console.log(recieverUser.receiverrequest.some((item) => item.currentUser === currentUser) === true)
-
             if (senderUser.senderrequest.some((item) => item._id === anotherUserId) === true && recieverUser.receiverrequest.some((item) => item._id === currentUser) === true) {
-
-
                 await UserData.findOneAndUpdate(
                     { googleId: currentUser }, { $pull: { senderrequest: { _id: anotherUserId } } }, { new: true }
                 )
@@ -1295,7 +1278,7 @@ exports.friendrequest = async (req, res) => {
 
 
     } catch (err) {
-        return res.status(500).json({ message: "somethinng error occured" + err })
+        return res.status(500).json({ message: "somethinng error occured" })
 
     }
 }
@@ -1354,10 +1337,8 @@ exports.acceptfriendrequest = async (req, res) => {
             await UserData.updateOne({ googleId: _id }, { $push: { friends: FilterRequestData[0] } }, { new: true })
             await UserData.updateOne({ googleId: senderId }, { $pull: { senderrequest: { _id: _id } } }, { new: true })
             await UserData.updateOne({ googleId: _id }, { $pull: { receiverrequest: { _id: senderId } } }, { new: true })
-            await UserData.findOneAndUpdate({ googleId: senderId }, { $push: { message: { name: RecieverRequest.fname + "" + RecieverRequest.lname, url: RecieverRequest.url, type: "friend", _id: _id } } }, { new: true })
-
-            await UserData.findOneAndUpdate({ googleId: _id }, { $push: { message: { name: SenderRequest.fname + "" + SenderRequest.lname, url: SenderRequest.url, type: "friend", _id: senderId } } }, { new: true })
-
+            await UserData.findOneAndUpdate({ googleId: senderId }, { $push: { message: { name: RecieverRequest.fname + " " + RecieverRequest.lname, url: RecieverRequest.url, type: "friend", read: false, _id: _id } } }, { new: true })
+            await UserData.findOneAndUpdate({ googleId: _id }, { $push: { message: { name: SenderRequest.fname + " " + SenderRequest.lname, url: SenderRequest.url, type: "friend", read: false, _id: senderId } } }, { new: true })
 
             return res.status(200).json({ message: "successfull accecpted", accept: true, Users: [{ name, url, senderId }] })
         }
@@ -1728,7 +1709,6 @@ exports.commentUserPost = async (req, res) => {
         const postId = req.params.postId
         const { comment, commentBy, replyParentId } = req.body
         const MessageType = comment.type
-        console.log(comment)
         if (commentBy && comment) {
             const commentByUser = await UserData.findOne({ googleId: commentBy })
             const { userId, image } = await TextPost.findOne({ post_id: postId })
@@ -1824,10 +1804,6 @@ exports.commentUserPost = async (req, res) => {
 exports.updateAllNotificationType = async (req, res) => {
     try {
         const _id = req._id
-        console.log("hello wrol")
-        console.log(_id)
-        // const value = await UserData.findOneAndUpdate({ googleId: _id }, { $set: { AllNotification: [] } }, { new: true })
-
         await UserData.update({ googleId: _id }, {
             $set: {
                 "AllNotification.$[].read": true
@@ -1841,4 +1817,26 @@ exports.updateAllNotificationType = async (req, res) => {
     catch (err) {
         return res.status(500).json({ message: "Something error occure" + err })
     }
+}
+
+
+exports.updateFriendNotificationType = async (req, res) => {
+    try {
+        //userId is a docId
+        const userId = req.params.userId
+        if (userId) {
+            console.log(userId)
+            //update message status
+            await UserData.updateOne({ _id: userId }, { $set: { "receiverrequest.$[].read": true } }, { new: true })
+            const { receiverrequest } = await UserData.findOne({ _id: userId })
+            return res.status(200).json({ message: "Successfull update", receiverrequest })
+        }
+        else {
+            return res.status(200).json({ message: "Something missing" })
+        }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error occure" })
+    }
+
 }

@@ -34,6 +34,7 @@ router.put("/v1/group/makeAdmin/:userId", Auth.AuthToken, chatMessageRouterContr
 router.post("/v1/group/message/save", Auth.AuthToken, chatMessageRouterController.saveGroupMessage)
 router.get("/v1/rooms/check", Auth.AuthToken, chatMessageRouterController.roomExits)
 router.get("/v1/group/messages/get/:groupId", Auth.AuthToken, chatMessageRouterController.getGroupMessages)
+router.get("/v1/load/all/unread/message/:userId", Auth.AuthToken, chatMessageRouterController.unreadMessages)
 
-
+// 62ba1800bab0b878a925e8f2
 module.exports = router

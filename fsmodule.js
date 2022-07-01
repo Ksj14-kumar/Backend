@@ -100,13 +100,79 @@
 
 
 
+//current user id= 1000
+
+const data = [
+    {
+        conversation: [1000, 1100],
+        messages: [
+            {
+                text: "hello hioo kaise haal",
+                senderId: 1100,
+                read: false
+            },
+            {
+                text: "oo, Hii, kaise haal",
+                senderId: 1000,
+                read: true
+            },
+            {
+                text: "sab badiya aur bataoi kaise haal;",
+                senderId: 1000,
+                read: true
+            }
+        ]
+    },
+
+    {
+        conversation: [1000, 1200],
+        messages: [
+            {
+                text: "This is 1200 message 1st",
+                senderId: 1200,
+                read: false
+            },
+            {
+                text: "second 1200 message",
+                senderId: 1200,
+                read: false
+            },
+            {
+                text: "this is 1000 messages from 1000",
+                senderId: 1000,
+                read: true
+            }
+        ]
+    }
+
+]
+
+const userId = 1000
+const value = data.map((upper) => {
+    if (upper.conversation.includes(userId)) {
+        return {
+            conversation: upper.conversation.find((value) => value.senderId !== userId)[0],
+            messages: upper.messages.filter((inner) => {
+                return inner.senderId !== userId && !inner.read
+            }).length
+        }
+    }
+})
+
+let array = []
+value.forEach((item) => {
+    if (item.messages.length > 0) {
+        const getAnotherUserId = item.conversation.filter(anotherId => anotherId !== userId)
+        array.push({ anotherUserId: getAnotherUserId[0], messagesLength: item.messages.length })
+    }
+})
+
+console.log(array)
+
+console.log(value)
 
 
 
-
-
-
-
-
-
-
+// function ReturnId(array)[
+//     const value = array.filter(item => item !== userId)
+// ]

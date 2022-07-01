@@ -297,6 +297,7 @@ router.get("/api/v1/_user/posts/", Auth.AuthToken, BlobController.ServerPost)
 router.put("/api/v1/user/liked/post/:postId", Auth.AuthToken, BlobController.likeUserPost)
 router.put("/api/v1/user/comment/post/:postId", Auth.AuthToken, BlobController.commentUserPost)
 router.put("/api/v1/_user/notifications/all/type", Auth.AuthToken, BlobController.updateAllNotificationType)
+router.put("/api/v1/_user/notifications/friends/type/:userId", Auth.AuthToken, BlobController.updateFriendNotificationType)
 
 
 module.exports = router;
