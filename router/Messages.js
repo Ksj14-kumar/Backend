@@ -2,21 +2,13 @@ const router = require("express").Router()
 
 const Auth = require("../Auth/auth")
 const chatMessageRouterController = require("../Controller/Message")
-
 router.post("/v1/messages/send", chatMessageRouterController.PostMessage)
-
 //get user convertion message
 router.get("/v1/messages/get/:user1/:user2", chatMessageRouterController.GetUserMessages)
-
-
 //get user which convertion to user
-
 router.get("/v1/messages/getAllConversation/:user", chatMessageRouterController.getUserConversation)
-
-
 //get user details from server
 router.get("/v1/users/:user", chatMessageRouterController.getUserDeatils)
-
 //search user 
 router.post("/v1/users/search/q", chatMessageRouterController.SearchUser)
 router.post("/v1/update/message/seen/status", chatMessageRouterController.updateMessageStatus)
@@ -35,6 +27,10 @@ router.post("/v1/group/message/save", Auth.AuthToken, chatMessageRouterControlle
 router.get("/v1/rooms/check", Auth.AuthToken, chatMessageRouterController.roomExits)
 router.get("/v1/group/messages/get/:groupId", Auth.AuthToken, chatMessageRouterController.getGroupMessages)
 router.get("/v1/load/all/unread/message/:userId", Auth.AuthToken, chatMessageRouterController.unreadMessages)
+router.get("/v1/users/update_status/messageNoti/:docId", Auth.AuthToken, chatMessageRouterController.updateMessageNotification)
+router.get("/v1/users/chats/single", Auth.AuthToken, chatMessageRouterController.getUserChatsFiles)
 
-// 62ba1800bab0b878a925e8f2
+router.post("/v1/forwardMessage", Auth.AuthToken, chatMessageRouterController.sendForwardMessages)
+router.delete("/v1/delete/message", Auth.AuthToken, chatMessageRouterController.DeleteMessage)
+router.put("/v1/block/user", Auth.AuthToken, chatMessageRouterController.blockUser)
 module.exports = router

@@ -4,7 +4,11 @@ const UserData = require("../db/UserData")
 const Messages = require("../db/Message")
 const Rooms = require("../db/Rooms");
 const Message = require("../db/Message");
-
+const path = require("path")
+const fs = require("fs")
+const crypto = require("crypto")
+const assert = require("assert");
+const { isErrored } = require("stream");
 
 async function getUserDetails(id) {
 
@@ -21,119 +25,124 @@ exports.PostMessage = async (req, res) => {
     const { type, message, senderId, messageID, adminId, friend_id, base } = req.body
     try {
         let messageChange;
-        console.log(req.body)
-
         // console.log()
-        const msg = message.split("data:video/mp4;base64,")[1]
 
-        // console.log(message)
-
-        if (friend_id && adminId) {
-
-            if (
-                type === "image" || type === "video" || type === "text" || type === "GIF" || type === "audio"
-            ) {
-                if (type === "image" || type === "video" || type === "audio") {
+        const { block } = await Messages.findOne({ conversations: { $all: [friend_id, adminId] } })
 
 
-                    const Url = await cloudinary.uploader.upload(base, {
-                        folder: `${"62434a58ac9ad04e29be7e1b25"}/chatsImages`,
-                        resource_type: "auto"
-                    })
-
-                    messageChange = Url.url
-
-
-
-
-
-
-                }
-                else if (type === "text" || type === "GIF") {
-                    messageChange = message
-                }
-
-                const isExits = await Messages.findOne({
-                    conversations: { $all: [req.body.adminId, req.body.friend_id] }
-
-
-                })
-                // const checkMessageExit=  isExits.messages.length>0&& isExits.messages.some((item)=>{
-                //     return item.friendId===req.body.friend_id
-                // })
-                if (isExits !== null) {
-                    Messages.findOneAndUpdate(
-                        { conversations: { $all: [req.body.adminId, req.body.friend_id] } },
-                        {
-                            $push: {
-                                messages: {
-                                    // adminId: req.body.adminId,
-                                    // friendId: req.body.friend_id,
-                                    message: messageChange,
-                                    time: req.body.time,
-                                    senderId: req.body.adminId,
-                                    type: req.body.type,
-                                    messageID: req.body.messageID,
-                                    read: req.body.seen
-
-                                }
-                            }
-                        },
-                        { new: true }, (err, result) => {
+        if (block) {
+            if (friend_id && adminId) {
+                if (
+                    type === "image" || type === "video" || type === "text" || type === "GIF" || type === "audio"
+                ) {
+                    if (type === "image" || type === "video" || type === "audio") {
+                        const msg = base.split(",")[0].split("/")[1].split(";")[0]
+                        //store uses messages into the local file system
+                        const path = `chats/${friend_id}` + `/${adminId}/`
+                        const fileName = `${Date.now()}_${messageID}.` + msg
+                        const filePath = path + fileName
+                        //convert media file into buffer
+                        const newBuffer = Buffer.from(base.split(",")[1], "base64")
+                        if (!fs.existsSync(path)) {
+                            fs.mkdirSync(path, { recursive: true })
+                        }
+                        fs.writeFile(filePath, newBuffer, (err, result) => {
                             if (err) {
-                                return res.status(500).json({ message: "Something error occured", messageId: messageID })
+                                return res.status(500).json({ message: "Something error occured" + err })
                             }
                             else {
-                                return res.status(200).json({ message: "Successfully", result })
+                                messageChange = filePath
                             }
                         })
 
+                        // const Url = await cloudinary.uploader.upload(base, {
+                        //     folder: `${"62434a58ac9ad04e29be7e1b25"}/chatsImages`,
+                        //     resource_type: "auto"
+                        // })
+                        // messageChange = Url.url
+                    }
+                    else if (type === "text" || type === "GIF") {
+                        messageChange = message
+                    }
+
+                    const isExits = await Messages.findOne({
+                        conversations: { $all: [req.body.adminId, req.body.friend_id] }
 
 
-                }
-                else {
+                    })
+                    // const checkMessageExit=  isExits.messages.length>0&& isExits.messages.some((item)=>{
+                    //     return item.friendId===req.body.friend_id
+                    // })
+                    if (isExits !== null) {
+                        Messages.findOneAndUpdate(
+                            { conversations: { $all: [req.body.adminId, req.body.friend_id] } },
+                            {
+                                $push: {
+                                    messages: {
+                                        // adminId: req.body.adminId,
+                                        // friendId: req.body.friend_id,
+                                        message: messageChange,
+                                        time: req.body.time,
+                                        senderId: req.body.adminId,
+                                        type: req.body.type,
+                                        messageID: req.body.messageID,
+                                        read: req.body.seen
 
-                    const message = await Messages(
-                        {
+                                    }
+                                }
+                            },
+                            { new: true }, (err, result) => {
+                                if (err) {
+                                    return res.status(500).json({ message: "Something error occured", messageId: messageID })
+                                }
+                                else {
+                                    return res.status(200).json({ message: "Successfully", result })
+                                }
+                            })
+
+
+
+                    }
+                    else {
+
+
+                        const message = await Messages({
                             conversations: [req.body.adminId, req.body.friend_id],
                             messages: [{
-                                // adminId: req.body.adminId,
-                                // friendId: req.body.friend_id,
                                 message: messageChange,
                                 time: req.body.time,
                                 senderId: req.body.adminId,
                                 type: req.body.type,
                                 messageID: req.body.messageID,
                                 read: req.body.seen
-
                             }]
                         })
+                        message.save((err, result) => {
+                            if (err) {
+                                return res.status(500).json({ message: "message not saved Error" + err, messageId: messageID })
+                            }
+                            else {
+                                return res.status(200).json({ message: "Successfully", result })
 
-
-
-
-                    message.save((err, result) => {
-                        if (err) {
-                            // console.log(err)
-                            return res.status(500).json({ message: "message not saved Error" + err, messageId: messageID })
-                        }
-                        else {
-                            return res.status(200).json({ message: "Successfully", result })
-
-                        }
-                    })
-
+                            }
+                        })
+                    }
                 }
+                else {
+                    return res.status(500).json({ message: "error occured", messageId: messageID })
+                }
+
             }
             else {
-                return res.status(500).json({ message: "error occured", messageId: messageID })
+                return res.status(500).json({ message: "error occured" })
             }
+
+
 
         }
         else {
-            return res.status(500).json({ message: "error occured" })
+            return res.status(455).json({ message: "can't send message, you blocked this user" })
         }
-
 
 
 
@@ -227,24 +236,30 @@ exports.updateMessageStatus = async (req, res) => {
     try {
         const { friendId, currentUser, docId } = req.body
         console.log("update response from the user side")
-        console.log(req.body)
 
-        if (docId && friendId) {
 
-            Messages.findOneAndUpdate(
+        if (docId && friendId && currentUser) {
+
+            Messages.updateMany(
                 { _id: docId, "messages.senderId": friendId },
-                { $set: { "messages.$[].read": true } },
-                { returnOriginal: false },
+                { $set: { "messages.$[elem].read": true } }, {
+                multi: true,
+                strict: false,
+                arrayFilters: [{ "elem.senderId": friendId }]
+            },
+
                 (err, result) => {
                     if (err) {
-                        return res.status(500).json({ message: "Something error occured" })
+                        return res.status(500).json({ message: "Something error occured" + err })
                     }
                     else {
-                        // return res.status(200).json({ message: "Successfully", data: message })
                         return res.status(200).json({ message: "Successfully", result })
                     }
                 }
             )
+
+
+
         }
         else {
             return res.status(404).json({ message: "Something error occur" })
@@ -476,14 +491,7 @@ exports.addFriendsInGroup = async (req, res) => {
                 return res.status(200).json({ message: "Successfully", room })
             }
         }
-        // const AllRooms = await Rooms.findOne({ RoomId: roomID })
-        // if (AllRooms) {
-        //     return res.status(200).json(AllRooms)
-        // }
-        // else {
-        //     return res.status(200).json([])
-        // }
-        // return res.end()
+
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
     }
@@ -636,7 +644,6 @@ exports.roomExits = async (req, res) => {
     }
 }
 
-
 exports.unreadMessages = async (req, res) => {
     try {
         const { userId } = req.params
@@ -649,14 +656,14 @@ exports.unreadMessages = async (req, res) => {
                 if (upper.conversations.includes(_id) && upper.messages.length > 0) {
                     return {
                         conversations: upper.conversations,
-                        messages: upper?.messages?.filter((inner) => {
+                        messages: upper.messages.filter((inner) => {
                             return inner.senderId !== _id && !inner.read
                         })
                     }
                 }
             })
             //now get the mem message lengthand userId
-            console.log(getUnreadMessageUserList)
+            console.log({ getUnreadMessageUserList })
             getUnreadMessageUserList.forEach((value) => {
                 if (value.messages.length > 0) {
                     const anotherUserId = value.conversations.find(id => id !== _id)
@@ -677,7 +684,8 @@ exports.unreadMessages = async (req, res) => {
                         ...item,
                         url,
                         name,
-                        type: "chat"
+                        type: "chat",
+                        read: false
                     }
                 })
                 empty = await Promise.all(value)
@@ -687,14 +695,111 @@ exports.unreadMessages = async (req, res) => {
                 empty = []
 
             }
-            return res.status(200).json({ message: "Ok", UnreadMessages, array, empty, getUnreadMessageUserList })
+            return res.status(200).json({ message: "Ok", empty })
 
         }
         else {
             return res.status(404).json({ message: "Something missing" })
         }
     } catch (err) {
-        return res.status(500).json({ message: "Somethinbg error occure" + err })
+        return res.status(500).json({ message: "Somethinbg error occure" })
 
+    }
+}
+
+
+exports.updateMessageNotification = async (req, res) => {
+    try {
+        const docId = req.params
+        console.log(docId)
+        if (docId) {
+            const userInfo = await UserData.findByIdAndUpdate({ _id: docId.docId }, { $set: { "message.$[].read": true } }, { new: true })
+            return res.status(200).json({ message: "Successfull", data: userInfo.message })
+        }
+        else {
+            return res.json({ message: "Something missing" })
+        }
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
+    }
+}
+
+exports.getUserChatsFiles = async (req, res) => {
+    try {
+        const _id = req._id
+        const { roomid, filepath, friendid, currentid } = req.headers
+        return res.status(200).sendFile(path.join(__dirname, `../${filepath}`))
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+    }
+}
+
+exports.sendForwardMessages = async (req, res) => {
+    try {
+        const { message, groupId } = req.body
+
+        if (groupId && message) {
+            const fetchUserMessage = await Messages.findOneAndUpdate({
+                conversations: { $all: [groupId.friendId, groupId.currentUserId] }
+            },
+                {
+                    $push: {
+                        messages: message
+                    }
+                })
+
+            return res.status(200).json({ message: "successfull send" })
+        }
+        else {
+            return res.status(404).json({ message: "Somethig error" })
+        }
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+    }
+}
+
+
+exports.DeleteMessage = async (req, res) => {
+    try {
+        const { value, currentId, friendId } = req.body
+        if (friendId && currentId && value) {
+            if (value.senderId === currentId) {
+                await Messages.findOneAndUpdate({ conversations: { $all: [friendId, currentId] } }, { $pull: { messages: { _id: value._id } } })
+                return res.status(200).json({ message: "Successfull delete" })
+            }
+            else {
+                return res.status(404).json({ message: "you can not delete this messages" })
+            }
+        }
+        else {
+            return res.status(404).json({ message: "Something missing" })
+        }
+
+
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Message not deleted" + isErrored })
+    }
+}
+
+exports.blockUser = async (req, res) => {
+    try {
+        const { friendId, currentId, blockUser } = req.body
+
+        console.log(req.body)
+        if (friendId && currentId) {
+            await Messages.findOneAndUpdate({ conversations: { $all: [friendId, currentId] } }, { $set: { block: blockUser } })
+            return res.status(200).json({ message: "Successfull block" })
+        }
+        else {
+            return res.status(404).json({ message: "Something missing" })
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
     }
 }

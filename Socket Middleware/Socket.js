@@ -52,12 +52,6 @@ module.exports = (io, req, res) => {
 
         console.log("someoe is connected")
 
-        //now get the query hanshshaking query
-        // console.log(socket.handshake.query)
-        // console.log(socket.handshake.headers)
-        // console.log(socket.handshake.custome_header)
-        // console.log(socket.handshake.auth)
-
 
         socket.on('login', async (data) => {
             if (data) {
@@ -66,41 +60,63 @@ module.exports = (io, req, res) => {
                 if (UserDetails) {
 
                     await AddUser(UserDetails.fname + " " + UserDetails.lname, socket.id, _id, UserDetails.url, UserDetails._id.valueOf())
+                    //now get already exit user and remove this
+                    const isAlreadyExits = onlineUser.some((item) => item.mongoId === UserDetails._id.valueOf())
+                    if (isAlreadyExits) {
+                        //remove all ready exits user and enter new with new socket.id
+                        const filterUsers = onlineUser.filter((value) => value.mongoId !== UserDetails._id.valueOf())
+                        onlineUser.length = 0
+                        onlineUser.push(...filterUsers, { name: UserDetails.fname + " " + UserDetails.lname, socketId: socket.id, adminId: _id, url: UserDetails.url, mongoId: UserDetails._id.valueOf() })
+
+                    }
+                    else {
+                        onlineUser.push({ name: UserDetails.fname + " " + UserDetails.lname, socketId: socket.id, adminId: _id, url: UserDetails.url, mongoId: UserDetails._id.valueOf() })
+
+                    }
                     io.emit("onlineUsers", onlineUser)
+                    console.log({ onlineUser })
                 }
             }
         })
+
+
         socket.on("likeCount", (data) => {
-            // console.
             io.emit("getLikeCount", data)
         })
 
         socket.on("commentLength", (data) => {
             io.emit("getCommentLength", data)
-
         })
         socket.on("sendComment", (data) => {
-            console.log({ data })
             io.emit("getComments", data)
         })
         socket.on('sendMessage', async (message) => {
             const getUser = await getUserById(message.receiverId)
             io.to(getUser?.socketId).emit("getMessage", {
-
                 senderId: message.senderId,
                 message: message.message,
                 time: message.time,
                 type: message.type,
                 messageID: message.MessageId
-
             })
+
+
+            const { url, fname, lname } = await UserData.findOne({ googleId: message.senderId })
+            const getUser12 = await getUserById(message.receiverId)
+            io.to(getUser12?.socketId).emit("getMessageNotification", {
+                name: fname + " " + lname,
+                url: url,
+                read: false,
+                anotherUserId: message.senderId,
+                type: "chat"
+            })
+
 
         })
         socket.on('sendGroupMessage', async (message) => {
             const getUser = await getUserById(message.receiverId)
             io.to(getUser?.socketId).emit("getGroupMessage", {
                 name: message.name,
-
                 userId: message.userId,
                 message: message.message,
                 time: message.time,
@@ -114,8 +130,7 @@ module.exports = (io, req, res) => {
         })
 
         socket.on("typing", (m) => {
-            // console.log("satrt typing")
-            // console.log(m)
+
             const getUser = getUserById(m.id)
             io.to(getUser?.socketId).emit("display", m)
 
@@ -137,11 +152,9 @@ module.exports = (io, req, res) => {
 
         //now get the post 
         socket.on("Send_Posts", (data) => {
-            // console.log("posts")
             socket.emit("get_posts", data)
         })
 
-        console.log({ onlineUser })
         socket.on("sendNotificationAllType", async (data) => {
             const { comment, commentBy, replyParentId } = data
             const { userId, image } = await TextPost.findOne({ post_id: comment.post_id })
@@ -167,7 +180,7 @@ module.exports = (io, req, res) => {
                         read: false,
                         notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
                     }
-                    io.to(getUser.socketId).emit("getNotificationAllType", sendNotificationAll)
+                    io.to(getUser?.socketId).emit("getNotificationAllType", sendNotificationAll)
                 }
                 else {
                     //someone reply on your post
@@ -187,21 +200,47 @@ module.exports = (io, req, res) => {
                             read: false,
                             notification_id: Math.random().toString(36).substring(2, 20) + Math.random().toString(36).substring(2, 20)
                         }
-                        io.to(getUser.socketId).emit("getNotificationAllType", sendNotificationData)
+                        io.to(getUser?.socketId).emit("getNotificationAllType", sendNotificationData)
                     }
                 }
             }
         })
+
+        //get the friend rquest from user
+        socket.on("sendFriendRequest", async (data) => {
+            //friends request notification main proble yh hai ki jab user send krega tou notification chlaa jayega but cancle krega tou jise bheja hai use ptaa chl jyega ki esne mujhe friends request bheji thi
+
+            // const { url } = await UserData.findOne({ googleId: data.currentUser })
+            // const getUser = await getUserById(data.anotherUserId)
+            // io.to(getUser?.socketId).emit("getFriendRequest", { name: data.senderName, url: url, _id: data.currentUser })
+        })
+        //checl user online or not
+        socket.on("isUserOnline", async (data) => {
+            const { friendId, currentUser } = data
+            if (currentUser && friendId) {
+                const getUser = await getUserById(friendId)
+                const currentUserId = await getUserById(currentUser)
+
+                io.to(currentUserId?.socketId).emit("isOnline", {
+                    friendId,
+                    status: getUser ? true : false
+                })
+
+            }
+        })
+        socket.on("deleteMessage", async (data) => {
+            const getUser = await getUserById(data.friendId)
+            io.to(getUser?.socketId).emit("deleteMessage", data)
+        })
+
         socket.on("logout", async (id) => {
             const value = await removeUser(id)
-            // console.log({ value })
             io.emit("onlineUsers", value)
         })
         socket.on("disconnect", async (data) => {
             console.log("disconnected")
             socket.broadcast.emit("callended")
             const value = await removeUser(data)
-            // console.log({ value })
             io.emit("onlineUsers", value)
         })
 

@@ -102,77 +102,145 @@
 
 //current user id= 1000
 
-const data = [
-    {
-        conversation: [1000, 1100],
-        messages: [
-            {
-                text: "hello hioo kaise haal",
-                senderId: 1100,
-                read: false
-            },
-            {
-                text: "oo, Hii, kaise haal",
-                senderId: 1000,
-                read: true
-            },
-            {
-                text: "sab badiya aur bataoi kaise haal;",
-                senderId: 1000,
-                read: true
-            }
-        ]
-    },
+// const data = [
+//     {
+//         conversation: [1000, 1100],
+//         messages: [
+//             {
+//                 text: "hello hioo kaise haal",
+//                 senderId: 1100,
+//                 read: false
+//             },
+//             {
+//                 text: "oo, Hii, kaise haal",
+//                 senderId: 1000,
+//                 read: true
+//             },
+//             {
+//                 text: "sab badiya aur bataoi kaise haal;",
+//                 senderId: 1000,
+//                 read: true
+//             }
+//         ]
+//     },
 
-    {
-        conversation: [1000, 1200],
-        messages: [
-            {
-                text: "This is 1200 message 1st",
-                senderId: 1200,
-                read: false
-            },
-            {
-                text: "second 1200 message",
-                senderId: 1200,
-                read: false
-            },
-            {
-                text: "this is 1000 messages from 1000",
-                senderId: 1000,
-                read: true
-            }
-        ]
-    }
+//     {
+//         conversation: [1000, 1200],
+//         messages: [
+//             {
+//                 text: "This is 1200 message 1st",
+//                 senderId: 1200,
+//                 read: false
+//             },
+//             {
+//                 text: "second 1200 message",
+//                 senderId: 1200,
+//                 read: false
+//             },
+//             {
+//                 text: "this is 1000 messages from 1000",
+//                 senderId: 1000,
+//                 read: true
+//             }
+//         ]
+//     }
 
-]
+// ]
 
-const userId = 1000
-const value = data.map((upper) => {
-    if (upper.conversation.includes(userId)) {
-        return {
-            conversation: upper.conversation.find((value) => value.senderId !== userId)[0],
-            messages: upper.messages.filter((inner) => {
-                return inner.senderId !== userId && !inner.read
-            }).length
-        }
-    }
-})
+// const userId = 1000
+// const value = data.map((upper) => {
+//     if (upper.conversation.includes(userId)) {
+//         return {
+//             conversation: upper.conversation.find((value) => value.senderId !== userId)[0],
+//             messages: upper.messages.filter((inner) => {
+//                 return inner.senderId !== userId && !inner.read
+//             }).length
+//         }
+//     }
+// })
 
-let array = []
-value.forEach((item) => {
-    if (item.messages.length > 0) {
-        const getAnotherUserId = item.conversation.filter(anotherId => anotherId !== userId)
-        array.push({ anotherUserId: getAnotherUserId[0], messagesLength: item.messages.length })
-    }
-})
+// let array = []
+// value.forEach((item) => {
+//     if (item.messages.length > 0) {
+//         const getAnotherUserId = item.conversation.filter(anotherId => anotherId !== userId)
+//         array.push({ anotherUserId: getAnotherUserId[0], messagesLength: item.messages.length })
+//     }
+// })
 
-console.log(array)
+// console.log(array)
 
-console.log(value)
+// console.log(value)
 
 
 
 // function ReturnId(array)[
 //     const value = array.filter(item => item !== userId)
 // ]
+
+
+const array = [
+    {
+        name: "Raghav Raj",
+        _id: 12,
+        url: "fhsdkhkfhkhf",
+        length: 3
+    },
+    {
+        name: "Tony Sama",
+        _id: 13,
+        url: "dfsfugdfsh",
+        length: 4
+    },
+    {
+        name: "Tony",
+        _id: 14,
+        url: "jhsf",
+        length: 1
+    }
+]
+
+const data = {
+    name: "Raghav Raj",
+    _id: 12,
+    url: "fhsdkhkfhkhf",
+    messageLength: "jhkjsdhdskjf"
+}
+
+
+const isExits = array.some((v) => {
+    return v._id === data._id
+})
+if (isExits) {
+    const mapingData = array.map(i => {
+        if (i._id === data._id) {
+            return {
+                ...i,
+                length: i.length + 1
+            }
+        }
+        else {
+            return i
+        }
+    })
+    // console.log(mapingData)
+    array.length = 0
+    array.push(...mapingData)
+
+}
+else {
+    array.push({ ...data, length: 1 })
+}
+
+// const value = array.length > 0 ? array.map((item) => {
+//     if (item._id === data._id) {
+//         return {
+//             ...item,
+//             messageLength: item.messageLength + 1
+//         }
+//     }
+//     else {
+//         return item
+//     }
+// }) : array.push({ ...data, messageLength: 1 })
+
+// console.log(array)

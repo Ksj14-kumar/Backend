@@ -64,6 +64,7 @@ const wrap = middleware => (socket, next) => middleware(socket.request, {}, next
 
 
 try {
+    // { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
     mongoose.connect(URL, (err) => {
         if (err) {
             console.log("not connected")
@@ -74,7 +75,8 @@ try {
     })
 
 } catch (err) {
-    process.exit(1)
+    console.log(err)
+    // process.exit(1)
 }
 
 
