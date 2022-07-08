@@ -17,14 +17,14 @@ const Message = require("../db/Message")
 const onlineUsers = require("../db/OnlineUser")
 const Cache = require("node-cache")
 const NodeCache = new Cache()
-
-
+const axios = require("axios");
 let Pusher = require('pusher');
 const UserData = require("../db/UserData");
 const { AsyncResource } = require("async_hooks");
 const { truncate } = require("fs/promises");
 const { mul } = require("@tensorflow/tfjs");
-
+const crypto = require("crypto")
+const RandomID = require("uuid").v4()
 let pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
     key: process.env.PUSHER_APP_KEY,
@@ -33,6 +33,54 @@ let pusher = new Pusher({
     useTLS: true
 });
 
+
+
+//add news posts
+async function AddNewsPost() {
+
+    (async function () {
+        const response = await axios({
+            url: `https://newsapi.org/v2/everything?q=Apple&from=2022-07-07&sortBy=popularity&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            "withCredentials": true
+        })
+
+        response.data.articles.forEach(async (item) => {
+            const GetPosts = await TextPost.findOne({ NewsURL: item.url })
+            if (GetPosts) {
+                return 
+            }
+            else {
+                const data = {
+                    username: item.author,
+                    post_id: crypto.randomUUID(),
+                    image: item.urlToImage,
+                    fileType: "image",
+                    post_url: item.url,
+                    text: item.content,
+                    time: Date.parse(item.publishedAt),
+                    createdAt: Date.parse(item.publishedAt),
+                    title: item.title,
+                    postType: "news",
+                    liked: [],
+                    title: item.title,
+                    privacy: "public",
+                    source: item.source.name,
+                    profileImage: item.source.name.includes(" ") ? item.source.name.split(" ")[0][0] + item.source.name.split(" ")[1][0] : item.source.name[0].toUpperCase() + item.source.name[item.source.name.length - 1].toUpperCase(),
+                    NewsURL: item.url,
+                    userId: RandomID,
+                    des: item.description,
+                }
+                const storeNews = await TextPost(data)
+                await storeNews.save()
+            }
+        })
+    })()
+}
 
 
 
@@ -922,24 +970,29 @@ exports.GetPostFromMongoDb = async (req, res) => {
 
 exports.loadAllUserPost = async (req, res) => {
     try {
+
+
+
         const _id = req._id
         const { value1, value2 } = req.params
-        // console.log({ value: +value })
-        // const { _id } = await jwt.verify(token, KEY)
+        await AddNewsPost()
+
+
 
         //get all post by userId 
-        const value = value1 + value2
+        const value = +value1 + +value2
         const countDoc = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).countDocuments()
         if (+value1 === 0) {
             const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).limit(+value)
+
             return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
         }
         else {
+            console.log(value2)
+            console.log(value1)
+            console.log({ value })
             const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).skip(+value1).limit(+value)
             return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
-
-
-
         }
     } catch (error) {
         return res.status(500).json({ message: "Something error occured" + error })
@@ -1414,7 +1467,7 @@ exports.postLength = async (req, res) => {
     try {
         const user = await TextPost.find({});
         if (user) {
-            console.log(user.length)
+            // console.log(user.length)
             return res.status(200).json({ l: user.length })
         }
         else {
@@ -1433,7 +1486,7 @@ exports.SinglePost = async (req, res) => {
 
         if (auther && post) {
             const user = await TextPost.findOne({ post_id: post, username: splitAuther });
-            console.log({ user })
+            // console.log({ user })
             return res.status(200).json({ message: "Success", data: user })
         }
         else {
@@ -1547,7 +1600,7 @@ exports.GetPosts = async (req, res) => {
                     return res.status(500).json({ message: "something error occured" })
                 }
                 else {
-                    console.log("file saved")
+                    // console.log("file saved")
                     const PostDataIntoDb = new TextPost({
                         username: name,
                         text: text,
@@ -1660,7 +1713,7 @@ exports.ServerPost = async (req, res) => {
 
 exports.likeUserPost = async (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const post_id = req.params.postId
         const { likedBy, likeTo, liked } = req.body
         if (likedBy && likeTo) {
@@ -1825,7 +1878,7 @@ exports.updateFriendNotificationType = async (req, res) => {
         //userId is a docId
         const userId = req.params.userId
         if (userId) {
-            console.log(userId)
+            // console.log(userId)
             //update message status
             await UserData.updateOne({ _id: userId }, { $set: { "receiverrequest.$[].read": true } }, { new: true })
             const { receiverrequest } = await UserData.findOne({ _id: userId })

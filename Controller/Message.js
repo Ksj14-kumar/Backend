@@ -9,7 +9,9 @@ const fs = require("fs")
 const crypto = require("crypto")
 const assert = require("assert");
 const { isErrored } = require("stream");
-
+const RandomID = require("uuid").v4()
+const axios = require("axios");
+const TextPost = require("../db/TextPost");
 async function getUserDetails(id) {
 
     const value = await UserData.findOne({ googleId: id })
@@ -18,6 +20,10 @@ async function getUserDetails(id) {
         name: value.fname + " " + value.lname
     }
 }
+
+
+
+
 
 
 
@@ -663,7 +669,6 @@ exports.unreadMessages = async (req, res) => {
                 }
             })
             //now get the mem message lengthand userId
-            console.log({ getUnreadMessageUserList })
             getUnreadMessageUserList.forEach((value) => {
                 if (value.messages.length > 0) {
                     const anotherUserId = value.conversations.find(id => id !== _id)
@@ -801,5 +806,61 @@ exports.blockUser = async (req, res) => {
 
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })
+    }
+}
+
+
+
+exports.SendNews = async (req, res) => {
+    try {
+
+
+
+
+        const response = await axios({
+            url: `https://newsapi.org/v2/everything?q=Apple&from=2022-07-07&sortBy=popularity&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            "withCredentials": true
+        })
+
+        const convertArray = response.data.articles.map((item) => {
+            return {
+                username: item.author,
+                post_id: crypto.randomUUID(),
+                image: item.urlToImage,
+                fileType: "image",
+                post_url: item.url,
+
+                text: item.content,
+                time: Date.parse(item.publishedAt),
+                createdAt: Date.parse(item.publishedAt),
+                title: item.title,
+                postType: "news",
+                liked: [],
+
+                title: item.title,
+                privacy: "public",
+                source: item.source.name,
+                profileImage: item.source.name.includes(" ") ? item.source.name.split(" ")[0][0] + item.source.name.split(" ")[1][0] : item.source.name[0].toUpperCase() + item.source.name[item.source.name.length - 1].toUpperCase(),
+                NewsURL: item.url,
+                userId: RandomID,
+                des: item.description,
+            }
+            // const value = await TextPost(data)
+            // await value.save()
+        })
+
+        // return res.status(200).json({
+            // message: "Success", data: convertArray
+        // })
+
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
     }
 }

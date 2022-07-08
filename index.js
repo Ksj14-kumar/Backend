@@ -10,6 +10,9 @@ const cors = require("cors")
 const fs = require("fs")
 const os = require("os")
 const utl = require("util")
+const axios = require("axios")
+const crypto = require("crypto")
+const uuid = require("uuid").v4()
 const http = require("http")
 const server = http.createServer(app)
 const { Server } = require("socket.io")
@@ -53,7 +56,8 @@ const cookieParser = require("cookie-parser")
 const passport = require('passport');
 const path = require('path');
 const { truncatedNormal } = require('@tensorflow/tfjs');
-const httpProxy = require("http-proxy")
+const httpProxy = require("http-proxy");
+const TextPost = require('./db/TextPost');
 
 
 const URL = process.env.MONGO_URL
@@ -138,7 +142,9 @@ app.use("/blob", multerfile)
 app.use("/history", history)
 app.use("/api", Conversation)
 app.use("/api", chatMessages)
-// app.use("/", TwitterRoute)
+    // app.use("/", TwitterRoute)
+
+
 
 
 
