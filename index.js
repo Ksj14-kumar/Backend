@@ -155,11 +155,8 @@ console.log = function (d) {
 //     target: process.env.CLIENT_URL,
 //     ws: true,
 // })
-
 // require("./fsmodule")
 //cludinary practice
-
-
 server.listen(PORT, (req, res) => {
     console.log("server  is start at port " + PORT)
 })
