@@ -135,13 +135,16 @@ app.use(passport.session())
 require("./Stretegy/Googlestrtegy")(passport)
 
 
+app.get("/", (req, res) => {
+    res.send("hello")
+})
 
-app.use("/", router)
-app.use("/all", GoogleRoute)
-app.use("/blob", multerfile)
-app.use("/history", history)
-app.use("/api", Conversation)
-app.use("/api", chatMessages)
+// app.use("/", router)
+// app.use("/all", GoogleRoute)
+// app.use("/blob", multerfile)
+// app.use("/history", history)
+// app.use("/api", Conversation)
+// app.use("/api", chatMessages)
 // app.use("/", TwitterRoute)
 
 
