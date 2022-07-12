@@ -14,55 +14,54 @@ const uuid = require("uuid").v4()
 const http = require("http")
 const server = http.createServer(app)
 const { Server } = require("socket.io")
-const io = new Server(server, {
-    path: "/collegezone",
-    // transports: [ "websocket"],
-    // cors: {
-    //     // process.env.CLIENT_URL
-    //     origin: process.env.CLIENT_URL,
-    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    //     credentials: true,
-    // },
-    // cookie: {
-    //     name: "session cookie",
-    //     domain: process.env.CLIENT_URL,
-    //     path: "/",
-    //     // sameSite: "lax",
-    //     secure: "auto"
-    // }
-})
-// io.set("origins", "*:*");
-//top file end
-const bodyParser = require("body-parser")
-app.set("views engine", "ejs")
-const router = require("./router/router");
-const GoogleRoute = require("./router/AllLogin")
-const TwitterRoute = require("./router/twitterRoute")
-const multerfile = require("./multer/multerImage")
-const history = require("./multer/History")
-const Conversation = require("./router/Conversation")
-const chatMessages = require('./router/Messages')
-const compression = require("compression")
+// const io = new Server(server, {
+//     path: "/collegezone",
+//     // transports: [ "websocket"],
+//     // cors: {
+//     //     // process.env.CLIENT_URL
+//     //     origin: process.env.CLIENT_URL,
+//     //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     //     credentials: true,
+//     // },
+//     // cookie: {
+//     //     name: "session cookie",
+//     //     domain: process.env.CLIENT_URL,
+//     //     path: "/",
+//     //     // sameSite: "lax",
+//     //     secure: "auto"
+//     // }
+// })
+// // io.set("origins", "*:*");
+// //top file end
+// const bodyParser = require("body-parser")
+// app.set("views engine", "ejs")
+// const router = require("./router/router");
+// const GoogleRoute = require("./router/AllLogin")
+// const TwitterRoute = require("./router/twitterRoute")
+// const multerfile = require("./multer/multerImage")
+// const history = require("./multer/History")
+// const Conversation = require("./router/Conversation")
+// const chatMessages = require('./router/Messages')
+// const compression = require("compression")
 
-const session = require("express-session");
-const cookieSession = require("cookie-session")
-const cookieParser = require("cookie-parser")
-const passport = require('passport');
-const path = require('path');
-const { truncatedNormal } = require('@tensorflow/tfjs');
-const httpProxy = require("http-proxy");
-const TextPost = require('./db/TextPost');
+// const session = require("express-session");
+// const cookieSession = require("cookie-session")
+// const cookieParser = require("cookie-parser")
+// const passport = require('passport');
+// const path = require('path');
+// const { truncatedNormal } = require('@tensorflow/tfjs');
+// const httpProxy = require("http-proxy");
+// const TextPost = require('./db/TextPost');
 
 
 const URL = process.env.MONGO_URL
 const port = process.env.PORT || 5001
 
-const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+// const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
 
 
 try {
-    // { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
     mongoose.connect(URL, (err) => {
         if (err) {
             console.log("not connected")
@@ -77,51 +76,51 @@ try {
     // process.exit(1)
 }
 
-app.use(function (req, res, next) {
-    res.setTimeout(120000, function () {
-        console.log(' from index file Request has timed out.');
-        res.sendStatus(408);
-    });
+// app.use(function (req, res, next) {
+//     res.setTimeout(120000, function () {
+//         console.log(' from index file Request has timed out.');
+//         res.sendStatus(408);
+//     });
 
-    next();
-});
-app.use(compression())
-app.use(express.static(path.join(__dirname, '/public/userDirectories')))
-app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
-app.use(bodyParser.json({ limit: '200mb' }))
-// app.set('trust proxy', 1)
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    // preflightContinue: false,
-    // optionsSuccessStatus: 200
-}
-))
-
-
+//     next();
+// });
+// app.use(compression())
+// app.use(express.static(path.join(__dirname, '/public/userDirectories')))
+// app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
+// app.use(bodyParser.json({ limit: '200mb' }))
+// // app.set('trust proxy', 1)
+// app.use(cors({
+//     origin: process.env.CLIENT_URL,
+//     credentials: true,
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     // preflightContinue: false,
+//     // optionsSuccessStatus: 200
+// }
+// ))
 
 
-app.use(session({
-    name: "session id",
-    secret: process.env.SECRET_KEY,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        name: "session",
-        // maxAge: 1000 * 60 * 60 * 24 * 7,
-        // httpOnly: false,
-        // expires: false,
-        secure: "auto",
-        sameSite: "lax",
-    }
-}))
-app.use(cookieParser())
-app.use(passport.initialize())
-app.use(passport.session())
 
-// console.log("",process.env.NODE_ENV
-require("./Stretegy/Googlestrtegy")(passport)
+
+// app.use(session({
+//     name: "session id",
+//     secret: process.env.SECRET_KEY,
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//         name: "session",
+//         // maxAge: 1000 * 60 * 60 * 24 * 7,
+//         // httpOnly: false,
+//         // expires: false,
+//         secure: "auto",
+//         sameSite: "lax",
+//     }
+// }))
+// app.use(cookieParser())
+// app.use(passport.initialize())
+// app.use(passport.session())
+
+// // console.log("",process.env.NODE_ENV
+// require("./Stretegy/Googlestrtegy")(passport)
 app.get("/", (req, res) => {
     res.send("hello")
 })
