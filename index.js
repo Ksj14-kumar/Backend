@@ -23,7 +23,7 @@ const io = new Server(server, {
     // transports: [ "websocket"],
     cors: {
         // process.env.CLIENT_URL
-        origin: "*",
+        origin: process.env.CLIENT_URL,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true,
     },
@@ -83,13 +83,6 @@ try {
     // process.exit(1)
 }
 
-
-//use the socket.io as middleware
-
-// app.use(function (req,res,next){
-//     req.io=io
-//     next()
-// })
 app.use(function (req, res, next) {
     res.setTimeout(120000, function () {
         console.log(' from index file Request has timed out.');
@@ -104,7 +97,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "200mb" }))
 app.use(bodyParser.json({ limit: '200mb' }))
 // app.set('trust proxy', 1)
 app.use(cors({
-    origin: "*",
+    origin: process.env.CLIENT_URL,
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     // preflightContinue: false,
@@ -135,17 +128,15 @@ app.use(passport.session())
 require("./Stretegy/Googlestrtegy")(passport)
 
 
-app.get("/", (req, res) => {
-    res.send("hello")
-})
 
-// app.use("/", router)
-// app.use("/all", GoogleRoute)
-// app.use("/blob", multerfile)
-// app.use("/history", history)
-// app.use("/api", Conversation)
-// app.use("/api", chatMessages)
-// app.use("/", TwitterRoute)
+
+app.use("/", router)
+app.use("/all", GoogleRoute)
+app.use("/blob", multerfile)
+app.use("/history", history)
+app.use("/api", Conversation)
+app.use("/api", chatMessages)
+app.use("/", TwitterRoute)
 
 
 
@@ -159,8 +150,8 @@ console.log = function (d) {
 }
 
 
-// require("./Socket Middleware/Socket")(io)
-// require("./Socket/SocketMessage")
+require("./Socket Middleware/Socket")(io)
+require("./Socket/SocketMessage")
 //reverse proxy for socket.io for production
 httpProxy.createProxyServer({
     target: process.env.CLIENT_URL,
