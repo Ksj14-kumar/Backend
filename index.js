@@ -158,27 +158,9 @@ console.log = function (d) {
 
 }
 
-//socket middleware
-// io.use((socket, next) => {
-//     const token = socket.handshake.auth.token
-//     console.log(token)
-//     if (token) {
-//         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-//             if (err) {
-//                 console.log(err)
-//                 return next(new Error("Authentication error"))
-//             }
-//             console.log(decode)
-//             console.log("successfull verify")
-//             socket.decoded = decoded
-//             next()
-//         }
-//         )
-//     }
-// })
 
-require("./Socket Middleware/Socket")(io)
-require("./Socket/SocketMessage")
+// require("./Socket Middleware/Socket")(io)
+// require("./Socket/SocketMessage")
 //reverse proxy for socket.io for production
 httpProxy.createProxyServer({
     target: process.env.CLIENT_URL,
