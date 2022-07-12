@@ -23,6 +23,32 @@ async function getUserDetails(id) {
 
 
 
+async function ModifiedArray(value) {
+    const convertArray = value.map((item) => {
+        return {
+            username: item.author,
+            post_id: crypto.randomUUID(),
+            image: item.urlToImage,
+            fileType: "image",
+            post_url: item.url,
+            text: item.content,
+            time: Date.parse(item.publishedAt),
+            createdAt: Date.parse(item.publishedAt),
+            title: item.title,
+            postType: "news",
+            liked: [],
+            title: item.title,
+            privacy: "public",
+            source: item.source.name,
+            profileImage: item.source.name.includes(" ") ? item.source.name.split(" ")[0][0] + item.source.name.split(" ")[1][0] : item.source.name[0].toUpperCase() + item.source.name[item.source.name.length - 1].toUpperCase(),
+            NewsURL: item.url,
+            userId: RandomID,
+            des: item.description,
+        }
+    })
+    return convertArray
+}
+
 
 
 
@@ -36,7 +62,7 @@ exports.PostMessage = async (req, res) => {
         const { block } = await Messages.findOne({ conversations: { $all: [friend_id, adminId] } })
 
 
-        if (block) {
+        if (!block) {
             if (friend_id && adminId) {
                 if (
                     type === "image" || type === "video" || type === "text" || type === "GIF" || type === "audio"
@@ -814,53 +840,533 @@ exports.blockUser = async (req, res) => {
 exports.SendNews = async (req, res) => {
     try {
 
+        const { query, searchValue } = req.body
+        let response;
+        let sendData;
+        console.log(req.body)
+        // { query: {}, searchValue: 'india' }
+        // { query: { q: '', id: 3 }, searchValue: '' }
+        if (searchValue.length) {
+            response = await axios({
+                url: `https://newsapi.org/v2/everything?q=${searchValue.toLowerCase().trim()}&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                "withCredentials": true
+            })
+            sendData = await ModifiedArray(response.data.articles)
 
+            return res.status(200).json({
+                message: "Success", data: sendData
+            })
 
+        }
+        else {
 
-        const response = await axios({
-            url: `https://newsapi.org/v2/everything?q=Apple&from=2022-07-07&sortBy=popularity&apiKey=${process.env.NEWS_API_ORG_KEY}`,
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            "withCredentials": true
-        })
+            if (query.id === 26) {
 
-        const convertArray = response.data.articles.map((item) => {
-            return {
-                username: item.author,
-                post_id: crypto.randomUUID(),
-                image: item.urlToImage,
-                fileType: "image",
-                post_url: item.url,
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=indianexpress.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
 
-                text: item.content,
-                time: Date.parse(item.publishedAt),
-                createdAt: Date.parse(item.publishedAt),
-                title: item.title,
-                postType: "news",
-                liked: [],
-
-                title: item.title,
-                privacy: "public",
-                source: item.source.name,
-                profileImage: item.source.name.includes(" ") ? item.source.name.split(" ")[0][0] + item.source.name.split(" ")[1][0] : item.source.name[0].toUpperCase() + item.source.name[item.source.name.length - 1].toUpperCase(),
-                NewsURL: item.url,
-                userId: RandomID,
-                des: item.description,
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
             }
-            // const value = await TextPost(data)
-            // await value.save()
-        })
 
-        // return res.status(200).json({
-            // message: "Success", data: convertArray
-        // })
+            else if (query.id === 24) {
 
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?sources=bloomberg&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
 
+            }
+            else if (query.id === 25) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=wsj.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 23) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=foxnews.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+            }
+            else if (query.id === 22) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=cnbc.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 21) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=forbes.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 20) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=nytimes.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+            }
+
+            else if (query.id === 19) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=theguardian.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+            }
+            else if (query.id === 18) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=bbc.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 17) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=cnn.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 16) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=thehindu.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 15) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=timesofindia.indiatimes.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 14) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=lifestyle&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 13) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?domains=artnews.com&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 12) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=Religion&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 11) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=Politics&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+
+            else if (query.id === 10) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=environment&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 9) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=education&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 8) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=science&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 7) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=health&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 6) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=entertainment&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 5) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 4) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=sports&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 3) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=business&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 2) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=world&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+            else if (query.id === 1) {
+
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=indian&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+            }
+            else {
+                response = await axios({
+                    url: `https://newsapi.org/v2/everything?q=world&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`,
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    "withCredentials": true
+                })
+                sendData = await ModifiedArray(response.data.articles)
+                return res.status(200).json({
+                    message: "Success", data: sendData
+                })
+
+            }
+
+        }
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" + err })
+
+    }
+}
+
+
+
+exports.getAssests = async (req, res) => {
+    try {
+        const id = req.params.id
+        let AssestArray = []
+        if (id) {
+            fs.readdir(path.join(__dirname, `../_user/_posts/_${id}`), (err, result) => {
+                if (err) {
+                    return res.status(404).json({ messages: "bad request" })
+                }
+                else {
+                    result.length > 0 && result.forEach((item) => {
+                        AssestArray.push(path.join(`/_user/_posts/_${id}`, item))
+                    })
+                    return res.status(200).json(AssestArray)
+
+                }
+            })
+        }
+        else {
+            return res.status(404).json({ message: "Something missing" })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" + err })
+
+    }
+}
+
+exports.changeTheme = async (req, res) => {
+    try {
+        const { toggle, doc } = req.body
+        await UserData.findOneAndUpdate({ _id: doc }, { $set: { theme: toggle } })
+        return res.end()
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
 
     }
 }

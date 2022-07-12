@@ -33,5 +33,7 @@ router.get("/v1/users/chats/single", Auth.AuthToken, chatMessageRouterController
 router.post("/v1/forwardMessage", Auth.AuthToken, chatMessageRouterController.sendForwardMessages)
 router.delete("/v1/delete/message", Auth.AuthToken, chatMessageRouterController.DeleteMessage)
 router.put("/v1/block/user", Auth.AuthToken, chatMessageRouterController.blockUser)
-router.get("/v1/news/newsORG", Auth.AuthToken, chatMessageRouterController.SendNews)
+router.post("/v1/news/newsORG", Auth.AuthToken, chatMessageRouterController.SendNews)
+router.get("/v1/get/assests/path/:id", Auth.AuthToken, chatMessageRouterController.getAssests)
+router.put("/v1/changetheme", Auth.AuthToken, chatMessageRouterController.changeTheme)
 module.exports = router

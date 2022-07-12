@@ -24,6 +24,7 @@ const Schema = new mongoose.Schema({
     bookMarkPost: Array,
     bookMarkBy: Array,
     AllNotification: Array,
+    theme: Boolean,
 
 })
 

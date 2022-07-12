@@ -52,7 +52,7 @@ async function AddNewsPost() {
         response.data.articles.forEach(async (item) => {
             const GetPosts = await TextPost.findOne({ NewsURL: item.url })
             if (GetPosts) {
-                return 
+                return
             }
             else {
                 const data = {
@@ -975,7 +975,7 @@ exports.loadAllUserPost = async (req, res) => {
 
         const _id = req._id
         const { value1, value2 } = req.params
-        await AddNewsPost()
+        // await AddNewsPost()
 
 
 
@@ -988,9 +988,7 @@ exports.loadAllUserPost = async (req, res) => {
             return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
         }
         else {
-            console.log(value2)
-            console.log(value1)
-            console.log({ value })
+
             const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).skip(+value1).limit(+value)
             return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
         }
@@ -1003,32 +1001,36 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
     try {
         const id = req._id
         const { userId, post_id } = req.body
-        const deletePost = await TextPost.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
-        await Noti.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
-        // console.log("deleted response is ", deletePost)
-        // console.log(deletePost)
-        if (id === userId) {
-            if (deletePost) {
-                //delete all comment related to post
-                await Comments.deleteMany({
-                    post_id
-                        : post_id
-                })
-                //getallpost after delete
-                const GetAllPostsAfterDelete = await TextPost.find({})
-                const allNotiAfterDelete = await Noti.find({})
-                const arrange = GetAllPostsAfterDelete.length > 0 && GetAllPostsAfterDelete.sort((a, b) => {
-                    return b.time - a.time
-                })
-                return res.status(200).json({ message: "Post deleted successfully", data: arrange })
+        const { image } = await TextPost.findOneAndDelete({ post_id: post_id })
+        const dir = path.join(__dirname, `../${image}`)
+        fs.unlink(dir, async(err, result) => {
+            const deletePost = await TextPost.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
+            await Noti.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
+            
+            if (id === userId) {
+                if (deletePost) {
+                    //delete all comment related to post
+                    await Comments.deleteMany({
+                        post_id
+                            : post_id
+                    })
+                    //getallpost after delete
+                    const GetAllPostsAfterDelete = await TextPost.find({})
+                    const allNotiAfterDelete = await Noti.find({})
+                    const arrange = GetAllPostsAfterDelete.length > 0 && GetAllPostsAfterDelete.sort((a, b) => {
+                        return b.time - a.time
+                    })
+                    return res.status(200).json({ message: "Post deleted successfully", data: arrange })
+                }
+                else {
+                    return res.status(200).json({ message: "Deleted Successfully." })
+                }
             }
             else {
-                return res.status(200).json({ message: "Deleted Successfully." })
+                return res.status(401).json({ message: "you can not delete this post. you are not admin of this post" })
             }
-        }
-        else {
-            return res.status(401).json({ message: "you can not delete this post. you are not admin of this post" })
-        }
+        })
+
     } catch (error) {
         return res.status(500).json({ message: "Something error   occured" })
     }
