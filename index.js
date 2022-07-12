@@ -17,12 +17,12 @@ const { Server } = require("socket.io")
 const io = new Server(server, {
     path: "/collegezone",
     // transports: [ "websocket"],
-    cors: {
-        // process.env.CLIENT_URL
-        origin: process.env.CLIENT_URL,
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        credentials: true,
-    },
+    // cors: {
+    //     // process.env.CLIENT_URL
+    //     origin: process.env.CLIENT_URL,
+    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    //     credentials: true,
+    // },
     // cookie: {
     //     name: "session cookie",
     //     domain: process.env.CLIENT_URL,
@@ -122,17 +122,20 @@ app.use(passport.session())
 
 // console.log("",process.env.NODE_ENV
 require("./Stretegy/Googlestrtegy")(passport)
+app.get("/", (req, res) => {
+    res.send("hello")
+})
 
 
 
 
-app.use("/", router)
-app.use("/all", GoogleRoute)
-app.use("/blob", multerfile)
-app.use("/history", history)
-app.use("/api", Conversation)
-app.use("/api", chatMessages)
-app.use("/", TwitterRoute)
+// app.use("/", router)
+// app.use("/all", GoogleRoute)
+// app.use("/blob", multerfile)
+// app.use("/history", history)
+// app.use("/api", Conversation)
+// app.use("/api", chatMessages)
+// app.use("/", TwitterRoute)
 
 
 
@@ -146,13 +149,13 @@ console.log = function (d) {
 }
 
 
-require("./Socket Middleware/Socket")(io)
-require("./Socket/SocketMessage")
-//reverse proxy for socket.io for production
-httpProxy.createProxyServer({
-    target: process.env.CLIENT_URL,
-    ws: true,
-})
+// require("./Socket Middleware/Socket")(io)
+// require("./Socket/SocketMessage")
+// //reverse proxy for socket.io for production
+// httpProxy.createProxyServer({
+//     target: process.env.CLIENT_URL,
+//     ws: true,
+// })
 
 require("./fsmodule")
 //cludinary practice
