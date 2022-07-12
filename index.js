@@ -55,11 +55,11 @@ const { Server } = require("socket.io")
 
 
 const URL = process.env.MONGO_URL
-const port = process.env.PORT || 5001
+const PORT = process.env.PORT || 5001
 
 // const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
-
+console.log("hello this is start")
 
 try {
     mongoose.connect(URL, (err) => {
@@ -156,10 +156,10 @@ console.log = function (d) {
 //     ws: true,
 // })
 
-require("./fsmodule")
+// require("./fsmodule")
 //cludinary practice
 
 
-server.listen(port, (req, res) => {
-    console.log("server  is start at port " + port)
+server.listen(PORT, (req, res) => {
+    console.log("server  is start at port " + PORT)
 })
