@@ -1,17 +1,10 @@
-server  is start at port 5000
-connected to db
-server  is start at port 5000
-someoe is connected
-server  is start at port 5000
-someoe is connected
-connected to db
 disconnected
 someoe is connected
 {
   onlineUser: [
     {
       name: 'Tony Sama',
-      socketId: 'EoX-t_4Vm3iqduNEAAAD',
+      socketId: 'gHuzuT1EeI3hkWxYAAAF',
       adminId: '62ba1800bab0b878a925e8f2',
       url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
       mongoId: '62ba1eb4ae9ead57dcfd41da'
