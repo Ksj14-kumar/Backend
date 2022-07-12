@@ -19,19 +19,21 @@ const { Server } = require("socket.io")
 const io = new Server(server, {
 
     path: "/collegezone",
+
     // transports: [ "websocket"],
-    // cors: {
-    //     origin: process.env.CLIENT_URL,
-    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    //     credentials: true,
-    // },
-    cookie: {
-        name: "session cookie",
-        domain: process.env.CLIENT_URL,
-        path: "/",
-        sameSite: "lax",
-        secure: "auto"
-    }
+    cors: {
+        // process.env.CLIENT_URL
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        credentials: true,
+    },
+    // cookie: {
+    //     name: "session cookie",
+    //     domain: process.env.CLIENT_URL,
+    //     path: "/",
+    //     // sameSite: "lax",
+    //     secure: "auto"
+    // }
 })
 
 
