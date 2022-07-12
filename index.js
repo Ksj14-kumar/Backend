@@ -1,8 +1,6 @@
 
 const mongoose = require('mongoose');
 // let Pusher = require('pusher');
-
-
 require("dotenv").config()
 const express = require("express")
 const app = express()
@@ -17,9 +15,7 @@ const http = require("http")
 const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
-
     path: "/collegezone",
-
     // transports: [ "websocket"],
     cors: {
         // process.env.CLIENT_URL
@@ -35,8 +31,6 @@ const io = new Server(server, {
     //     secure: "auto"
     // }
 })
-
-
 // io.set("origins", "*:*");
 //top file end
 const bodyParser = require("body-parser")

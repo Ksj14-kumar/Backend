@@ -80,3 +80,9 @@ someoe is connected
     }
   ]
 }
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+disconnected
