@@ -18,7 +18,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
 
-    path: process.env.PATH,
+    path:"/collegezone",
     // transports: [ "websocket"],
     cors: {
         origin: process.env.CLIENT_URL,
