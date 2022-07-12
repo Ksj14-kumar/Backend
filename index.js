@@ -18,14 +18,14 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
 
-    path: "/collegezone",
+    path: process.env.PATH,
     // transports: [ "websocket"],
     cors: {
         origin: process.env.CLIENT_URL,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true,
     },
-    // cookie: {
+    // cookie: {-
     //     name: "session cookie",
     //     domain: process.env.CLIENT_URL,
     //     path: "/",
