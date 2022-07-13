@@ -155,6 +155,13 @@ try {
 // })
 // require("./fsmodule")
 //cludinary practice
-server.listen(PORT, (req, res) => {
-    console.log("server  is start at port " + PORT)
+server.listen(PORT, (err) => {
+    if (err) {
+        console.log({ err })
+    }
+    else {
+        const port = server.address().port;
+        console.log("server  is start at port " + port)
+
+    }
 })
