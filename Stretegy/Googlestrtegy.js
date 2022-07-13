@@ -298,8 +298,7 @@ module.exports = (passport) => {
                     return done(null, false, { message: "Invalid credentials" });
                 }
                 else {
-                    // console.log("user is found")
-                    // console.log(user)
+                   
                     return done(null, user);
                 }
 

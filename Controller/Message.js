@@ -59,10 +59,10 @@ exports.PostMessage = async (req, res) => {
         let messageChange;
         // console.log()
 
-        const { block } = await Messages.findOne({ conversations: { $all: [friend_id, adminId] } })
+        const MessageBlock = await Messages.findOne({ conversations: { $all: [friend_id, adminId] } })
 
 
-        if (!block) {
+        if (!MessageBlock?.block) {
             if (friend_id && adminId) {
                 if (
                     type === "image" || type === "video" || type === "text" || type === "GIF" || type === "audio"
@@ -190,11 +190,17 @@ exports.GetUserMessages = async (req, res) => {
         const { user1, user2 } = req.params
         // console.log(user1)
         // console.log(user2)
-        const message = await Messages.findOne({ conversations: { $all: [req.params.user1, req.params.user2] } })
+        if (user1 && user2) {
 
-        // console.log({ message: message.messages })
+            const message = await Messages.findOne({ conversations: { $all: [req.params.user1, req.params.user2] } })
 
-        return res.status(200).json(message)
+            // console.log({ message: message.messages })
+
+            return res.status(200).json(message)
+        }
+        else {
+            return res.status(404).json({ message: "Something missing" })
+        }
 
     } catch (err) {
         return res.status(500).json({ message: "Something error occured" })

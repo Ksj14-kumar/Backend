@@ -152,7 +152,12 @@ module.exports = (io, req, res) => {
 
         //now get the post 
         socket.on("Send_Posts", (data) => {
-            socket.emit("get_posts", data)
+            console.log({ data })
+            const fineUser = getUserById(data.newPost.userId)
+            const arrangePosts = [data.newPost, ...data.prePosts].sort((a, b) => {
+                return b.time - a.time
+            })
+            io.to(fineUser?.socketId).emit("getPosts", arrangePosts)
         })
 
         socket.on("sendNotificationAllType", async (data) => {

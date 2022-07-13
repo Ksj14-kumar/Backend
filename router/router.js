@@ -211,7 +211,7 @@ router.post("/api/login", async (req, res, next) => {
             return
         }
         if (!user) {
-            res.status(400).json({ message: "login failed" })
+            res.status(400).json({ message: "User not found" })
             return
         }
         req.logIn(user, async (err) => {

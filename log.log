@@ -117,3 +117,2989 @@ server  is start at port 5000
 connected to db
 server  is start at port 5000
 connected to db
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'vcU_RKYIaLpotBaMAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ query: { q: '', id: 26 }, searchValue: '' }
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'vcU_RKYIaLpotBaMAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'vcU_RKYIaLpotBaMAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: false
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+server  is start at port 5000
+someoe is connected
+connected to db
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb5b519690362946aedc0b',
+  blockUser: true
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'jlE8xF6g6CpiLjvOAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02'
+}
+update response from the user side
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'jlE8xF6g6CpiLjvOAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02'
+}
+update response from the user side
+update response from the user side
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02'
+}
+update response from the user side
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+update response from the user side
+update response from the user side
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+update response from the user side
+update response from the user side
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'jlE8xF6g6CpiLjvOAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+update response from the user side
+someoe is connected
+update response from the user side
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ycc4zV5XcXwHeoZGAAAD',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+update response from the user side
+{
+  currentId: '62ba1800bab0b878a925e8f2',
+  friendId: '62bb59979690362946aedb02',
+  blockUser: false
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ycc4zV5XcXwHeoZGAAAD',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{ docId: '62ba1eb4ae9ead57dcfd41da' }
+server  is start at port 5000
+someoe is connected
+someoe is connected
+connected to db
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: '6jD7kjgSN5XZE9bBAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: '6jD7kjgSN5XZE9bBAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{ docId: 'undefined' }
+{ docId: 'undefined' }
+update response from the user side
+update response from the user side
+{ usernameId: '62ba1800bab0b878a925e8f2' }
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: '6jD7kjgSN5XZE9bBAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: '6jD7kjgSN5XZE9bBAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'gAfhdJYydF9bWi5LAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'gAfhdJYydF9bWi5LAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: '_1eENj6I1zHMs_X-AAAL',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+disconnected
+server  is start at port 5000
+connected to db
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'Y0SNhvzN7KYwmZfrAAAD',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'UJ7v-CF1pntxle0MAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'qkS5m0FGGkNIdLWHAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'qkS5m0FGGkNIdLWHAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'qkS5m0FGGkNIdLWHAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ziqre4fMKtPplmSSAAAB',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'qkS5m0FGGkNIdLWHAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: '3QSkLwZzTKLjfgikAAAJ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'qkS5m0FGGkNIdLWHAAAH',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: '3QSkLwZzTKLjfgikAAAJ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: '3QSkLwZzTKLjfgikAAAJ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: '3QSkLwZzTKLjfgikAAAJ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: '3QSkLwZzTKLjfgikAAAJ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ogcbBFzEkLheAIx-AAAP',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ejKaidBuakXRBxbsAAAR',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ejKaidBuakXRBxbsAAAR',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ogcbBFzEkLheAIx-AAAP',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: '_XGLKYth1LfTsNtQAAAV',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: '-Kr864MQp3kFrluYAAAX',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: '-Kr864MQp3kFrluYAAAX',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+someoe is connected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'tBsZvHJfeP2e3oAxAAAb',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'tBsZvHJfeP2e3oAxAAAb',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'EDqpbON3__J1893IAAAd',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+disconnected
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'UvokzXbvZGx9FOvfAAAf',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'jcS7k2JxHXKGNGUsAAAh',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+someoe is connected
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'r2jGZ1_i6OTx_8rBAAAl',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'W_b8w1Zsfpc1zI4xAAAL',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'r2jGZ1_i6OTx_8rBAAAl',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'r2jGZ1_i6OTx_8rBAAAl',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'm9Y33Uyh9gi-YUz9AAAn',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'r2jGZ1_i6OTx_8rBAAAl',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'z0qdhmZCJAe1XvM4AAAp',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+disconnected
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'z0qdhmZCJAe1XvM4AAAp',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'kxuIMSV2SU0QCfunAAAr',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'N317W2wJd0ITAj1FAAAD',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'N317W2wJd0ITAj1FAAAD',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'N317W2wJd0ITAj1FAAAD',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'N317W2wJd0ITAj1FAAAD',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ZYStzGiNLH6bkn0IAAAH',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ZYStzGiNLH6bkn0IAAAH',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ZYStzGiNLH6bkn0IAAAH',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'Iq8gwnTTY-gSXNVEAAAL',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ZYStzGiNLH6bkn0IAAAH',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'Iq8gwnTTY-gSXNVEAAAL',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'ZYStzGiNLH6bkn0IAAAH',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'rpoOtcymRskO_znmAAAN',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{ usernameId: '62ba1800bab0b878a925e8f2' }
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'rpoOtcymRskO_znmAAAN',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'PJUXuosZ5GLSGXfCAAAP',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'PJUXuosZ5GLSGXfCAAAP',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'mm5NxRQiXnM2jXmoAAAR',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'PJUXuosZ5GLSGXfCAAAP',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'mm5NxRQiXnM2jXmoAAAR',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'mm5NxRQiXnM2jXmoAAAR',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'tnP1Mc8EwvAZCMy0AAAT',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'mm5NxRQiXnM2jXmoAAAR',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'mhB7SjeR4XRW5jGvAAAX',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'mm5NxRQiXnM2jXmoAAAR',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'mhB7SjeR4XRW5jGvAAAX',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+disconnected
+{ usernameId: '62ba1800bab0b878a925e8f2' }
+someoe is connected
+{
+  adminId: '62ba1800bab0b878a925e8f2',
+  usernameId: '62ba1800bab0b878a925e8f2'
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'mm5NxRQiXnM2jXmoAAAR',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'G0fxQg5PK58iucltAAAV',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'G0fxQg5PK58iucltAAAV',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'uLNcaKcs3pfvnmorAAAb',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'uLNcaKcs3pfvnmorAAAb',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'uLNcaKcs3pfvnmorAAAb',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'pxEPqHguo5TjqjKNAAAF',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    },
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'X8S07orsAAqDFQ6lAAAh',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    }
+  ]
+}
+{
+  adminId: '62bb59979690362946aedb02',
+  usernameId: '62bb59979690362946aedb02'
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'X8S07orsAAqDFQ6lAAAh',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'm6QD0zuY1sPPlhcAAAAj',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'X8S07orsAAqDFQ6lAAAh',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'm6QD0zuY1sPPlhcAAAAj',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'X8S07orsAAqDFQ6lAAAh',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'CKvmz5wXn9K3YrM9AAAl',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Tony Sama',
+      socketId: 'qSPeoX4GIz9QnuKwAAAZ',
+      adminId: '62ba1800bab0b878a925e8f2',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579869/62ba1800bab0b878a925e8f2/profileImage/62ba1800bab0b878a925e8f2.jpg',
+      mongoId: '62ba1eb4ae9ead57dcfd41da'
+    },
+    {
+      name: 'Raghav Rajput',
+      socketId: 'X8S07orsAAqDFQ6lAAAh',
+      adminId: '62bb59979690362946aedb02',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1656579894/62bb59979690362946aedb02/profileImage/62bb59979690362946aedb02.jpg',
+      mongoId: '62bb59faae9ead57dc62e90c'
+    },
+    {
+      name: 'Parv Maheshwari',
+      socketId: 'CKvmz5wXn9K3YrM9AAAl',
+      adminId: '62bb5b519690362946aedc0b',
+      url: '',
+      mongoId: '62bb5b99ae9ead57dc648d94'
+    }
+  ]
+}
+{
+  adminId: '62bb5b519690362946aedc0b',
+  usernameId: '62bb5b519690362946aedc0b'
+}
+server  is start at port 5000
+connected to db
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+server  is start at port 5000
+someoe is connected
+connected to db
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'CVIjUUqnPMSgdkE7AAAJ',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{ checkHistoryAlreadyExit: undefined }
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'CVIjUUqnPMSgdkE7AAAJ',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '_EIyPudhImDpswx7AAAL',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '6YIYQFxBm9pMXVPxAAAN',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'I5dmchhg1D39bGeHAAAP',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '_6BfBIy9P4SYDi6oAAAR',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '4OBBe0PNiXkCRcdwAAAT',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '3BX94jJ12y4k0qX7AAAV',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'sV7keditWiSOmwo9AAAX',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '5kmpfrFkHnaUfJSUAAAZ',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '-XekD9JJtkPXfwBrAAAb',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'vxoi33PO1uPXqKSbAAAf',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'txZG2I7ZD8Phc-8pAAAh',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'hHja8y-BLnqJDMPAAAAj',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '-nw8HYC9Act2SfyJAAAl',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'CZ0zeyUXfaZMUA3yAAAp',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'nlaNRh3N-lVj8csnAAAr',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'GiWnFNE-dIXJ8HRVAAAt',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '0w8MIAysCeXRAgr2AAAv',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '3tnQDveLe_quR7ufAAAx',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'fnB4622c47kJS67-AAAz',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'MsvuATp9t9_4CC4BAAA1',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'LZ4rcJ_NXvwB7r3DAAA3',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+server  is start at port 5000
+connected to db
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '_GlP4Y-twknvu7jhAAAB',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: 'e5098a13-e4c3-4db9-be8b-cc07e1a4ae81',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/e5098a13-e4c3-4db9-be8b-cc07e1a4ae81_1657708914588.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=e5098a13-e4c3-4db9-be8b-cc07e1a4ae81&&auther=Sanju Kumar',
+      text: 'post 7',
+      time: '1657708806587',
+      createdAt: '1657708914431',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea172a84a35795cea5927',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object] ],
+    socketId: '_GlP4Y-twknvu7jhAAAB'
+  }
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'aC0obZR7zZjNCXG9AAAD',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '397d24aa-d462-4885-855f-5eb45e718ad4',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/397d24aa-d462-4885-855f-5eb45e718ad4_1657709251000.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=397d24aa-d462-4885-855f-5eb45e718ad4&&auther=Sanju Kumar',
+      text: 'post 8',
+      time: '1657709177589',
+      createdAt: '1657709250852',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea2c3ab70159de0c395d9',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object] ],
+    socketId: 'aC0obZR7zZjNCXG9AAAD'
+  }
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '8f0466c7-fa8b-4bec-a9bd-bf8db4d8e15b',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/8f0466c7-fa8b-4bec-a9bd-bf8db4d8e15b_1657709366233.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=8f0466c7-fa8b-4bec-a9bd-bf8db4d8e15b&&auther=Sanju Kumar',
+      text: 'post 9',
+      time: '1657709177589',
+      createdAt: '1657709366053',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea336ab70159de0c3961a',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object] ],
+    socketId: 'aC0obZR7zZjNCXG9AAAD'
+  }
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'eNkhdBQqoZ55jB1dAAAB',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+server  is start at port 5000
+connected to db
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'GnP3hRzCs0IHQqZaAAAB',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '28036373-c935-494e-b956-52d0ee551aef',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/28036373-c935-494e-b956-52d0ee551aef_1657709728748.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=28036373-c935-494e-b956-52d0ee551aef&&auther=Sanju Kumar',
+      text: 'post 10',
+      time: '1657709676758',
+      createdAt: '1657709728600',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea4a05fc2d3289895ef0a',
+      __v: 0
+    },
+    prePosts: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object]
+    ],
+    socketId: 'GnP3hRzCs0IHQqZaAAAB'
+  }
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'b-6_Nt6OryagO_fkAAAD',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'BHQTRJOJLIp6_RnoAAAF',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: 'd19f8825-3fb8-4298-8103-1bdb479532d4',
+      image: '',
+      fileType: null,
+      post_url: '/user/single/post?post=d19f8825-3fb8-4298-8103-1bdb479532d4&&auther=Sanju Kumar',
+      text: 'post 11',
+      time: '1657709676758',
+      createdAt: '1657710014045',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea5c15fc2d3289895f0cc',
+      __v: 0
+    },
+    prePosts: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    socketId: 'BHQTRJOJLIp6_RnoAAAF'
+  }
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '50a698b5-9c26-4d28-90ba-92968f27251d',
+      image: '',
+      fileType: '',
+      post_url: '/user/single/post?post=50a698b5-9c26-4d28-90ba-92968f27251d&&auther=Sanju Kumar',
+      text: 'post 12',
+      time: '1657709676758',
+      createdAt: '1657710240251',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea6a05fc2d3289895f136',
+      __v: 0
+    },
+    prePosts: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object]
+    ],
+    socketId: 'BHQTRJOJLIp6_RnoAAAF'
+  }
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'WcgigDLIapI4tevCAAAH',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '59463052-6934-42af-8bc3-dafee3b92949',
+      image: '',
+      fileType: null,
+      post_url: '/user/single/post?post=59463052-6934-42af-8bc3-dafee3b92949&&auther=Sanju Kumar',
+      text: 'post 13',
+      time: '1657709676758',
+      createdAt: '1657710504193',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cea7a85fc2d3289895f242',
+      __v: 0
+    },
+    prePosts: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    socketId: 'WcgigDLIapI4tevCAAAH'
+  }
+}
+server  is start at port 5000
+someoe is connected
+connected to db
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'AZm7nedONCfev0RRAAAD',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+server  is start at port 5000
+someoe is connected
+connected to db
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'iHuW0pxGYsKRLHfWAAAD',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'zx2R5TGrY9dQzR-xAAAF',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'MUmghqXWDB4W23wWAAAH',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'QlQSYaRJG9-kylRnAAAJ',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: 'bf5bea55-26ef-4df7-8945-ec7f59801249',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/bf5bea55-26ef-4df7-8945-ec7f59801249_1657711908961.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=bf5bea55-26ef-4df7-8945-ec7f59801249&&auther=Sanju Kumar',
+      text: 'post 14',
+      time: '1657710823041',
+      createdAt: '1657711908619',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62cead25399c8beee42d26a5',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object] ],
+    socketId: 'QlQSYaRJG9-kylRnAAAJ'
+  }
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '40a9e80a-3e1c-4914-a45c-1b6051c1014c',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/40a9e80a-3e1c-4914-a45c-1b6051c1014c_1657712256754.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=40a9e80a-3e1c-4914-a45c-1b6051c1014c&&auther=Sanju Kumar',
+      text: 'post 15',
+      time: '1657710823041',
+      createdAt: '1657712256596',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62ceae80399c8beee42d272f',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object] ],
+    socketId: 'QlQSYaRJG9-kylRnAAAJ'
+  }
+}
+{
+  data: {
+    newPost: {
+      username: 'Sanju Kumar',
+      post_id: '603a00e7-2a9f-477d-9369-4b61d3d75f90',
+      image: '_user/_posts/_62ce862c64d7a00a37bc0570/603a00e7-2a9f-477d-9369-4b61d3d75f90_1657712333004.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=603a00e7-2a9f-477d-9369-4b61d3d75f90&&auther=Sanju Kumar',
+      text: 'post 16',
+      time: '1657710823041',
+      createdAt: '1657712332857',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ce862c64d7a00a37bc0570',
+      _id: '62ceaecd399c8beee42d277c',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object], [Object] ],
+    socketId: 'QlQSYaRJG9-kylRnAAAJ'
+  }
+}
+{ docId: '62ce87cff8182753dd2e2cd5' }
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '5ZK01Vxvwm3yuHTVAAAL',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: '',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{
+  predictions: [
+    { className: 'Drawing', probability: 0.7951288223266602 },
+    { className: 'Neutral', probability: 0.20165584981441498 },
+    { className: 'Sexy', probability: 0.0024795057252049446 },
+    { className: 'Hentai', probability: 0.0006208567647263408 },
+    { className: 'Porn', probability: 0.00011494885984575376 }
+  ]
+}
+{
+  predictions: [
+    { className: 'Neutral', probability: 0.5480750799179077 },
+    { className: 'Sexy', probability: 0.24130575358867645 },
+    { className: 'Drawing', probability: 0.20717597007751465 },
+    { className: 'Porn', probability: 0.0023825725074857473 },
+    { className: 'Hentai', probability: 0.0010605806019157171 }
+  ]
+}
+disconnected
+someoe is connected
+{ usernameId: '62ce862c64d7a00a37bc0570' }
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'OUVkNFUg6WJISQG-AAAN',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+someoe is connected
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'K7WUuMrUDgiAkeRUAAAR',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'K7WUuMrUDgiAkeRUAAAR',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'K7WUuMrUDgiAkeRUAAAR',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+someoe is connected
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'V5IbmgbQAYfd8r7IAAAT',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+disconnected
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'fnKmN5NM5YCdKOgQAAAZ',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'f2H1N76AnuaQVX3jAAAb',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'pUHs2Ud71FVsO4Q4AAAd',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'pUHs2Ud71FVsO4Q4AAAd',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'kdgZKWeEa2C3sd5iAAAf',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{ docId: 'undefined' }
+{
+  adminId: '62ceb48a399c8beee42d2c51',
+  usernameId: '62ceb48a399c8beee42d2c51'
+}
+{ checkHistoryAlreadyExit: undefined }
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'kdgZKWeEa2C3sd5iAAAf',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    },
+    {
+      name: 'Yashika Jain',
+      socketId: 'QB5KbDjfrtOD-B2xAAAh',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: '',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    }
+  ]
+}
+{
+  data: {
+    newPost: {
+      username: 'Yashika Jain',
+      post_id: '0c19982a-1384-472f-915b-f635e5efd09b',
+      image: '_user/_posts/_62ceb48a399c8beee42d2c51/0c19982a-1384-472f-915b-f635e5efd09b_1657715549512.jpeg',
+      fileType: 'image',
+      post_url: '/user/single/post?post=0c19982a-1384-472f-915b-f635e5efd09b&&auther=Yashika Jain',
+      text: 'This is Yashika Jain post 1',
+      time: '1657710823041',
+      createdAt: '1657715549153',
+      liked: [],
+      privacy: 'public',
+      profileImage: '',
+      userId: '62ceb48a399c8beee42d2c51',
+      _id: '62cebb5d399c8beee42d3116',
+      __v: 0
+    },
+    prePosts: [ [Object], [Object], [Object], [Object] ],
+    socketId: 'QB5KbDjfrtOD-B2xAAAh'
+  }
+}
+{
+  predictions: [
+    { className: 'Neutral', probability: 0.985287070274353 },
+    { className: 'Sexy', probability: 0.0101248137652874 },
+    { className: 'Porn', probability: 0.00398447597399354 },
+    { className: 'Drawing', probability: 0.0005331915454007685 },
+    { className: 'Hentai', probability: 0.00007055731839500368 }
+  ]
+}
+{
+  predictions: [
+    { className: 'Neutral', probability: 0.9978598952293396 },
+    { className: 'Drawing', probability: 0.002092763315886259 },
+    { className: 'Porn', probability: 0.000022480286133941263 },
+    { className: 'Hentai', probability: 0.000013612467228085734 },
+    { className: 'Sexy', probability: 0.000011355086826370098 }
+  ]
+}
+{
+  adminId: '62ceb48a399c8beee42d2c51',
+  usernameId: '62ceb48a399c8beee42d2c51'
+}
+{
+  adminId: '62ceb48a399c8beee42d2c51',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+disconnected
+{ usernameId: '62ce862c64d7a00a37bc0570' }
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'kdgZKWeEa2C3sd5iAAAf',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    },
+    {
+      name: 'Yashika Jain',
+      socketId: 'RO22IVMeAwB59qE8AAAj',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Yashika Jain',
+      socketId: 'RO22IVMeAwB59qE8AAAj',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    },
+    {
+      name: 'Sanju Kumar',
+      socketId: 'iyOaqhiOs96nhGMWAAAl',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Yashika Jain',
+      socketId: 'RO22IVMeAwB59qE8AAAj',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    },
+    {
+      name: 'Sanju Kumar',
+      socketId: '_Z9XiI6jz066eNXTAAAn',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '_Z9XiI6jz066eNXTAAAn',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    },
+    {
+      name: 'Yashika Jain',
+      socketId: 'k_0quE4mqyQpqWkKAAAp',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    }
+  ]
+}
+{ docId: '62ceba9af8182753dd78d8cc' }
+{ docId: '62ceba9af8182753dd78d8cc' }
+update response from the user side
+update response from the user side
+{ docId: '62ce87cff8182753dd2e2cd5' }
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+disconnected
+update response from the user side
+someoe is connected
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+update response from the user side
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Yashika Jain',
+      socketId: 'k_0quE4mqyQpqWkKAAAp',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    },
+    {
+      name: 'Sanju Kumar',
+      socketId: 'hR_Nc0oHdEV-a45EAAAt',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+update response from the user side
+{ docId: '62ce87cff8182753dd2e2cd5' }
+update response from the user side
+{ docId: '62ce87cff8182753dd2e2cd5' }
+update response from the user side
+update response from the user side
+{
+  currentId: '62ce862c64d7a00a37bc0570',
+  friendId: '62ceb48a399c8beee42d2c51',
+  blockUser: false
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'hR_Nc0oHdEV-a45EAAAt',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    },
+    {
+      name: 'Yashika Jain',
+      socketId: 'KvlCg7Zy2GOdq0e6AAAr',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'hR_Nc0oHdEV-a45EAAAt',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    },
+    {
+      name: 'Yashika Jain',
+      socketId: 'gNOC3pmE60GNoIpeAAAv',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    }
+  ]
+}
+{ docId: '62ceba9af8182753dd78d8cc' }
+update response from the user side
+update response from the user side
+update response from the user side
+{
+  onlineUser: [
+    {
+      name: 'Yashika Jain',
+      socketId: 'gNOC3pmE60GNoIpeAAAv',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    },
+    {
+      name: 'Sanju Kumar',
+      socketId: 'hR_Nc0oHdEV-a45EAAAt',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{ docId: '62ce87cff8182753dd2e2cd5' }
+{ docId: '62ce87cff8182753dd2e2cd5' }
+update response from the user side
+{
+  onlineUser: [
+    {
+      name: 'Yashika Jain',
+      socketId: 'gNOC3pmE60GNoIpeAAAv',
+      adminId: '62ceb48a399c8beee42d2c51',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657715623/62ceb48a399c8beee42d2c51/profileImage/62ceb48a399c8beee42d2c51.png',
+      mongoId: '62ceba9af8182753dd78d8cc'
+    },
+    {
+      name: 'Sanju Kumar',
+      socketId: 'hR_Nc0oHdEV-a45EAAAt',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected

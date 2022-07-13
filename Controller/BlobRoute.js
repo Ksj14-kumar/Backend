@@ -982,6 +982,7 @@ exports.loadAllUserPost = async (req, res) => {
         //get all post by userId 
         const value = +value1 + +value2
         const countDoc = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).countDocuments()
+        //====================================USED WHEN INFINITE SCROLL ADD===========
         if (+value1 === 0) {
             const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).limit(+value)
 
@@ -992,6 +993,8 @@ exports.loadAllUserPost = async (req, res) => {
             const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 }).skip(+value1).limit(+value)
             return res.status(200).json({ message: "successfull load", data: GetAllUserPost, post: "post" })
         }
+        // const GetAllUserPost = await TextPost.find({ $or: [{ userId: _id }, { privacy: "public" }] }).sort({ $natural: -1 })
+        // return res.status(200).json({ message: "successfull load", data: GetAllUserPost })
     } catch (error) {
         return res.status(500).json({ message: "Something error occured" + error })
     }
@@ -1003,10 +1006,10 @@ exports.deleteUserPostByMongoDB = async (req, res) => {
         const { userId, post_id } = req.body
         const { image } = await TextPost.findOneAndDelete({ post_id: post_id })
         const dir = path.join(__dirname, `../${image}`)
-        fs.unlink(dir, async(err, result) => {
+        fs.unlink(dir, async (err, result) => {
             const deletePost = await TextPost.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
             await Noti.findOneAndDelete({ $and: [{ post_id: post_id }, { userId: userId }] })
-            
+
             if (id === userId) {
                 if (deletePost) {
                     //delete all comment related to post
