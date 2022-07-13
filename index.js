@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require("dotenv").config()
 const express = require("express")
 const app = express()
+console.log("hii, Mom")
 // const cors = require("cors")
 // const fs = require("fs")
 // const os = require("os")
