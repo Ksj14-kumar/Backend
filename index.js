@@ -50,7 +50,7 @@ const { truncatedNormal } = require('@tensorflow/tfjs');
 const httpProxy = require("http-proxy");
 const TextPost = require('./db/TextPost');
 
-
+console.log("hii, Mom")
 const URL = process.env.MONGO_URL
 const PORT = process.env.PORT || 5001
 
@@ -115,6 +115,7 @@ require("./Stretegy/Googlestrtegy")(passport)
 // app.get("/", (req, res) => {
 //     res.send("hello")
 // })
+
 
 
 
