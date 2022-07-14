@@ -3103,3 +3103,988 @@ update response from the user side
 }
 disconnected
 disconnected
+server  is start at port 5000
+connected to db
+someoe is connected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '-xQPJ2HwwFoz48P2AAAH',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '6EdbZZg5j5ukNSHRAAAJ',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{
+  adminId: '62ce862c64d7a00a37bc0570',
+  usernameId: '62ce862c64d7a00a37bc0570'
+}
+{ docId: '62ce87cff8182753dd2e2cd5' }
+update response from the user side
+update response from the user side
+disconnected
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: '9dc_ryOwzEpXL6HaAAAL',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'UT6pjzLaaoD94U6rAAAN',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'v5sJDRNuyu1ttPbIAAAP',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'KydjubySsS72RQrKAAAR',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+disconnected
+user successfull saved
+server  is start at port 5000
+connected to db
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'bT1_HC6Bu3IaXIGEAAAB',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'bT1_HC6Bu3IaXIGEAAAB',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+someoe is connected
+{
+  onlineUser: [
+    {
+      name: 'Sanju Kumar',
+      socketId: 'J84q0tNkdPUlgoTnAAAD',
+      adminId: '62ce862c64d7a00a37bc0570',
+      url: 'http://res.cloudinary.com/ddnazqja2/image/upload/v1657712808/62ce862c64d7a00a37bc0570/profileImage/62ce862c64d7a00a37bc0570.jpg',
+      mongoId: '62ce87cff8182753dd2e2cd5'
+    }
+  ]
+}
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+disconnected
+disconnected
+someoe is connected
+disconnected
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+disconnected
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+not sendError: connect ETIMEDOUT 172.217.166.229:587
+server  is start at port 5000
+someoe is connected
+connected to db
+not sendError: connect ETIMEDOUT 172.217.166.229:587
+server  is start at port 5000
+someoe is connected
+connected to db
+{
+  userEmail: 'jsondata74@gmail.com',
+  name: 'SANJU KUMAR',
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impzb25kYXRhNzRAZ21haWwuY29tIiwiaWF0IjoxNjU3ODA0MzcyfQ.H-CAKQaLgXjxPZC_AZN0K13gSExQgMTOwDPiX3g_4Jc'
+}
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+not sendError: connect ETIMEDOUT 142.250.194.165:587
+server  is start at port 5000
+connected to db
+someoe is connected
+{ value: undefined }
+not sendError: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ij16-20020a170902ab5000b0016c0474fbd0sm1437974plb.34 - gsmtp
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+success full send
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+success full send
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+{
+  result: {
+    accepted: [ 'jsondata74@gmail.com' ],
+    rejected: [],
+    envelopeTime: 1044,
+    messageTime: 1080,
+    messageSize: 842,
+    response: '250 2.0.0 OK  1657805703 l6-20020a170903120600b0015e8d4eb1f7sm1491499plh.65 - gsmtp',
+    envelope: { from: 'collegezones81@gmail.com', to: [Array] },
+    messageId: '<ee036630-20d1-ade2-0def-3c5ab4eaa0f7@gmail.com>'
+  }
+}
+success full send
+jsondata74@gmail.com
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+{
+  result: {
+    accepted: [ 'jsondata74@gmail.com' ],
+    rejected: [],
+    envelopeTime: 1028,
+    messageTime: 1099,
+    messageSize: 842,
+    response: '250 2.0.0 OK  1657805845 z3-20020aa79e43000000b005284d10d8f6sm1635602pfq.215 - gsmtp',
+    envelope: { from: 'collegezones81@gmail.com', to: [Array] },
+    messageId: '<06748c58-4881-3c0c-45eb-e6885e109816@gmail.com>'
+  }
+}
+success full send
+jsondata74@gmail.com
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+{ result: [ 'jsondata74@gmail.com' ] }
+success full send
+jsondata74@gmail.com
+server  is start at port 5000
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+{ value: undefined }
+{ result: [ 'jsondata74@gmail.com' ] }
+success full send
+jsondata74@gmail.com
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+someoe is connected
+connected to db
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+connected to db
+someoe is connected
+server  is start at port 5000
+connected to db
+someoe is connected
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+server  is start at port 5000
+someoe is connected
+connected to db
+someoe is connected
+disconnected
+disconnected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+server  is start at port 5000
+connected to db
+{ value: undefined }
+success full send
+{ result: [ 'jsondata74@gmail.com' ] }
+jsondata74@gmail.com
+{
+  result: { email: 'jsondata74@gmail.com', iat: 1657813591, exp: 1657814491 }
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+{ value: undefined }
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+undefined
+{ result: [ 'jsondata74@gmail.com' ] }
+success full send
+jsondata74@gmail.com
+{
+  result: { email: 'jsondata74@gmail.com', iat: 1657814369, exp: 1657815269 }
+}
+undefined
+{ result: [ 'jsondata74@gmail.com' ] }
+success full send
+jsondata74@gmail.com
+{
+  result: { email: 'jsondata74@gmail.com', iat: 1657814678, exp: 1657815578 }
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+user is 
+{
+  user: {
+    _id: new ObjectId("62d03e96f1764bc7dec19f2d"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$18.xv2re0J5QHvuVOmdq9uafhc5pVepp46aJ4oCEQospryADSqhum',
+    password: '$2b$10$YEzy5Z1eB2VI/cn3PB3wuu0.QaFfKPDIa6W1Xx8diETEPu4Xxzj1S',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T16:04:38.886Z,
+    updatedAt: 2022-07-14T16:04:38.886Z,
+    UserSystemAvailaiableMemory: '2395090944',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '340625',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '2395090944',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: true,
+    __v: 0
+  }
+}
+server  is start at port 5000
+connected to db
+user is 
+{ user: null }
+server  is start at port 5000
+connected to db
+undefined
+success full send
+{ result: [ 'jsondata74@gmail.com' ] }
+jsondata74@gmail.com
+{
+  result: { email: 'jsondata74@gmail.com', iat: 1657815683, exp: 1657816583 }
+}
+user is 
+{
+  user: {
+    _id: new ObjectId("62d042837ddfa5f6a6d30142"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$S/OzxiK7slj5C9cmD9GRJOzc2jWFgUPnn0L5F8Dw/MZtU.7KvFMGG',
+    password: '$2b$10$JKmcem76QgUsWDlhndRPfu1TIaDEvgPEQ8N3KlMRXtOUUNw.eRg0S',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T16:21:23.598Z,
+    updatedAt: 2022-07-14T16:21:23.598Z,
+    UserSystemAvailaiableMemory: '2472857600',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '341630',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '2473091072',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: true,
+    __v: 0
+  }
+}
+server  is start at port 5000
+connected to db
+someoe is connected
+server  is start at port 5000
+not connected
+someoe is connected
+server  is start at port 5000
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+connected to db
+undefined
+{ result: [ 'sanjucom14998@gmail.com' ] }
+success full send
+sanjucom14998@gmail.com
+server  is start at port 5000
+someoe is connected
+someoe is connected
+someoe is connected
+connected to db
+someoe is connected
+server  is start at port 5000
+someoe is connected
+someoe is connected
+connected to db
+someoe is connected
+someoe is connected
+server  is start at port 5000
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+connected to db
+server  is start at port 5000
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+server  is start at port 5000
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+connected to db
+undefined
+{ result: [ 'jsondata74@gmail.com' ] }
+jsondata74@gmail.com
+success full send
+user is 
+{
+  user: {
+    _id: new ObjectId("62d05148319a61fd2183a62a"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$x3Ol0P4hDHZHlJWjWQDf4OI3Pbg.LAY8Pze.xa9bIyF.XbUEXOivW',
+    password: '$2b$10$zCYs16dMmK6imU9L9yoBYeAxoEk8d7xhCr9oFeA7mRLLkG6vg3WN.',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T17:24:24.789Z,
+    updatedAt: 2022-07-14T17:24:24.789Z,
+    UserSystemAvailaiableMemory: '1610518528',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '345411',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '1610510336',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: false,
+    __v: 0
+  }
+}
+server  is start at port 5000
+connected to db
+someoe is connected
+someoe is connected
+someoe is connected
+someoe is connected
+disconnected
+disconnected
+disconnected
+disconnected
+user is 
+{
+  user: {
+    _id: new ObjectId("62d05148319a61fd2183a62a"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$x3Ol0P4hDHZHlJWjWQDf4OI3Pbg.LAY8Pze.xa9bIyF.XbUEXOivW',
+    password: '$2b$10$zCYs16dMmK6imU9L9yoBYeAxoEk8d7xhCr9oFeA7mRLLkG6vg3WN.',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T17:24:24.789Z,
+    updatedAt: 2022-07-14T17:24:24.789Z,
+    UserSystemAvailaiableMemory: '1610518528',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '345411',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '1610510336',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: false,
+    __v: 0
+  }
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+user is 
+{
+  user: {
+    _id: new ObjectId("62d05148319a61fd2183a62a"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$x3Ol0P4hDHZHlJWjWQDf4OI3Pbg.LAY8Pze.xa9bIyF.XbUEXOivW',
+    password: '$2b$10$zCYs16dMmK6imU9L9yoBYeAxoEk8d7xhCr9oFeA7mRLLkG6vg3WN.',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T17:24:24.789Z,
+    updatedAt: 2022-07-14T17:24:24.789Z,
+    UserSystemAvailaiableMemory: '1610518528',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '345411',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '1610510336',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: false,
+    __v: 0
+  }
+}
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+server  is start at port 5000
+connected to db
+user is 
+{
+  user: {
+    _id: new ObjectId("62d05148319a61fd2183a62a"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$x3Ol0P4hDHZHlJWjWQDf4OI3Pbg.LAY8Pze.xa9bIyF.XbUEXOivW',
+    password: '$2b$10$zCYs16dMmK6imU9L9yoBYeAxoEk8d7xhCr9oFeA7mRLLkG6vg3WN.',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T17:24:24.789Z,
+    updatedAt: 2022-07-14T17:24:24.789Z,
+    UserSystemAvailaiableMemory: '1610518528',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '345411',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '1610510336',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: false,
+    __v: 0
+  }
+}
+{
+  user: {
+    _id: new ObjectId("62d05148319a61fd2183a62a"),
+    name: 'SANJU KUMAR',
+    email: 'jsondata74@gmail.com',
+    googleId: '$2b$10$x3Ol0P4hDHZHlJWjWQDf4OI3Pbg.LAY8Pze.xa9bIyF.XbUEXOivW',
+    password: '$2b$10$zCYs16dMmK6imU9L9yoBYeAxoEk8d7xhCr9oFeA7mRLLkG6vg3WN.',
+    image: '',
+    role: 'user',
+    status: 'active',
+    provider: 'Self Register',
+    createdAt: 2022-07-14T17:24:24.789Z,
+    updatedAt: 2022-07-14T17:24:24.789Z,
+    UserSystemAvailaiableMemory: '1610518528',
+    UserSystemTotalMemory: '8472866816',
+    UserSystemPlatform: 'win32',
+    UserSystemPlatformRelease: '10.0.19044',
+    UserSystemTotalStorage: '8472866816',
+    UserSystemType: 'Windows_NT',
+    UserSystemUptime: '345411',
+    UserSystemLoadAverage: [ 0, 0, 0 ],
+    UserSystemFreeStorage: '1610510336',
+    UserSystemCPU: [ [Object], [Object], [Object], [Object] ],
+    UserNetworkInterfaces: [ [Object] ],
+    verified: false,
+    __v: 0
+  }
+}

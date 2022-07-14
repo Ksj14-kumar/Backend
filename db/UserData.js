@@ -31,7 +31,7 @@ const Schema = new mongoose.Schema({
 
 })
 
-Schema.index({ username: 1 }, { unique: true })
+// Schema.index({ username: 1 }, { unique: true })
 
 // Schema.add({
 //     token: {

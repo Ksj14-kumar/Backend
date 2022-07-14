@@ -39,8 +39,9 @@ const Schema = new mongoose.Schema({
     degree: String,
     position: String,
     aboutMe: String,
+    verified: { type: Boolean, default: false },
 })
 
-Schema.index({ name: 1 }, { unique: true })
+// Schema.index({ name: 1 }, { unique: true })
 
 module.exports = mongoose.model('GoogleData', Schema)

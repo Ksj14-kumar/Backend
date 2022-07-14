@@ -15,9 +15,10 @@ const { route } = require("./Conversation");
 const UserData = require("../db/UserData");
 const TextPost = require("../db/TextPost");
 const LocalStrategy = require("passport-local").Strategy;
-const KEY = process.env.SECRET_KEY
+const KEY = process.env.VerifyEmailToken
 const clientURL = process.env.CLIENT_URL
 const Comment = require("../db/Comments")
+const EmailSend = require("../NodeMailer/Email")
 let userInfo = null
 
 router.get("/", (req, res) => {
@@ -103,19 +104,42 @@ router.get("/", (req, res) => {
 
 router.post("/api/register", async (req, res) => {
     try {
+        function checkPasswordStrength(password) {
+            const isValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/
+            return isValid.test(password)
+
+        }
+        //name containe special character or not
+        function checkName(name) {
+            const joinNameWithoutSpace = name.split(" ").join("")
+            const pattern = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+            return pattern.test(joinNameWithoutSpace)
+        }
 
         const { name, email, password, confirmPassword } = req.body
+        //detect special character in name
+
 
         if (!name || !email || !password || !confirmPassword) {
             res.status(400).json({ message: "Please fill all the fields" })
             return
         }
+        else if (checkName(name)) {
+            res.status(400).json({ message: "Name should not contain special character" })
+            return
+        }
+
         else if (password !== confirmPassword) {
             res.status(400).json({ message: "Password and confirm password doesn't match" })
             return
         }
         else if (password.length < 8 || confirmPassword.length < 8) {
-            res.status(400).json({ message: "Password must be atleast 8 characters" })
+            res.status(400).json({ message: "Password must be at least 8 characters" })
+            return
+        }
+
+        else if (!checkPasswordStrength(password)) {
+            res.status(400).json({ message: "Password must contain at least one number, one special character, one uppercase and one lowercase letter" })
             return
         }
         function isEmailValid(email) {
@@ -129,12 +153,10 @@ router.post("/api/register", async (req, res) => {
         }
         else {
 
-            const userToken = jsonToken.sign({ email }, KEY)
+            const userToken = jsonToken.sign({ email }, KEY, { expiresIn: "900s" })
             const hashPassword = await bcrypt.hash(password, 10)
             const hashCpassword = await bcrypt.hash(confirmPassword, 10)
-
             const UserData = await new GoogleDB(
-
                 {
                     name,
                     email,
@@ -160,6 +182,8 @@ router.post("/api/register", async (req, res) => {
                     UserSystemFreeStorage: os.freemem(),
                     UserSystemCPU: os.cpus(),
                     UserNetworkInterfaces: os.networkInterfaces(),
+                    verified: false
+
                 }
 
             )
@@ -174,26 +198,26 @@ router.post("/api/register", async (req, res) => {
 
             else {
 
+
+                UserData.save(async (err, data) => {
+                    if (err) {
+                        res.status(400).json({ message: "Opps Something error Occured, try Again" + err })
+                        return
+                    }
+                    else {
+                        const value = await EmailSend(email, name, userToken)
+                        console.log(value)
+                        res.status(200).cookie("uuid", userToken).json({ message: "User registered successfully, now Verify Email, Email has send to register email" })
+                        return
+                    }
+                })
+
             }
-            UserData.save((err, data) => {
-                if (err) {
-                    res.status(400).json({ message: "Opps Something error Occured, try Again" + err })
-                    return
-                }
-                else {
-
-
-
-                    res.status(200).cookie("uuid", userToken).json({ message: "User registered successfully, now Verify Email, Email has send to register email" })
-                    return
-                }
-            })
-
 
         }
 
     } catch (err) {
-        res.status(400).json({ message: "Opps Something error Occured, try Again" })
+        res.status(400).json({ message: "Opps Something error Occured, try Again" + err })
         return
 
     }
@@ -214,21 +238,32 @@ router.post("/api/login", async (req, res, next) => {
             res.status(400).json({ message: "User not found" })
             return
         }
-        req.logIn(user, async (err) => {
-            if (err) {
-                res.status(400).json({ message: "login failed" })
-                return
+        else {
+            console.log({ user })
+            const isVerified = user.verified
+            if (!isVerified) {
+                return res.status(400).json({ message: "Please verify your email" });
+            } else {
+
+                req.logIn(user, async (err) => {
+                    if (err) {
+                        res.status(400).json({ message: "login failed" })
+                        return
+                    }
+
+                    const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
+                    res.status(200).json({
+                        url: clientURL,
+                        message: "Login Successfull",
+                        user: user.name,
+                        cookie: userToken
+                    })
+                    return
+                })
             }
 
-            const userToken = await jsonToken.sign({ _id: req.user._id }, KEY)
-            res.status(200).json({
-                url: clientURL,
-                message: "Login Successfull",
-                user: user.name,
-                cookie: userToken
-            })
-            return
-        })
+        }
+
     })(req, res, next)
 
 
@@ -456,6 +491,27 @@ router.get("/:id", async (req, res) => {
         res.status(400).json({ message: "Opps Something error Occured, try Again" })
         return
 
+    }
+})
+
+router.get("/api/verify/:token", async (req, res) => {
+    try {
+        const token = req.params.token
+        jsonToken.verify(token, process.env.VerifyEmailToken, async (err, result) => {
+            if (err) {
+                return res.status(403).json({ message: "Invalid Token" + err })
+            }
+            else {
+                console.log({ result })
+                await GoogleDB.findOneAndUpdate({ email: result.email }, { $set: { verified: true } })
+                return res.status(200).json({ message: "verified successfull" })
+            }
+        })
+
+
+    }
+    catch (err) {
+        return res.status(500).json({ message: "Something error occured" })
     }
 })
 

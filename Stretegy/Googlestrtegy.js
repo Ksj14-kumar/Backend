@@ -280,29 +280,42 @@ module.exports = (passport) => {
 
     passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
         GoogleDB.findOne({ email: email }, async (err, user) => {
+            console.log("user is ")
+            console.log({ user })
 
-            // console.log("local  users")
-            // console.log(user)
 
+            // const isVerified = user.verified
 
             if (err) {
                 return done(err);
             }
-            if (!user) {
+            else if (!user) {
                 return done(null, false, { message: "User not found" });
             }
-            else {
 
+            else {
                 const VerifyPassword = await bcrypt.compare(password, user.password);
                 if (!VerifyPassword) {
                     return done(null, false, { message: "Invalid credentials" });
                 }
                 else {
-                   
+
                     return done(null, user);
                 }
+                // const isVerified = user.verified
+                // if (!isVerified) {
+                //     return done(null, false, { message: "User not verified" });
+                // }
+                // else {
+                //     const VerifyPassword = await bcrypt.compare(password, user.password);
+                //     if (!VerifyPassword) {
+                //         return done(null, false, { message: "Invalid credentials" });
+                //     }
+                //     else {
 
-
+                //         return done(null, user);
+                //     }
+                // }
             }
 
         })
